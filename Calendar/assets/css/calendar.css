@@ -21,12 +21,13 @@
     height: 17%;
     border: 1px solid #fff;
     background: gold;
+    text-align: center;
 
 }
 
 #calendar-box .date-box .prevMonth{
-    color: gray;
+    background: gray;
 }
 #calendar-box .date-box .nextMonth{
-    color: gray;
+    background: gray;
 }
