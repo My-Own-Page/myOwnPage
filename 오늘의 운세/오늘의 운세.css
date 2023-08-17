@@ -2,7 +2,7 @@
 
 /* CSS 파일 */
 .section {
-    background-image: url(./오늘의\ 운세\ 이미지\ 폴더/taroMain.jpg);
+    background-image: url(./오늘의운세이미지폴더/taroMain.jpg);
     background-size: contain;
     width: 100%; 
     background-repeat: no-repeat;
@@ -15,11 +15,11 @@
 }
 
 .section .lucky {
-    
     text-align: center;
     height: 40%; 
     overflow: hidden; 
 }
+
 
 .section .lucky .btn1 {
     background-color: #fce205;
