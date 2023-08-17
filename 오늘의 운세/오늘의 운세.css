@@ -1,0 +1,45 @@
+/* Reset과 font awesome 스타일 등을 위한 코드는 동일하게 유지 */
+
+/* CSS 파일 */
+.section {
+    background-image: url(./오늘의\ 운세\ 이미지\ 폴더/taroMain.jpg);
+    background-size: contain;
+    width: 100%; 
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end; 
+    height: 65em;
+    overflow: hidden; 
+}
+
+.section .lucky {
+    
+    text-align: center;
+    height: 40%; 
+    overflow: hidden; 
+}
+
+.section .lucky .btn1 {
+    background-color: #fce205;
+    color: black;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    padding: 15px 30px;
+    border-radius: 15px;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.section .lucky .btn1:hover {
+    color: red;
+}
+
+.section .lucky .text {
+    margin-top: 20px; 
+    font-size: 150%;
+}
+
+
