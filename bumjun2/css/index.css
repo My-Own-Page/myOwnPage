@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Chela+One&family=Jua&family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+.container {
+  background: url();
+  width: 38vw;
+}
+
+.container .box {
+  width: 38vw;
+  height: 84vh;
+  border: 2px solid black;
+}
+.container .box .bord-size {
+  display: flex;
+}
+.container .box .bord-size .bord {
+  width: 32px;
+  height: 28px;
+  border: 1px solid #000;
+}
+
+.container .button-box {
+  width: 100px;
+  border: 1px solid #000;
+  margin: auto;
+  margin-top: 20px;
+  padding: 10px;
+  font-size: 1.2em;
+  text-align: center;
+}
