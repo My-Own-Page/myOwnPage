@@ -109,12 +109,16 @@ const insertDate = ({ startDay, lastDay, monthDays, month }) => {
     startDate++;
   }
   //지난달 날짜 만들기
-  let lastDate = monthDays[month - 2];
+  if(month===1){
+    month=13;
+  };    
+  let lastDate = monthDays[month - 2];  
   for (let i = startDay - 1; i > 0; i--) {
     $dateBox.querySelector(`.date${i}`).textContent = `${lastDate}`;
     $dateBox.querySelector(`.date${i}`).classList.add('prevMonth');
     lastDate--;
   }
+
   //다음달 날짜 만들기
   startDate = 1;
   for (let i = lastDay + startDay; i <= 42; i++) {
