@@ -8,7 +8,7 @@ section {
 section .youtubeUrl {
   background-color: aqua;
   width: inherit;
-  height: 8vh;
+  height: 7vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -34,14 +34,25 @@ section .youtubeUrl input:focus {
 section .playlist {
   background-color: #fff;
   width: 100%;
-  height: 24vh;
+  height: 27vh;
+}
+.playlist {
+  overflow-y: scroll;
+}
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 15px;
+  padding: 0 10px 0 0;
+}
+img {
+  width: 20%;
 }
 
-section .statusBar {
-  background-color: #fff;
-  width: 100%;
-  height: 8vh;
+.bottomBar {
+  height: 6vh;
+  background: aqua;
   border-bottom-left-radius: 30px;
   border-bottom-right-radius: 30px;
-  border-top: 1px solid gray;
 }

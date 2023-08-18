@@ -1,3 +1,7 @@
+@import url("https://fonts.googleapis.com/css2?family=Chela+One&family=Jua&family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Poppins:wght@300;400;500;600;700;800&display=swap");
+body {
+  background: #e7feff;
+}
 .header {
   display: flex;
   justify-content: center;
@@ -22,6 +26,8 @@
   border: none;
   width: 33vw;
   height: 5vh;
+  background: #e7feff;
+  font-family: "Jua", sans-serif;
 }
 
 .searchBox #search:focus {
@@ -38,6 +44,9 @@
   justify-content: center;
   align-items: center;
   gap: 30px;
+
+  font-size: 20px;
+  font-family: "Jua", sans-serif;
 }
 
 .leftContent {
