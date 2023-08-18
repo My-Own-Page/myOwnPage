@@ -2,6 +2,43 @@ const today = new Date();
 let year_ = today.getFullYear();
 let month_ = today.getMonth() + 1;
 let date_ = today.getDate();
+let selectdateId = 1;
+
+// ---------------------------- Handler ----------------------------------
+const prevMonthHandler = (e) => {
+  if (month_ === 1) {
+    year_ -= 1;
+    month_ = 13;
+  }
+  renderCalendar(
+    calcDate({
+      year: year_,
+      month: --month_, //7 + 1
+      date: date_,
+    })
+  );
+};
+
+const nextMonthHandler = (e) => {
+    if (month_ === 12) {
+        year_ += 1;
+        month_ = 0;
+      }
+  renderCalendar(
+    calcDate({
+      year: year_,
+      month: ++month_, //7 + 1
+      date: date_,
+    })
+  );
+};
+
+const clickDateHandler = (e) =>{
+  e.target.closest('.date-box').querySelector(`data${selectdateId}`).classList.remove('selectdate');
+  e.target.classList.add('selectdate');
+  selectdateId = e.target.dataset.id;
+
+}
 
 // ---------------------------------Function------------------------------- //
 const calcDate = ({ year, month, date }) => {
@@ -42,9 +79,11 @@ const makeDate = () => {
   // console.log($dateBox);
   for (let i = 1; i <= 42; i++) {
     const $emptyDate = document.createElement('div');
-    $emptyDate.classList.add('date');
+    $emptyDate.classList.add('date');    
     $emptyDate.classList.add(`date${i}`);
+    $emptyDate.dataset.id = i;
     $emptyDate.textContent = '안녕';
+    $emptyDate.addEventListener('click', clickDateHandler);
     $dateBox.appendChild($emptyDate);
   }
 };
@@ -134,35 +173,9 @@ const renderCalendar = ({ startDay, lastDay, monthDays, month }) => {
   renderYearTitle();
 };
 
-// ---------------------------- Handler ----------------------------------
-const prevMonthHandler = (e) => {
-  if (month_ === 1) {
-    year_ -= 1;
-    month_ = 13;
-  }
-  renderCalendar(
-    calcDate({
-      year: year_,
-      month: --month_, //7 + 1
-      date: date_,
-    })
-  );
-};
 
-const nextMonthHandler = (e) => {
-    if (month_ === 12) {
-        year_ += 1;
-        month_ = 0;
-      }
-  renderCalendar(
-    calcDate({
-      year: year_,
-      month: ++month_, //7 + 1
-      date: date_,
-    })
-  );
-};
 
+// ------------------------- 실행부 ----------------------------
 const start = () => {
   makeDate();
   renderCalendar(
@@ -171,13 +184,6 @@ const start = () => {
       month: month_, //7 + 1
       date: date_,
     })
-  );
-  const $prevButton = document
-    .querySelector('.prev-button')
-    .addEventListener('click', prevMonthHandler);
-  const $nextButton = document
-    .querySelector('.next-button')
-    .addEventListener('click', nextMonthHandler);
-};
-
+)};
+  
 start();
