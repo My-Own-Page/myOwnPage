@@ -5,13 +5,9 @@ const blockTemplate = document.getElementById('blockTemplate');
 const cellSize = 30;
 
 let isPlaying = false;
-let currentBlock = null;
 
 let row = 4;
-let numRow = 0;
-
 let col = 0;
-let numCol = 0;
 
 const createBlock = () => {
   for (let i = 0; i < 10; i++) {
@@ -25,14 +21,13 @@ const createBlock = () => {
   }
 };
 
-let i = 0;
-let j = 0;
+let newCol = 0;
 const makeBlock = () => {
-  if (i < 20) {
+  if (col < 20) {
     $box.children[row].children[col++].classList.add('blue');
-    $box.children[row].children[j++].previousElementSibling.classList.remove(
-      'blue'
-    );
+    $box.children[row].children[
+      newCol++
+    ].previousElementSibling.classList.remove('blue');
     document.addEventListener('keydown', handlerKeyDown);
   }
 };
@@ -44,7 +39,6 @@ const startGame = () => {
   $startButton.textContent = 'Stop';
 
   createBlock();
-
   setInterval(makeBlock, 300);
 };
 
@@ -63,12 +57,13 @@ $startButton.addEventListener('click', () => {
 });
 
 const leftMove = () => {
-  $box.children[row--].children[col].classList.add('blue');
-  $box.children[row].children[col].classList.remove('blue');
+  $box.children[row].children[col - 1].classList.remove('blue');
+  $box.children[--row].children[newCol].classList.add('blue');
 };
 
 const rightMove = () => {
-  $box.children[row++].children[col].classList.add('blue');
+  $box.children[row].children[col - 1].classList.remove('blue');
+  $box.children[++row].children[newCol].classList.add('blue');
 };
 
 const handlerKeyDown = (e) => {
