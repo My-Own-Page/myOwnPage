@@ -5,17 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>나의 캘린더</title>
     <script src="./assets/scripts/calendar.js" defer></script>
+    <link href="https://cdn.jsdelivr.net/npm/reset-css@5.0.2/reset.min.css" rel="stylesheet">
     <link rel="stylesheet" href="./assets/css/calendar.css" />
+    <script src="https://kit.fontawesome.com/13b874a53a.js" crossorigin="anonymous"></script>
   </head>
   <body>
     <div id="calendar-box">
       <div class="month-box">
-        <button class="prev-button">지난달</button>
+        <button class="prev-button"><i class="fa-solid fa-chevron-left fa-2xl"></i></button>
         <div class="monthAndYear">
-          <h1>April</h1>
           <h2>124</h2>
-        </div>
-        <button class="next-button">다음달</button>
+          <h1>April</h1>
+        </div>        
+        <button class="next-button"><i class="fa-solid fa-chevron-right fa-2xl"></i></button>
+      </div>
+      <div class="sevenweek">
+        <div class="sevenweek-day red">일</div>
+        <div class="sevenweek-day">월</div>
+        <div class="sevenweek-day">화</div>
+        <div class="sevenweek-day">수</div>
+        <div class="sevenweek-day">목</div>
+        <div class="sevenweek-day">금</div>
+        <div class="sevenweek-day blue">토</div>
       </div>
       <div class="date-box"></div>
     </div>

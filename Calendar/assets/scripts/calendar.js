@@ -37,7 +37,6 @@ const clickDateHandler = (e) =>{
   e.target.closest('.date-box').querySelector(`data${selectdateId}`).classList.remove('selectdate');
   e.target.classList.add('selectdate');
   selectdateId = e.target.dataset.id;
-
 }
 
 // ---------------------------------Function------------------------------- //
@@ -74,6 +73,7 @@ const calcDate = ({ year, month, date }) => {
   };
 };
 
+// 날짜틀 만드는 함수
 const makeDate = () => {
   const $dateBox = document.querySelector('.date-box');
   // console.log($dateBox);
@@ -81,8 +81,7 @@ const makeDate = () => {
     const $emptyDate = document.createElement('div');
     $emptyDate.classList.add('date');    
     $emptyDate.classList.add(`date${i}`);
-    $emptyDate.dataset.id = i;
-    $emptyDate.textContent = '안녕';
+    $emptyDate.dataset.id = i;    
     $emptyDate.addEventListener('click', clickDateHandler);
     $dateBox.appendChild($emptyDate);
   }
@@ -134,7 +133,7 @@ const renderMonthTitle = (month) => {
 const renderYearTitle = () => {
   const $monthBox = document.querySelector('.month-box');
   const $yearBox = $monthBox.querySelector('h2');
-  $yearBox.textContent = `${year_}`;
+  $yearBox.textContent = `${year_}년`;
 };
 
 const insertDate = ({ startDay, lastDay, monthDays, month }) => {
@@ -178,12 +177,13 @@ const renderCalendar = ({ startDay, lastDay, monthDays, month }) => {
 // ------------------------- 실행부 ----------------------------
 const start = () => {
   makeDate();
-  renderCalendar(
-    calcDate({
+  renderCalendar(calcDate({
       year: year_,
       month: month_, //7 + 1
       date: date_,
-    })
-)};
+    }));
+  document.querySelector('.prev-button').addEventListener('click', prevMonthHandler);    
+  document.querySelector('.next-button').addEventListener('click', nextMonthHandler);      
+};
   
 start();
