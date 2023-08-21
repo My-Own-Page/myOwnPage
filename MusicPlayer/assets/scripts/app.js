@@ -2,25 +2,28 @@ const playlists = [];
 
 const apiKey = 'AIzaSyDJc5j8DiQKa4h3AtRy3luGOpzT5nbVMI0';
 
+
 const linkInput = document.getElementById('urlInput');
 const playlistContainer = document.querySelector('.musicUl');
+const $musicPlayer = document.querySelector('.musicPlayer');
 
 let currentIframe = null;
-
-
+let selectedLi = null;
+const playerArray = [];
 
 linkInput.addEventListener("keydown", async (e) => {
   if (!e.isComposing && e.key === 'Enter') {
     const linkValue = linkInput.value;
     const youtubeId = extractYouTubeId(linkValue);
+    console.log(youtubeId);
 
     if (youtubeId) {
       try {
         const videoData = await fetchVideoData(youtubeId);
         console.log(videoData);
         const musicObj = {
-          title: truncateTitle(videoData.title, 35),
-          thumb: videoData.thumbnail_url,
+          title: truncateTitle(videoData.snippet.title, 35),
+          thumb: videoData.snippet.thumbnails.default.url,
           url: linkValue,
           youtube_id: youtubeId,
         };
@@ -28,40 +31,29 @@ linkInput.addEventListener("keydown", async (e) => {
         savePlaylist();
         linkInput.value = '';
 
-        // Add a new <li> element to the <ul> with the video information
         const li = document.createElement('li');
         li.innerHTML = `
-          <img src="${musicObj.thumb}" alt="${musicObj.title}">
-          <h3>${musicObj.title}</h3>
-          <i class="fa-solid fa-circle-xmark" style="color: #ff0000;"></i>
-        `;
+            <img src="${musicObj.thumb}" alt="${musicObj.title}">
+            <h3>${musicObj.title}</h3>
+            <i class="fa-solid fa-circle-xmark fa-xl" style="color: #ff0000;"></i>
+          `;
 
-        // Add a click event listener to the <li> element to play music
         li.addEventListener('click', async () => {
-          const $musicPlayer = document.querySelector('.musicPlayer');
-          console.log("Clicked li");
+          const newIframe = document.createElement('iframe');
+          newIframe.setAttribute('src', `https://www.youtube.com/embed/${youtubeId}?autoplay=1&rel=0`);
+          newIframe.setAttribute('width', '0');
+          newIframe.setAttribute('height', '0');
+          newIframe.setAttribute('frameborder', '0');
+          newIframe.setAttribute('allow', 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture');
+          newIframe.allowFullscreen = true;
+
           if (currentIframe) {
-            console.log("Removing current iframe");
             $musicPlayer.removeChild(currentIframe);
           }
           li.style.backgroundColor = '#FFFFCC';
 
-          const range = document.createRange();
-          const fragment = range.createContextualFragment(videoData.html);
-
-          li.appendChild(fragment);
-
-          const newIframe = $musicPlayer.querySelector('iframe');
-          const iframeSrc = newIframe.getAttribute('src');
-          const newParam = 'autoplay=1';
-          newIframe.src = iframeSrc + '&' + newParam;
-          newIframe.setAttribute('width', '0px');
-          newIframe.setAttribute('height', '0px');
-
-          console.log(newIframe.src);
-          console.log("Set new current iframe:", currentIframe);
+          $musicPlayer.appendChild(newIframe);
           currentIframe = newIframe;
-
         });
 
         playlistContainer.appendChild(li);
@@ -74,35 +66,45 @@ linkInput.addEventListener("keydown", async (e) => {
   }
 });
 
-let selectedLi = null; // To keep track of the originally selected <li> element
-
 playlistContainer.addEventListener('click', (event) => {
   const li = event.target.closest('li');
-  if (!li) return; // If the click wasn't on an <li> element, exit
+  if (!li) return;
 
-  // Reset the previously selected <li> element if there was one
-  if (selectedLi) {
-    selectedLi.style.backgroundColor = ''; // Reset background color
+  if (selectedLi && selectedLi !== li) {
+    selectedLi.style.backgroundColor = '';
   }
 
-  selectedLi = li; // Set the currently selected <li> element
-  li.style.backgroundColor = '#FFFFCC'; // Change background color
+  selectedLi = li;
+  li.style.backgroundColor = '#FFFFCC';
 
   const $stopButton = li.querySelector('.fa-circle-xmark');
-
-  // Add click event listener to the <i> element inside the <li>
   $stopButton.addEventListener('click', (event) => {
     event.stopPropagation();
-    if (currentIframe && currentIframe.parentElement === li) {
-      currentIframe.contentWindow.postMessage('{"event":"command","func":"stopVideo","args":""}', '*');
-      li.removeChild(currentIframe);
-      currentIframe = null; // Reset the currentIframe
-    }
-    li.remove(); // Remove the <li> element from the playlist
+    removeMusicItem(li);
   });
 });
 
+function removeMusicItem(li) {
+  const iframes = $musicPlayer.querySelectorAll('iframe');
+  iframes.forEach(iframe => {
+    iframe.contentWindow.postMessage('{"event":"command","func":"stopVideo","args":""}', '*');
+    $musicPlayer.removeChild(iframe);
+    if (iframe === currentIframe) {
+      currentIframe = null;
+    }
+  });
 
+  li.remove();
+}
+
+const pauseMusicItem = () => {
+  playerArray.forEach(player => {
+    player.pauseVideo();
+  });
+};
+
+const $pauseButton = document.querySelector('.fa-circle-pause');
+$pauseButton.addEventListener('click', pauseMusicItem);
 
 function truncateTitle(title, maxLength) {
   if (title.length > maxLength) {
@@ -112,34 +114,18 @@ function truncateTitle(title, maxLength) {
 }
 
 function extractYouTubeId(url) {
-  const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v ?=?([^#\&\?]*).*/;
+  const regExp = /^(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
   const matches = url.match(regExp);
-  return matches && matches[7] ? matches[7] : null;
-}
-
-async function fetchVideoInfo(youtubeId) {
-  const apiUrl = `https://www.googleapis.com/youtube/v3/videos?id=${youtubeId}&key=${apiKey}&part=contentDetails`;
-  console.log(youtubeId);
-  const response = await fetch(apiUrl);
-  const data = await response.json();
-  console.log(data);
-  return data.items[0];
+  return matches && matches[1] ? matches[1] : null;
 }
 
 async function fetchVideoData(youtubeId) {
-  const noEmbed = 'https://noembed.com/embed?url=';
-  const fetchUrl = `${noEmbed}https://www.youtube.com/watch?v=${youtubeId}`;
-
-  const response = await fetch(fetchUrl);
-  if (!response.ok) {
-    throw new Error("Failed to fetch video data");
-  }
-
+  const apiUrl = `https://www.googleapis.com/youtube/v3/videos?id=${youtubeId}&key=${apiKey}&part=snippet`;
+  const response = await fetch(apiUrl);
   const data = await response.json();
-  return data;
+  return data.items[0];
 }
 
 function savePlaylist() {
   // Implement your playlist saving logic here
 }
-

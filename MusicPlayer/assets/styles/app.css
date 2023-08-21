@@ -55,4 +55,8 @@ img {
   background: aqua;
   border-bottom-left-radius: 30px;
   border-bottom-right-radius: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
 }
