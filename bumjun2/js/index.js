@@ -11,6 +11,8 @@ let col = 0;
 let currentColor = '';
 const colors = ['blue', 'red', 'green', 'yellow', 'orange', 'purple'];
 
+let max = 20;
+
 const createBlock = () => {
   for (let i = 0; i < 10; i++) {
     const block = blockTemplate.content.cloneNode(true);
@@ -30,7 +32,7 @@ const randomBlock = () => {
 
 let newCol = 0;
 const makeBlock = () => {
-  if (col < 20) {
+  if (col < max) {
     if (col === 0) {
       currentColor = randomBlock();
     }
@@ -39,6 +41,11 @@ const makeBlock = () => {
       newCol++
     ].previousElementSibling.classList.remove(currentColor);
     document.addEventListener('keyup', handlerKeyDown);
+  } else {
+    row = 4;
+    col = 0;
+    newCol = 0;
+    createBlock();
   }
 };
 
@@ -50,7 +57,7 @@ const startGame = () => {
 
   createBlock();
 
-  intervalId = setInterval(makeBlock, 500);
+  intervalId = setInterval(makeBlock, 100);
 };
 
 const stopGame = () => {
