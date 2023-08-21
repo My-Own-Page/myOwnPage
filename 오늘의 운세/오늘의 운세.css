@@ -53,7 +53,7 @@
     margin-top: 140px;
 }
 .section .quiz {
-    margin-bottom: 377px;
+    margin-bottom: 360px;
     margin-left: 30px; 
 }
 .section .quiz .quiz1{
@@ -67,4 +67,55 @@
     cursor: pointer;
     transition: color 0.3s;
 }
+/* 퀴즈 나오는 부분 */
+.section .choosequiz .showQuesion {
+    text-align: center;
+    font-size: 30px;
+    margin-bottom: 5%;
+}
+.section .choosequiz .question {
+    font-size: 30px;
+    height: 60px; /* 고정된 높이 설정 */
+    overflow: hidden; /* 텍스트 내용이 넘치는 경우 숨김 처리 */
+    margin-bottom: 10px; /* 추가적인 여백 설정 */
+}
+.section .choosequiz .answer {
+    margin-bottom: 100%;
+}
+.section .choosequiz .o{
+    background-color: #fce205;
+    color: black;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    padding: 15px 30px;
+    border-radius: 15px;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+.section .choosequiz .o:hover{
+    color: red;
+}
+
+.section .choosequiz .x{
+    background-color: #fce205;
+    color: black;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    padding: 15px 30px;
+    border-radius: 15px;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    transition: color 0.3s;
+
+}
+.section .choosequiz .x:hover{
+    color: red;
+}
+
+
+
+
+
+
 
