@@ -7,27 +7,37 @@ const cellSize = 30;
 const blocks = [];
 
 let isPlaying = false;
+let currentBlock = null;
+
+let row = 0;
+let col = 0;
 
 const createBlock = () => {
   const block = blockTemplate.content.cloneNode(true);
-  if (blocks.length < numRows) {
-    $box.appendChild(block);
-    blocks.push(block);
-    $box.children[4].classList.add('blue');
-  }
+  $box.appendChild(block);
+  blocks.push(block);
 };
 
-// const moveBlockDown = () => {
-
-// };
+const makeBlock = () => {
+  if ($box.children[3].children.length < numRows) {
+    const createBlock = document.createElement('div');
+    createBlock.classList.add('block');
+    createBlock.classList.add('blue');
+    $box.children[3].appendChild(createBlock);
+    for (let i = 0; i < numCols; i++) {}
+  }
+};
 
 const startGame = () => {
   if (isPlaying) return;
   isPlaying = true;
 
   $startButton.textContent = 'Stop';
-  // createBlock();
-  setInterval(createBlock, 1000);
+  document.addEventListener('keydown', handlerKeyDown);
+  for (let i = 0; i < numCols; i++) {
+    createBlock();
+  }
+  setInterval(makeBlock, 1000);
 };
 
 const stopGame = () => {
@@ -43,3 +53,12 @@ $startButton.addEventListener('click', () => {
     startGame();
   }
 });
+
+const handlerKeyDown = (e) => {
+  if (e.keyCode === 37) {
+    console.log('왼');
+    -1;
+  } else if (e.keyCode === 39) {
+    console.log('오');
+  }
+};
