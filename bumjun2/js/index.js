@@ -2,12 +2,14 @@ const $box = document.querySelector('.box');
 const $startButton = document.querySelector('.start-button');
 const blockTemplate = document.getElementById('blockTemplate');
 
-const cellSize = 30;
-
 let isPlaying = false;
+let intervalId = null;
 
 let row = 4;
 let col = 0;
+
+let currentColor = '';
+const colors = ['blue', 'red', 'green', 'yellow', 'orange', 'purple'];
 
 const createBlock = () => {
   for (let i = 0; i < 10; i++) {
@@ -21,14 +23,22 @@ const createBlock = () => {
   }
 };
 
+const randomBlock = () => {
+  const randomIndex = Math.floor(Math.random() * colors.length);
+  return colors[randomIndex];
+};
+
 let newCol = 0;
 const makeBlock = () => {
   if (col < 20) {
-    $box.children[row].children[col++].classList.add('blue');
+    if (col === 0) {
+      currentColor = randomBlock();
+    }
+    $box.children[row].children[col++].classList.add(currentColor);
     $box.children[row].children[
       newCol++
-    ].previousElementSibling.classList.remove('blue');
-    document.addEventListener('keydown', handlerKeyDown);
+    ].previousElementSibling.classList.remove(currentColor);
+    document.addEventListener('keyup', handlerKeyDown);
   }
 };
 
@@ -39,13 +49,16 @@ const startGame = () => {
   $startButton.textContent = 'Stop';
 
   createBlock();
-  setInterval(makeBlock, 300);
+
+  intervalId = setInterval(makeBlock, 500);
 };
 
 const stopGame = () => {
   if (!isPlaying) return;
   isPlaying = false;
   $startButton.textContent = 'Start';
+
+  clearInterval(intervalId);
 };
 
 $startButton.addEventListener('click', () => {
@@ -56,20 +69,20 @@ $startButton.addEventListener('click', () => {
   }
 });
 
-const leftMove = () => {
-  $box.children[row].children[col - 1].classList.remove('blue');
-  $box.children[--row].children[newCol].classList.add('blue');
-};
-
-const rightMove = () => {
-  $box.children[row].children[col - 1].classList.remove('blue');
-  $box.children[++row].children[newCol].classList.add('blue');
-};
-
 const handlerKeyDown = (e) => {
   if (e.keyCode === 37) {
     leftMove();
   } else if (e.keyCode === 39) {
     rightMove();
   }
+};
+
+const leftMove = () => {
+  $box.children[row].children[col - 1].classList.remove(currentColor);
+  $box.children[--row].children[newCol].classList.add(currentColor);
+};
+
+const rightMove = () => {
+  $box.children[row].children[col - 1].classList.remove(currentColor);
+  $box.children[++row].children[newCol].classList.add(currentColor);
 };

@@ -31,3 +31,31 @@ body {
   height: 30px;
   background: #007bff;
 }
+.red {
+  width: 30px;
+  height: 30px;
+  background: red;
+}
+.green {
+  width: 30px;
+  height: 30px;
+  background: green;
+}
+
+.yellow {
+  width: 30px;
+  height: 30px;
+  background: yellow;
+}
+
+.orange {
+  width: 30px;
+  height: 30px;
+  background: orange;
+}
+
+.purple {
+  width: 30px;
+  height: 30px;
+  background: purple;
+}
