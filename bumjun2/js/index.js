@@ -44,6 +44,9 @@ const makeBlock = () => {
     if (col === max) {
       max--;
     }
+    if ($box.children.length === 190) {
+      stopGame();
+    }
   } else {
     row = 4;
     col = 0;
@@ -51,7 +54,6 @@ const makeBlock = () => {
     createBlock();
   }
 };
-
 const startGame = () => {
   if (isPlaying) return;
   isPlaying = true;
