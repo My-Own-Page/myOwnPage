@@ -41,6 +41,9 @@ const makeBlock = () => {
       newCol++
     ].previousElementSibling.classList.remove(currentColor);
     document.addEventListener('keyup', handlerKeyDown);
+    if (col === max) {
+      max--;
+    }
   } else {
     row = 4;
     col = 0;
@@ -57,7 +60,7 @@ const startGame = () => {
 
   createBlock();
 
-  intervalId = setInterval(makeBlock, 100);
+  intervalId = setInterval(makeBlock, 30);
 };
 
 const stopGame = () => {
