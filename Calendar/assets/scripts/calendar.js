@@ -73,12 +73,19 @@ const calcDate = ({ year, month, date }) => {
   };
 };
 
-// 날짜틀 만드는 함수
+// 날짜 빈틀 만드는 함수
 const makeDate = () => {
   const $dateBox = document.querySelector('.date-box');
   // console.log($dateBox);
   for (let i = 1; i <= 42; i++) {
-    const $emptyDate = document.createElement('div');
+    const $emptyDate = document.createElement('div');    
+    if(i===1 || i===8 || i === 15|| i === 22 || i===29 || i===36){              
+        $emptyDate.classList.add('red');
+    }
+    if(i===7 || i===14 || i === 21|| i === 28 || i===35 || i===42){            
+        $emptyDate.classList.add('blue');
+      }
+    
     $emptyDate.classList.add('date');    
     $emptyDate.classList.add(`date${i}`);
     $emptyDate.dataset.id = i;    
@@ -170,6 +177,8 @@ const renderCalendar = ({ startDay, lastDay, monthDays, month }) => {
   insertDate({ startDay, lastDay, monthDays, month });
   renderMonthTitle(month);
   renderYearTitle();
+  document.querySelector('.prev-button').addEventListener('click', prevMonthHandler);    
+  document.querySelector('.next-button').addEventListener('click', nextMonthHandler);
 };
 
 
@@ -178,12 +187,11 @@ const renderCalendar = ({ startDay, lastDay, monthDays, month }) => {
 const start = () => {
   makeDate();
   renderCalendar(calcDate({
-      year: year_,
-      month: month_, //7 + 1
-      date: date_,
-    }));
-  document.querySelector('.prev-button').addEventListener('click', prevMonthHandler);    
-  document.querySelector('.next-button').addEventListener('click', nextMonthHandler);      
+    year: year_,
+    month: month_, //7 + 1
+    date: date_,
+  }));
+        
 };
   
 start();

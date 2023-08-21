@@ -81,10 +81,15 @@ body{
 }
 #calendar-box .date-box .date{
     width: 14%;        
-    height: 16%;
-    
+    height: 16%;   
     /* background: gold; */
     text-align: center;
+}
+#calendar-box .date-box .date.red{
+    color: #f00;
+}
+#calendar-box .date-box .date.blue{
+    color: #00f;
 }
 
 /* 선택된 날짜 */
