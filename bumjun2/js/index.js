@@ -1,31 +1,45 @@
-// 화면을 배율로 배치
-const row = 20;
-const col = 10;
+const $box = document.querySelector('.box');
+const $startButton = document.querySelector('.start-button');
+const blockTemplate = document.getElementById('blockTemplate');
+const numRows = 20;
+const numCols = 10;
+const cellSize = 30;
+const blocks = [];
 
-const startBord = () => {
-  const $box = document.querySelector('.box');
-  for (let i = 0; i < row; i++) {
-    const $ul = document.createElement('ul');
-    $ul.classList.add('bord-size');
-    $box.appendChild($ul);
-    for (let j = 0; j < col; j++) {
-      const $li = document.createElement('li');
-      $li.classList.add('bord');
-      $ul.appendChild($li);
-    }
+let isPlaying = false;
+
+const createBlock = () => {
+  const block = blockTemplate.content.cloneNode(true);
+  if (blocks.length < numRows) {
+    $box.appendChild(block);
+    blocks.push(block);
+    $box.children[4].classList.add('blue');
   }
 };
 
-const startEventHandler = () => {
-  if ($startButton.textContent === 'start') {
-    $startButton.textContent = 'stop';
-    startBord();
+// const moveBlockDown = () => {
+
+// };
+
+const startGame = () => {
+  if (isPlaying) return;
+  isPlaying = true;
+
+  $startButton.textContent = 'Stop';
+  // createBlock();
+  setInterval(createBlock, 1000);
+};
+
+const stopGame = () => {
+  if (!isPlaying) return;
+  isPlaying = false;
+  $startButton.textContent = 'Start';
+};
+
+$startButton.addEventListener('click', () => {
+  if (isPlaying) {
+    stopGame();
   } else {
-    $startButton.textContent = 'start';
+    startGame();
   }
-};
-
-const $startButton = document.querySelector('.button-box');
-$startButton.textContent = 'start';
-
-$startButton.addEventListener('click', startEventHandler);
+});
