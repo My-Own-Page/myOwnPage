@@ -3,7 +3,6 @@ let year_ = today.getFullYear();
 let month_ = today.getMonth() + 1;
 let date_ = today.getDate();
 let selectdateId = 1;
-
 // ---------------------------- Handler ----------------------------------
 const prevMonthHandler = (e) => {
   if (month_ === 1) {
@@ -16,7 +15,11 @@ const prevMonthHandler = (e) => {
       month: --month_, //7 + 1
       date: date_,
     })
-  );
+    );
+    for(i=1;i<=42;i++){
+      document.querySelector(`.date${i}`).classList.remove('selectdate');
+    }
+    
 };
 
 const nextMonthHandler = (e) => {
@@ -31,11 +34,14 @@ const nextMonthHandler = (e) => {
       date: date_,
     })
   );
+  for(i=1;i<=42;i++){
+    document.querySelector(`.date${i}`).classList.remove('selectdate');
+  }
 };
 
 const clickDateHandler = (e) =>{
-  e.target.closest('.date-box').querySelector(`data${selectdateId}`).classList.remove('selectdate');
-  e.target.classList.add('selectdate');
+  e.target.closest('.date-box').querySelector(`.date${selectdateId}`).classList.remove('selectdate');
+  e.target.classList.add('selectdate');  
   selectdateId = e.target.dataset.id;
 }
 
@@ -61,8 +67,7 @@ const calcDate = ({ year, month, date }) => {
 
   let calendarMonthLastDay = monthDays[calendarMonth - 1]; // 마지막날
   let calendarStartMonthDay =
-    new Date(calendarYear, calendarMonth - 1, 1).getDay() + 1; //처음날이 무슨요일인지 1~7 일~토
-
+    new Date(calendarYear, calendarMonth - 1, 1).getDay() + 1; //처음날이 무슨요일인지 1~7 일~토  
   return {
     startDay: calendarStartMonthDay,
     lastDay: calendarMonthLastDay,
@@ -147,11 +152,16 @@ const insertDate = ({ startDay, lastDay, monthDays, month }) => {
   const $dateBox = document.querySelector('.date-box');
   //이번달 날짜 만들기
   let startDate = 1;
+  
   for (let i = startDay; i <= lastDay + startDay - 1; i++) {
     $dateBox.querySelector(`.date${i}`).textContent = `${startDate}`;
     $dateBox.querySelector(`.date${i}`).classList.remove('prevMonth');
     $dateBox.querySelector(`.date${i}`).classList.remove('nextMonth');
+    if(i-startDay+1===date_){
+      $dateBox.querySelector(`.date${i}`).classList.add('selectdate');
+    }
     startDate++;
+    
   }
   //지난달 날짜 만들기
   if(month===1){
@@ -178,10 +188,13 @@ const renderCalendar = ({ startDay, lastDay, monthDays, month }) => {
   renderMonthTitle(month);
   renderYearTitle();
   document.querySelector('.prev-button').addEventListener('click', prevMonthHandler);    
-  document.querySelector('.next-button').addEventListener('click', nextMonthHandler);
+  document.querySelector('.next-button').addEventListener('click', nextMonthHandler);         
+  selectdateId = date_ + startDay - 1;    
 };
 
+const selectToday = () =>{
 
+}
 
 // ------------------------- 실행부 ----------------------------
 const start = () => {
@@ -191,7 +204,6 @@ const start = () => {
     month: month_, //7 + 1
     date: date_,
   }));
-        
 };
   
 start();

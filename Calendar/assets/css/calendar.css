@@ -9,14 +9,14 @@ body{
 #calendar-box{
     width: 80%;
     height: 90vh;
-    background: #e7feff;
+    /* background: #e7feff; */
     margin: 0px auto ;
 }
 /*------------------------------------ 2xxx년xx월 박스------------ */
 #calendar-box .month-box{
     display: flex;
     flex-flow: row nowrap;
-    background: #e7feff;
+    /* background: #e7feff; */
     height: 10%;
 }
 
@@ -84,6 +84,19 @@ body{
     height: 16%;   
     /* background: gold; */
     text-align: center;
+    color: rgba(0, 0, 0, 1);
+}
+#calendar-box .date-box .date.prevMonth{
+    color: rgba(0, 0, 0, 0.4);
+}
+#calendar-box .date-box .date.nextMonth{
+    color: rgba(0, 0, 0, 0.4);
+}
+#calendar-box .date-box .date.prevMonth.red{
+    color: rgba(255, 0, 0, 0.4);
+}
+#calendar-box .date-box .date.nextMonth.blue{
+    color: rgba(0, 0, 255, 0.4);
 }
 #calendar-box .date-box .date.red{
     color: #f00;
@@ -92,7 +105,9 @@ body{
     color: #00f;
 }
 
+
 /* 선택된 날짜 */
 #calendar-box .date-box .date.selectdate{
-    background: skyblue;
+    box-sizing: border-box;
+    background: #e7feff;
 }
