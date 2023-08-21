@@ -35,17 +35,30 @@ const textToImageMap = {
 };
 
 const randomTextElement = document.querySelector('.section .lucky .text');
-const sectionElement = document.querySelector('.section');
 const randomButton = document.querySelector('.section .lucky .btn1');
+const resultDiv = document.querySelector('.section .lucky .result');
+const retryButton = document.querySelector('.section .lucky .btn2');
 
 randomButton.addEventListener('click', () => {
   const randomIndex = Math.floor(Math.random() * randomTexts.length);
   const randomText = randomTexts[randomIndex];
   randomTextElement.textContent = randomText;
-  
+
   const imageUrl = textToImageMap[randomText];
-  if (imageUrl) { 
+  if (imageUrl) {
+      const sectionElement = document.querySelector('.section');
       sectionElement.style.backgroundImage = `url(${imageUrl})`;
-    }
-    randomButton.style.display = 'none';
+      ;
+  }
+
+  randomButton.style.display = 'none';
+  resultDiv.style.display = 'block';
+});
+
+retryButton.addEventListener('click', () => {
+  randomTextElement.textContent = '';
+  randomButton.style.display = 'block';
+  resultDiv.style.display = 'none';
+  const sectionElement = document.querySelector('.section');
+  sectionElement.style.backgroundImage = '';
 });

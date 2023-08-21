@@ -41,5 +41,18 @@
     margin-top: 20px; 
     font-size: 150%;
 }
+.section .lucky .result .btn2{
+    background-color: #fce205;
+    color: black;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    padding: 15px 30px;
+    border-radius: 15px;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    transition: color 0.3s;
+    margin-top: 140px;
+
+}
 
 
