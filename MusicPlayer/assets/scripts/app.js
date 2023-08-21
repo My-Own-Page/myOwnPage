@@ -49,13 +49,14 @@ linkInput.addEventListener("keydown", async (e) => {
           const range = document.createRange();
           const fragment = range.createContextualFragment(videoData.html);
 
-          $musicPlayer.appendChild(fragment);
+          li.appendChild(fragment);
 
           const newIframe = $musicPlayer.querySelector('iframe');
           const iframeSrc = newIframe.getAttribute('src');
           const newParam = 'autoplay=1';
           newIframe.src = iframeSrc + '&' + newParam;
-          newIframe.setAttribute('width', '0px', 'height', '0px');
+          newIframe.setAttribute('width', '0px');
+          newIframe.setAttribute('height', '0px');
 
           console.log(newIframe.src);
           console.log("Set new current iframe:", currentIframe);
@@ -73,15 +74,6 @@ linkInput.addEventListener("keydown", async (e) => {
   }
 });
 
-const stopButtonHandler = (iframe) => {
-  return () => {
-    console.log('버튼 눌림');
-    if (iframe) {
-      iframe.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
-    }
-  };
-};
-
 let selectedLi = null; // To keep track of the originally selected <li> element
 
 playlistContainer.addEventListener('click', (event) => {
@@ -96,10 +88,11 @@ playlistContainer.addEventListener('click', (event) => {
   selectedLi = li; // Set the currently selected <li> element
   li.style.backgroundColor = '#FFFFCC'; // Change background color
 
-  // Add click event listener to the <i> element inside the <li>
   const $stopButton = li.querySelector('.fa-circle-xmark');
+
+  // Add click event listener to the <i> element inside the <li>
   $stopButton.addEventListener('click', (event) => {
-    event.stopPropagation(); // Prevent the click event from bubbling to the <li> element
+    event.stopPropagation();
     if (currentIframe && currentIframe.parentElement === li) {
       currentIframe.contentWindow.postMessage('{"event":"command","func":"stopVideo","args":""}', '*');
       li.removeChild(currentIframe);
