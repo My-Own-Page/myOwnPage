@@ -1,32 +1,39 @@
 const $box = document.querySelector('.box');
 const $startButton = document.querySelector('.start-button');
 const blockTemplate = document.getElementById('blockTemplate');
-const numRows = 20;
-const numCols = 10;
+
 const cellSize = 30;
-const blocks = [];
 
 let isPlaying = false;
 let currentBlock = null;
 
-let row = [];
+let row = 4;
+let numRow = 0;
+
 let col = 0;
+let numCol = 0;
 
 const createBlock = () => {
-  const block = blockTemplate.content.cloneNode(true);
-  $box.appendChild(block);
-  blocks.push(block);
+  for (let i = 0; i < 10; i++) {
+    const block = blockTemplate.content.cloneNode(true);
+    $box.appendChild(block);
+    for (let j = 0; j < 20; j++) {
+      const createBlocks = document.createElement('div');
+      createBlocks.classList.add('block');
+      $box.children[i].appendChild(createBlocks);
+    }
+  }
 };
 
+let i = 0;
+let j = 0;
 const makeBlock = () => {
-  if ($box.children[4].children.length < numRows) {
-    const createBlock = document.createElement('div');
-    createBlock.classList.add('block');
-    createBlock.classList.add('blue');
-    $box.children[4].appendChild(createBlock);
-    $box.children[4].children[col++].previousElementSibling.classList.remove(
+  if (i < 20) {
+    $box.children[row].children[col++].classList.add('blue');
+    $box.children[row].children[j++].previousElementSibling.classList.remove(
       'blue'
     );
+    document.addEventListener('keydown', handlerKeyDown);
   }
 };
 
@@ -35,11 +42,10 @@ const startGame = () => {
   isPlaying = true;
 
   $startButton.textContent = 'Stop';
-  document.addEventListener('keydown', handlerKeyDown);
-  for (let i = 0; i < numCols; i++) {
-    createBlock();
-  }
-  setInterval(makeBlock, 1000);
+
+  createBlock();
+
+  setInterval(makeBlock, 300);
 };
 
 const stopGame = () => {
@@ -56,11 +62,19 @@ $startButton.addEventListener('click', () => {
   }
 });
 
+const leftMove = () => {
+  $box.children[row--].children[col].classList.add('blue');
+  $box.children[row].children[col].classList.remove('blue');
+};
+
+const rightMove = () => {
+  $box.children[row++].children[col].classList.add('blue');
+};
+
 const handlerKeyDown = (e) => {
   if (e.keyCode === 37) {
-    console.log('왼');
-    -1;
+    leftMove();
   } else if (e.keyCode === 39) {
-    console.log('오');
+    rightMove();
   }
 };
