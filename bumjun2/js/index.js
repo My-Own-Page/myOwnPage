@@ -9,7 +9,7 @@ const blocks = [];
 let isPlaying = false;
 let currentBlock = null;
 
-let row = 0;
+let row = [];
 let col = 0;
 
 const createBlock = () => {
@@ -19,12 +19,14 @@ const createBlock = () => {
 };
 
 const makeBlock = () => {
-  if ($box.children[3].children.length < numRows) {
+  if ($box.children[4].children.length < numRows) {
     const createBlock = document.createElement('div');
     createBlock.classList.add('block');
     createBlock.classList.add('blue');
-    $box.children[3].appendChild(createBlock);
-    for (let i = 0; i < numCols; i++) {}
+    $box.children[4].appendChild(createBlock);
+    $box.children[4].children[col++].previousElementSibling.classList.remove(
+      'blue'
+    );
   }
 };
 
