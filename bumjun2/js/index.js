@@ -41,9 +41,13 @@ const makeBlock = () => {
       newCol++
     ].previousElementSibling.classList.remove(currentColor);
     document.addEventListener('keyup', handlerKeyDown);
-    if (col === max) {
+
+    if ($box.children[row].children[col].classList.contains(currentColor)) {
       max--;
+    } else {
+      max = 20;
     }
+
     if ($box.children.length === 190) {
       stopGame();
     }
@@ -62,7 +66,7 @@ const startGame = () => {
 
   createBlock();
 
-  intervalId = setInterval(makeBlock, 30);
+  intervalId = setInterval(makeBlock, 300);
 };
 
 const stopGame = () => {
@@ -92,6 +96,9 @@ const handlerKeyDown = (e) => {
 const leftMove = () => {
   $box.children[row].children[col - 1].classList.remove(currentColor);
   $box.children[--row].children[newCol].classList.add(currentColor);
+  if (row < 0) {
+    row = 0;
+  }
 };
 
 const rightMove = () => {
