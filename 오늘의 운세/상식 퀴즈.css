@@ -1,0 +1,58 @@
+.section {
+    background-image: url(./오늘의운세이미지폴더/taroMain.jpg);
+    background-size: contain;
+    width: 100%; 
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end; 
+    height: 65em;
+    overflow: hidden; 
+}
+.section .choosequiz{
+    text-align: center;
+}
+.section .choosequiz .score .yourScore{
+    font-size: 20px;
+    margin-bottom: 10em;
+}
+.section .choosequiz .showQuesion .question{
+    font-size: 30px;
+    margin-bottom: 15em;
+}
+.section .choosequiz .answer {
+margin-bottom: 70px;
+text-align: center;
+display: flex;
+justify-content: center;
+}
+.section .choosequiz .answer .o{
+    background-color: #fce205;
+    color: black;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    padding: 15px 30px;
+    border-radius: 15px;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    transition: color 0.3s;
+    margin-right: 30px;
+}
+.section .choosequiz .answer .o:hover{
+    color: red;
+}
+.section .choosequiz .answer .x{
+    background-color: #fce205;
+    color: black;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    padding: 15px 30px;
+    border-radius: 15px;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+.section .choosequiz .answer .x:hover{
+    color: red;
+}

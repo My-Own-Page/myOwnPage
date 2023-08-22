@@ -1,59 +1,79 @@
+// 상식 퀴즈 풀기 자바스크립트 부분
+
+const quizText = document.querySelector('.section .choosequiz .showQuesion .question');
+const oButton = document.querySelector('.section .choosequiz .answer .o');
+const xButton = document.querySelector('.section .choosequiz .answer .x');
+const yourScore = document.querySelector('.section .choosequiz .score .yourScore');
+
 const quizQuestions = [
-    {
-        question: "대한민국의 수도는 어디일까요?",
-        answer: "서울",
-    },
-    {
-        question: "바다의 염분 농도가 가장 높은 바다는 어디일까요?",
-        answer: "카스피해",
-    },
-    {
-        question: "우리 몸을 구성하고 있는 원소는 주로 어떤 원소일까요?",
-        answer: "산소",
-    },
-    
+  { question: "지구의 모양은 무엇일까요?", answer: "o" },
+  { question: "물의 화학식은 H2O입니다.", answer: "o" },
+  { question: "태양은 지구 주위를 돕니다.", answer: "o" },
+  { question: "1+1은 3입니다.", answer: "x" },
+  { question: "한국의 수도는 서울입니다.", answer: "o" },
 ];
 
-const quizButton = document.querySelector('.quiz .quiz1');
-const resultText = document.querySelector('.quiz .result .text');
-const oButton = document.querySelector('.quiz .result .o'); // 수정된 부분
-const xButton = document.querySelector('.quiz .result .x'); // 수정된 부분
-
 let currentQuestionIndex = 0;
+let score = 0;
 
-quizButton.addEventListener('click', () => {
-    quizButton.style.display = 'none';
-    showQuestion();
-});
+const showResult = (isCorrect) => {
+  if (isCorrect) {
+    score++;
+    yourScore.textContent = `score: ${score}`;
+  } else {
+    quizText.textContent = "틀렸습니다.";
+  }
+  oButton.style.display = 'none';
+  xButton.style.display = 'none';
+};
 
-function showQuestion() {
-    const currentQuestion = quizQuestions[currentQuestionIndex];
-    resultText.textContent = currentQuestion.question;
+const nextQuestion = () => {
+  if (currentQuestionIndex < quizQuestions.length) {
+    const question = quizQuestions[currentQuestionIndex].question;
+    quizText.textContent = question;
     oButton.style.display = 'block';
     xButton.style.display = 'block';
-}
+  } else {
+    finishQuiz();
+  }
+};
 
-oButton.addEventListener('click', checkAnswer); // 수정된 부분
-xButton.addEventListener('click', checkAnswer); // 수정된 부분
+const finishQuiz = () => {
+  if (score === quizQuestions.length) {
+    quizText.textContent = "문제를 다 맞췄습니다!";
+  } else {
+    quizText.textContent = "문제를 다 맞추지 못했습니다.";
+  }
+  oButton.style.display = 'none';
+  xButton.style.display = 'none';
+};
 
-function checkAnswer(event) { // 수정된 부분
-    const button = event.target;
-    const userAnswer = button.textContent.toLowerCase();
-    const correctAnswer = quizQuestions[currentQuestionIndex].answer.toLowerCase();
-    
-    if (userAnswer === correctAnswer) {
-        resultText.textContent = "정답입니다!";
+oButton.addEventListener('click', () => {
+  if (currentQuestionIndex < quizQuestions.length) {
+    const answer = quizQuestions[currentQuestionIndex].answer;
+    if (answer === 'o') {
+      currentQuestionIndex++;
+      showResult(true);
+      nextQuestion();
     } else {
-        resultText.textContent = "오답입니다.";
+      currentQuestionIndex++;
+      showResult(false);
+      finishQuiz();
     }
-    
-    currentQuestionIndex++;
-    if (currentQuestionIndex < quizQuestions.length) {
-        showQuestion();
+  }
+});
+
+xButton.addEventListener('click', () => {
+  if (currentQuestionIndex < quizQuestions.length) {
+    const answer = quizQuestions[currentQuestionIndex].answer;
+    if (answer === 'x') {
+      currentQuestionIndex++;
+      showResult(true);
+      nextQuestion();
     } else {
-        oButton.style.display = 'none';
-        xButton.style.display = 'none';
-        quizButton.style.display = 'block';
-        quizButton.textContent = "다시 퀴즈 풀기";
+      currentQuestionIndex++;
+      showResult(false);
+      finishQuiz();
     }
-}
+  }
+});

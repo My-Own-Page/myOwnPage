@@ -4,7 +4,10 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>오늘의 운세</title>
-      
+        
+        <!-- 상식 퀴즈 HTML 연결-->
+        <link rel="stylesheet" href="./상식 퀴즈.html">
+
         <!-- main css -->
         <link rel="stylesheet" href="./오늘의 운세.css">
       
@@ -30,14 +33,18 @@
         <div class="quiz">
             <button class="quiz1">상식 퀴즈 풀러가기</button>
         </div>
-        <div class="choosequiz" style="display: none;">
+        <div class="choosequiz" style="display: none">
+            <div class="score">
+                <p class="yourScore">score:0</p>
+            </div>
             <div class="showQuesion">
-            <p class="question"></p>
+            <p class="question">여기에 문제가 나옵니다. <br><br>o버튼을 클릭해주세요</p>
         </div>
             <div class="answer">
                 <button class="o">o</button>
                 <button class="x">x</button>
             </div>
+            <div class="retrybutton">메인으로</div>
             </div>
     </section>
 </body>
