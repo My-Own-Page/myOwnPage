@@ -65,13 +65,12 @@ retryButton.addEventListener('click', () => {
   resultDiv.style.display = 'none';
   goquiz.style.display = 'block';
   const sectionElement = document.querySelector('.section');
-  sectionElement.style.backgroundImage = `url(./오늘의운세이미지폴더/taroMain.jpg)`; 
-  choosequiz.style.display = 'none'; 
-  goquiz.style.display = 'block'; 
+  sectionElement.style.backgroundImage = `url(./오늘의운세이미지폴더/taroMain.jpg)`;
+  choosequiz.style.display = 'none';
 });
 
 
-
+// ------------------------------------------------------------------------------------------//
 
 // 상식 퀴즈 풀기 자바스크립트 부분
 const choosequiz = document.querySelector('.section .choosequiz');
@@ -81,13 +80,23 @@ const xButton = document.querySelector('.section .choosequiz .answer .x');
 const yourScore = document.querySelector('.section .choosequiz .score .yourScore');
 const retry = document.querySelector('.section .choosequiz .retrybutton');
 
-//상식 퀴즈 풀라가기 버튼 누르면 상식 퀴즈 문제 나오도록 버튼 구현
-goquiz.addEventListener('click',() => {
-choosequiz.style.display = 'block';
-goquiz.style.display = 'none';
-randomButton.style.display = 'none';
-})
+//상식 퀴즈 풀러가기 버튼 누르면 상식 퀴즈 문제 나오도록 버튼 구현
+goquiz.addEventListener('click', () => {
+  choosequiz.style.display = 'block';
+  goquiz.style.display = 'none';
+  randomButton.style.display = 'none';
+  currentQuestionIndex = 0;
+  score = 0;
+  yourScore.textContent = 'score: 0';
+  quizText.textContent = '';
+  oButton.style.display = 'block';
+  xButton.style.display = 'block';
+  retry.style.display = 'none';
 
+  nextQuestion();
+});
+ 
+//퀴즈 문제 부분 구현
 const quizQuestions = [
   { question: "물의 화학식은 H2O입니다.", answer: "o" },
   { question: "태양은 지구 주위를 돕니다.", answer: "o" },
@@ -111,9 +120,18 @@ const quizQuestions = [
   { question: "大韓民國의 最南端에 있는 섬은 馬羅島입니다.  ", answer: "o" },
 ];
 
-let currentQuestionIndex = 0;
-let score = 0;
+//퀴즈를 맞추거나 틀렸을 시 메인으로 버튼 구현
+retry.addEventListener('click',() => {
+  randomTextElement.textContent = '';
+  randomButton.style.display = 'block';
+  resultDiv.style.display = 'none';
+  goquiz.style.display = 'block';
+  const sectionElement = document.querySelector('.section');
+  sectionElement.style.backgroundImage = `url(./오늘의운세이미지폴더/taroMain.jpg)`; 
+  choosequiz.style.display = 'none'; 
+});
 
+//퀴즈를 맞추면 score가 1점씩 추가 되도록 구현
 const showResult = (isCorrect) => {
   if (isCorrect) {
     score++;
@@ -123,9 +141,9 @@ const showResult = (isCorrect) => {
   }
   oButton.style.display = 'none';
   xButton.style.display = 'none';
-  retryButton.style.display = 'none';
 };
 
+//퀴즈를 맞추면 다음 문제로 넘어가도록 구현
 const nextQuestion = () => {
   if (currentQuestionIndex < quizQuestions.length) {
     const question = quizQuestions[currentQuestionIndex].question;
@@ -136,7 +154,7 @@ const nextQuestion = () => {
     finishQuiz();
   }
 };
-
+//퀴즈가 끝났을 때를 구현
 const finishQuiz = () => {
   if (score === quizQuestions.length) {
     quizText.textContent = "문제를 다 맞췄습니다!";
@@ -145,9 +163,11 @@ const finishQuiz = () => {
   }
   oButton.style.display = 'none';
   xButton.style.display = 'none';
-  retryButton.style.display ='block';
+  retry.style.display = 'block';
+  
 };
 
+//o버튼을 눌렀을때 맞았는지 틀렸는지 구현
 oButton.addEventListener('click', () => {
   if (currentQuestionIndex < quizQuestions.length) {
     const answer = quizQuestions[currentQuestionIndex].answer;
@@ -163,6 +183,7 @@ oButton.addEventListener('click', () => {
   }
 });
 
+//x버튼을 눌렀을때 맞았는지 틀렸는지 구현
 xButton.addEventListener('click', () => {
   if (currentQuestionIndex < quizQuestions.length) {
     const answer = quizQuestions[currentQuestionIndex].answer;
@@ -178,14 +199,5 @@ xButton.addEventListener('click', () => {
   }
 });
 
-retry.addEventListener('click',() => {
-  randomTextElement.textContent = '';
-  randomButton.style.display = 'block';
-  resultDiv.style.display = 'none';
-  goquiz.style.display = 'block';
-  const sectionElement = document.querySelector('.section');
-  sectionElement.style.backgroundImage = `url(./오늘의운세이미지폴더/taroMain.jpg)`; 
-  choosequiz.style.display = 'none'; 
-  goquiz.style.display = 'block'; 
-});
+
 
