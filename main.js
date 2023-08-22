@@ -46,5 +46,11 @@ fetch('./MusicPlayer/index.html')
             cssLink.rel = 'stylesheet';
             cssLink.href = './MusicPlayer/assets/styles/app.css'; // Adjust the path based on your project structure
             document.head.appendChild(cssLink);
+
+            // Load the associated script separately
+            const jsSrc = document.createElement('script');
+            jsSrc.src = './MusicPlayer/assets/scripts/app.js';
+            jsSrc.type = 'module';
+            document.head.appendChild(jsSrc);
         }
     });
