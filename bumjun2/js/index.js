@@ -40,24 +40,21 @@ const makeBlock = () => {
     $box.children[row].children[
       newCol++
     ].previousElementSibling.classList.remove(currentColor);
-    document.addEventListener('keyup', handlerKeyDown);
 
+    document.addEventListener('keydown', handlerKeyDown);
+    console.log(max);
+  } else {
+    row = 4;
+    col = 0;
+    newCol = 0;
     if ($box.children[row].children[col].classList.contains(currentColor)) {
       max--;
     } else {
       max = 20;
     }
-
-    if ($box.children.length === 190) {
-      stopGame();
-    }
-  } else {
-    row = 4;
-    col = 0;
-    newCol = 0;
-    createBlock();
   }
 };
+
 const startGame = () => {
   if (isPlaying) return;
   isPlaying = true;
@@ -94,14 +91,19 @@ const handlerKeyDown = (e) => {
 };
 
 const leftMove = () => {
-  $box.children[row].children[col - 1].classList.remove(currentColor);
-  $box.children[--row].children[newCol].classList.add(currentColor);
-  if (row < 0) {
-    row = 0;
+  if (row > 0) {
+    $box.children[row].children[col - 1].classList.remove(currentColor);
+    $box.children[row].children[newCol].classList.remove(currentColor);
+    row--;
+    $box.children[row].children[newCol].classList.add(currentColor);
   }
 };
 
 const rightMove = () => {
-  $box.children[row].children[col - 1].classList.remove(currentColor);
-  $box.children[++row].children[newCol].classList.add(currentColor);
+  if (row < 9) {
+    $box.children[row].children[col - 1].classList.remove(currentColor);
+    $box.children[row].children[newCol].classList.remove(currentColor);
+    row++;
+    $box.children[row].children[newCol].classList.add(currentColor);
+  }
 };
