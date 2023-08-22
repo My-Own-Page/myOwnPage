@@ -7,8 +7,8 @@ body{
 }
 
 #calendar-box{
-    width: 80%;
-    height: 90vh;
+    width: inherit;
+    height: inherit;
     /* background: #e7feff; */
     margin: 0px auto ;
 }
