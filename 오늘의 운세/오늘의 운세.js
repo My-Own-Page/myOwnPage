@@ -34,7 +34,8 @@ const textToImageMap = {
     "나를 치장하려고 낭비가 심하면 안돼요." : "./오늘의운세이미지폴더/Thesun.jpg",
     "남들이 싫어한다고 나까지 그러면 안 돼요." : "./오늘의운세이미지폴더/Thesun.jpg"
 };
-//오늘의 운세와 퀴즈 버튼 가져온 부분 
+//오늘의 운세와 퀴즈 버튼 가져온 부분
+const Egg = document.querySelector('.section .lucky .Egg .breakEgg'); 
 const randomTextElement = document.querySelector('.section .lucky .text');
 const randomButton = document.querySelector('.section .lucky .btn1');
 const resultDiv = document.querySelector('.section .lucky .result');
@@ -52,13 +53,14 @@ randomButton.addEventListener('click', () => {
       sectionElement.style.backgroundImage = `url(${imageUrl})`;
       ;
   }
-
   randomButton.style.display = 'none';
   resultDiv.style.display = 'block';
   goquiz.style.display='none';
+  Egg.style.display='none';
 });
 
 //메인으로 가기 버튼이 나오도록 구현 
+
 retryButton.addEventListener('click', () => {
   randomTextElement.textContent = '';
   randomButton.style.display = 'block';
@@ -67,6 +69,7 @@ retryButton.addEventListener('click', () => {
   const sectionElement = document.querySelector('.section');
   sectionElement.style.backgroundImage = `url(./오늘의운세이미지폴더/taroMain.jpg)`;
   choosequiz.style.display = 'none';
+  Egg.style.display='block';
 });
 
 
@@ -92,6 +95,7 @@ goquiz.addEventListener('click', () => {
   oButton.style.display = 'block';
   xButton.style.display = 'block';
   retry.style.display = 'none';
+  Egg.style.display='none';
 
   nextQuestion();
 });
@@ -129,6 +133,7 @@ retry.addEventListener('click',() => {
   const sectionElement = document.querySelector('.section');
   sectionElement.style.backgroundImage = `url(./오늘의운세이미지폴더/taroMain.jpg)`; 
   choosequiz.style.display = 'none'; 
+  Egg.style.display='block';
 });
 
 //퀴즈를 맞추면 score가 1점씩 추가 되도록 구현
