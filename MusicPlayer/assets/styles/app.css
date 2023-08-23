@@ -1,0 +1,69 @@
+section {
+  width: inherit;
+  height: inherit;
+  display: flex;
+  flex-direction: column;
+}
+
+section .youtubeUrl {
+  background-color: aqua;
+  width: inherit;
+  height: 7vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+section .youtubeUrl input {
+  width: 70%;
+  height: 4vh;
+  border-radius: 10px;
+  border: none;
+  font-size: 1.1em;
+  padding: 0 10px;
+}
+
+section .youtubeUrl input:focus {
+  outline: none;
+}
+
+section .playlist {
+  background-color: #fff;
+  width: 100%;
+  height: 27vh;
+}
+.playlist {
+  overflow-y: scroll;
+}
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 15px;
+  padding: 0 10px 0 0;
+}
+img {
+  width: 20%;
+}
+
+.bottomBar {
+  height: 6vh;
+  background: aqua;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 80px;
+}
+
+.bottomBar .playPauseBox {
+  position: absolute;
+}
+
+.bottomBar .fa-circle-play {
+  display: none;
+}
