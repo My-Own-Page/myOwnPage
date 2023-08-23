@@ -21,7 +21,7 @@ linkInput.addEventListener("keydown", async (e) => {
         const videoData = await fetchVideoData(youtubeId);
         console.log(videoData);
         const musicObj = {
-          title: truncateTitle(videoData.snippet.title, 35),
+          title: truncateTitle(videoData.snippet.title, 30),
           thumb: videoData.snippet.thumbnails.default.url,
           url: linkValue,
           youtube_id: youtubeId,
@@ -97,7 +97,7 @@ function removeMusicItem(li) {
 }
 
 const pauseMusicItem = (e) => {
-  const iframe = e.target.parentNode.parentNode.parentNode.querySelector('iframe');
+  const iframe = e.target.parentNode.parentNode.parentNode.parentNode.querySelector('iframe');
   if (iframe) {
     iframe.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
   } else {
@@ -109,7 +109,7 @@ const pauseMusicItem = (e) => {
 };
 
 const playMusicItem = (e) => {
-  const iframe = e.target.parentNode.parentNode.parentNode.querySelector('iframe');
+  const iframe = e.target.parentNode.parentNode.parentNode.parentNode.querySelector('iframe');
   if (iframe) {
     iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
   } else {
@@ -125,6 +125,60 @@ $pauseButton.addEventListener('click', pauseMusicItem);
 
 const $playButton = document.querySelector('.fa-circle-play');
 $playButton.addEventListener('click', playMusicItem);
+
+const $forwardButton = document.querySelector('.fa-forward');
+$forwardButton.addEventListener('click', () => {
+  if (selectedLi) {
+    const selectedLiIndex = Array.from(playlistContainer.children).indexOf(selectedLi);
+    console.log("Selected Li Index:", selectedLiIndex);
+    console.log(selectedLiIndex);
+    if (selectedLiIndex > 0) {
+      const previousLi = playlistContainer.children[selectedLiIndex - 1];
+      console.log("Previous Li:", previousLi);
+      selectLi(previousLi);
+    }
+  }
+});
+
+const $backwardButton = document.querySelector('.fa-backward');
+$backwardButton.addEventListener('click', (youtubeId) => {
+  if (selectedLi) {
+    const selectedLiIndex = Array.from(playlistContainer.children).indexOf(selectedLi);
+    console.log("Selected Li Index:", selectedLiIndex);
+    console.log(selectedLiIndex);
+    if (selectedLiIndex > 0) {
+      const previousLi = playlistContainer.children[selectedLiIndex - 1];
+      console.log("Previous Li:", previousLi);
+      selectLi(previousLi, youtubeId);
+    }
+  }
+});
+
+function selectLi(li, youtubeId) {
+  if (selectedLi) {
+    selectedLi.style.backgroundColor = '';
+  }
+
+  selectedLi = li;
+  selectedLi.style.backgroundColor = '#FFFFCC';
+
+  // const youtubeId = extractYouTubeId(selectedLi.querySelector('h3').textContent);
+  if (currentIframe) {
+    $musicPlayer.removeChild(currentIframe);
+  }
+
+  const newIframe = document.createElement('iframe');
+  newIframe.setAttribute('src', `https://www.youtube.com/embed/${youtubeId}?autoplay=1&rel=0&enablejsapi=1`);
+  newIframe.setAttribute('width', '0');
+  newIframe.setAttribute('height', '0');
+  newIframe.setAttribute('frameborder', '0');
+  newIframe.setAttribute('allow', 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture');
+  newIframe.allowFullscreen = true;
+
+  $musicPlayer.appendChild(newIframe);
+  currentIframe = newIframe;
+}
+
 
 
 function truncateTitle(title, maxLength) {

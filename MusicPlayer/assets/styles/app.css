@@ -13,9 +13,8 @@ section .youtubeUrl {
   justify-content: center;
   align-items: center;
   gap: 20px;
-  border-top-left-radius: 30px;
-  border-top-right-radius: 30px;
-  border-bottom: 1px solid gray;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
 }
 
 section .youtubeUrl input {
@@ -53,18 +52,18 @@ img {
 .bottomBar {
   height: 6vh;
   background: aqua;
-  border-bottom-left-radius: 30px;
-  border-bottom-right-radius: 30px;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 80px;
 }
 
-.bottomBar .fa-circle-pause {
+.bottomBar .playPauseBox {
   position: absolute;
 }
 
 .bottomBar .fa-circle-play {
-  position: absolute;
   display: none;
 }

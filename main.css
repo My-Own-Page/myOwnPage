@@ -1,7 +1,21 @@
 @import url("https://fonts.googleapis.com/css2?family=Chela+One&family=Jua&family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Poppins:wght@300;400;500;600;700;800&display=swap");
 
 body {
+  background: rgb(207, 207, 207);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
   background: #e7feff;
+  width: 80%;
+  height: 90%;
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px,
+    rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 48px;
+  border-radius: 20px;
+  position: absolute;
+  top: 5%;
 }
 
 .header {
@@ -12,11 +26,12 @@ body {
 }
 
 .searchBox {
-  width: 35vw;
+  width: 28vw;
   height: 5vh;
-  border: 1px solid gray;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-  border-radius: 30px;
+  /* border: 1px solid gray; */
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px,
+    rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 48px;
+  border-radius: 50px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -59,11 +74,12 @@ body {
 }
 
 .leftContent .calendar {
-  width: 25vw;
-  height: 40vh;
-  border: 1px solid gray;
-  border-radius: 30px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  width: 20vw;
+  height: 35vh;
+  /* border: 1px solid gray; */
+  border-radius: 20px;
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px,
+    rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 48px;
 
   display: flex;
   justify-content: center;
@@ -71,11 +87,12 @@ body {
 }
 
 .leftContent .musicPlayer {
-  width: 25vw;
-  height: 40vh;
-  border-radius: 30px;
-  border: 1px solid gray;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  width: 20vw;
+  height: 35vh;
+  border-radius: 20px;
+  /* border: 1px solid gray; */
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px,
+    rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 48px;
 
   display: flex;
   justify-content: center;
@@ -84,10 +101,11 @@ body {
 
 .centerContent {
   width: 38vw;
-  height: 84vh;
-  border-radius: 30px;
-  border: 1px solid gray;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  height: 73vh;
+  border-radius: 20px;
+  /* border: 1px solid gray; */
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px,
+    rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 48px;
 
   display: flex;
   justify-content: center;
@@ -101,11 +119,12 @@ body {
 }
 
 .rightContent .any1 {
-  width: 25vw;
-  height: 40vh;
-  border: 1px solid gray;
-  border-radius: 30px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  width: 20vw;
+  height: 35vh;
+  /* border: 1px solid gray; */
+  border-radius: 20px;
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px,
+    rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 48px;
 
   display: flex;
   justify-content: center;
@@ -113,11 +132,12 @@ body {
 }
 
 .rightContent .any2 {
-  width: 25vw;
-  height: 40vh;
-  border: 1px solid gray;
-  border-radius: 30px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  width: 20vw;
+  height: 35vh;
+  /* border: 1px solid gray; */
+  border-radius: 20px;
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px,
+    rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 48px;
 
   display: flex;
   justify-content: center;
