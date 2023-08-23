@@ -103,7 +103,7 @@ goquiz.addEventListener('click', () => {
 //퀴즈 문제 부분 구현
 const quizQuestions = [
   { question: "물의 화학식은 H2O입니다.", answer: "o" },
-  { question: "태양은 지구 주위를 돕니다.", answer: "o" },
+  { question: "지구는 태양 주위를 돕니다.", answer: "o" },
   { question: "56x56/56은 56입니다.", answer: "o" },
   { question: "한국의 수도는 서울입니다.", answer: "o" },
   { question: "심청이 아버지 심봉사의 이름은 심학규입니다.", answer: "o" },
@@ -204,5 +204,24 @@ xButton.addEventListener('click', () => {
   }
 });
 
+//------------------------------------------------------------------------------------//
+//계란 뿌시기 js 부분
 
+//계란 뿌수기 버튼 가져오기
+const showEgg = document.querySelector('.container1 .section .egg');
+const EggMain = document.querySelector('.container1 .section .egg .eggBtn .eggClickGoMain');
+const EggBtnClick = document.querySelector('.container1 .section .egg .eggBtn .eggclickBtn');
+const EggScore = document.querySelector('.container1 .section .egg .eggScore .eggscore');
+//메인 화면 계란 뿌수기 버튼 눌렀을때 이벤트
+Egg.addEventListener('click',()=>{
+  randomButton.style.display="none";
+  goquiz.style.display='none';
+  Egg.style.display='none';
+  showEgg.style.display='block';
+  EggMain.style.display='none';
+});
 
+//계란을 뿌수는 클릭!버튼 눌렀을때 이벤트
+EggBtnClick.addEventListener('click',()=>{
+
+});
