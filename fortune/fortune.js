@@ -18,21 +18,21 @@ const randomTexts = [
 ];
 //운세 텍스트와 이미지 매핑 부분
 const textToImageMap = {
-  "오늘은 행복한 하루가 될 거예요!": "./image/Thesun.jpg",
-  "잘하고 있는 당신을 칭찬해요!": "./image/Thesun.jpg",
-  "뭐든지 할 수 있어요!": "./image/Thesun.jpg",
-  "긍정적인 생각으로 시작해보세요!": "./image/Thesun.jpg",
-  "좋은 일이 곧 찾아올 거예요!": "./image/Thesun.jpg",
-  "운동을 마음만 먹고 안하면 안돼요!": "./image/Thesun.jpg",
-  "어떤 일에든 셈을 정확히 해야 해요.": "./image/Thesun.jpg",
-  "마음이 무거운 일이 생기니 속상해요.": "./image/Thesun.jpg",
-  "안 된다고 포기하는 순간에 될 거예요.": "./image/Thesun.jpg",
-  "지겹다고 포기하지 말고 끈기를 가져요.": "./image/Thesun.jpg",
-  "아무도 내 얘기를 믿어주지 않겠어요.": "./image/Thesun.jpg",
-  "세상에 공짜는 없는 법이니 다시 생각해요.": "./image/Thesun.jpg",
-  "내 짜증을 남에게 전가하지 마세요.": "./image/Thesun.jpg",
-  "나를 치장하려고 낭비가 심하면 안돼요.": "./image/Thesun.jpg",
-  "남들이 싫어한다고 나까지 그러면 안 돼요.": "./image/Thesun.jpg"
+  "오늘은 행복한 하루가 될 거예요!": "fortune/image/taroMain.jpg",
+  "잘하고 있는 당신을 칭찬해요!": "fortune/image/taroMain.jpg",
+  "뭐든지 할 수 있어요!": "fortune/image/taroMain.jpg",
+  "긍정적인 생각으로 시작해보세요!": "fortune/image/taroMain.jpg",
+  "좋은 일이 곧 찾아올 거예요!": "fortune/image/taroMain.jpg",
+  "운동을 마음만 먹고 안하면 안돼요!": "fortune/image/taroMain.jpg",
+  "어떤 일에든 셈을 정확히 해야 해요.": "fortune/image/taroMain.jpg",
+  "마음이 무거운 일이 생기니 속상해요.": "fortune/image/taroMain.jpg",
+  "안 된다고 포기하는 순간에 될 거예요.": "fortune/image/taroMain.jpg",
+  "지겹다고 포기하지 말고 끈기를 가져요.": "fortune/image/taroMain.jpg",
+  "아무도 내 얘기를 믿어주지 않겠어요.": "fortune/image/taroMain.jpg",
+  "세상에 공짜는 없는 법이니 다시 생각해요.": "fortune/image/taroMain.jpg",
+  "내 짜증을 남에게 전가하지 마세요.": "fortune/image/taroMain.jpg",
+  "나를 치장하려고 낭비가 심하면 안돼요.": "fortune/image/taroMain.jpg",
+  "남들이 싫어한다고 나까지 그러면 안 돼요.": "fortune/image/taroMain.jpg"
 };
 //오늘의 운세와 퀴즈 버튼 가져온 부분
 const Egg = document.querySelector('.section .lucky .Egg .breakEgg');
@@ -206,22 +206,66 @@ xButton.addEventListener('click', () => {
 
 //------------------------------------------------------------------------------------//
 //계란 뿌시기 js 부분
+//계란 클릭 ! 버튼을 클릭 했을 시 카운트가 증가 하도록 변수 생성
+eggClickCount = 0;
 
 //계란 뿌수기 버튼 가져오기
 const showEgg = document.querySelector('.container1 .section .egg');
 const EggMain = document.querySelector('.container1 .section .egg .eggBtn .eggClickGoMain');
 const EggBtnClick = document.querySelector('.container1 .section .egg .eggBtn .eggclickBtn');
 const EggScore = document.querySelector('.container1 .section .egg .eggScore .eggscore');
-//메인 화면 계란 뿌수기 버튼 눌렀을때 이벤트
-Egg.addEventListener('click',()=>{
-  randomButton.style.display="none";
-  goquiz.style.display='none';
-  Egg.style.display='none';
-  showEgg.style.display='block';
-  EggMain.style.display='none';
+const EggImage = document.querySelector('.container1 .section .egg .egg1');
+const EggText = document.querySelector('.container1 .section .egg .eggBtn .eggText');
+
+
+
+//계란을 뿌수는 클릭!버튼 눌렀을때 스코어가 올라가도록 구현
+EggBtnClick.addEventListener('click',()=>{
+  // console.log('버튼클릭!');
+  eggClickCount ++;
+  EggScore.textContent =`버튼 클릭 횟수:${eggClickCount}`;
+  // console.log(EggScore);
+  
+  //스코어가 100이 되면 사진이 변경 되도록 구현
+  if(eggClickCount === 1){
+    EggText.textContent = '이제 400번 남았습니다!';
+    EggImage.style.backgroundImage ='./image/Eggbreak.png';
+  }if (eggClickCount === 2) {
+    EggImage.style.backgroundImage = './image/AllEggbreak.png';
+    EggText.textContent = '계란을 전부 부셨습니다!';
+    EggBtnClick.style.display='none';
+    EggMain.style.display='block';
+  }
 });
 
-//계란을 뿌수는 클릭!버튼 눌렀을때 이벤트
-EggBtnClick.addEventListener('click',()=>{
+//메인으로 버튼 눌렀을때 이벤트
 
+EggMain.addEventListener('click',()=>{
+  randomButton.style.display ='block';
+  goquiz.style.display='block';
+  Egg.style.display = 'block';
+  EggText.style.display = 'none';
+  EggImage.style.backgroundImage = 'none';
+  EggScore.style.display ='none';
+  showEgg.style.display = 'none';
+  EggBtnClick.disabled = false;
+  eggClickCount = 0; 
+  EggScore.textContent = '버튼 클릭 횟수: 0'; 
+});
+
+//메인 화면 계란 뿌수기 버튼 눌렀을때 이벤트
+Egg.addEventListener('click', () => {
+  randomButton.style.display = "none";
+  goquiz.style.display = 'none';
+  Egg.style.display = 'none';
+  EggMain.style.display = 'none';
+  showEgg.style.display = 'block';
+  EggBtnClick.disabled = false;
+  eggClickCount = 0;
+  EggScore.textContent = '버튼 클릭 횟수: 0';
+  EggText.textContent = '계란을 500번 뿌수세요!';
+  EggText.style.display='block';
+  EggScore.style.display = 'block';
+  EggBtnClick.style.display='block';
+  EggImage.style.backgroundImage = './image/Egg.png';
 });
