@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>나의 캘린더</title>
+    <script src="./assets/scripts/calendar.js" defer></script>
+    <link href="https://cdn.jsdelivr.net/npm/reset-css@5.0.2/reset.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/calendar.css" />
+    <script src="https://kit.fontawesome.com/13b874a53a.js" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <div id="calendar-box">
+      <div class="month-box">
+        <button class="prev-button"><i class="fa-solid fa-chevron-left fa-2xl"></i></button>
+        <div class="monthAndYear">
+          <h2>124</h2>
+          <h1>April</h1>
+        </div>        
+        <button class="next-button"><i class="fa-solid fa-chevron-right fa-2xl"></i></button>
+      </div>
+      <div class="sevenweek">
+        <div class="sevenweek-day red">일</div>
+        <div class="sevenweek-day">월</div>
+        <div class="sevenweek-day">화</div>
+        <div class="sevenweek-day">수</div>
+        <div class="sevenweek-day">목</div>
+        <div class="sevenweek-day">금</div>
+        <div class="sevenweek-day blue">토</div>
+      </div>
+      <div class="date-box"></div>
+    </div>
+
+    <div class="modal-overlay">
+      <div id="calendar-modal">
+        <div class="calendar-modal__header">
+          <button class="header__prev-button"><i class="fa-solid fa-chevron-left fa-2xl"></i></button>
+          <div class="header__year-and-month">
+            <p class="header__year">2000</p>
+            <p class="header__month">July</p>
+          </div>
+          <button class="header__next-button"><i class="fa-solid fa-chevron-right fa-2xl"></i></button>
+          <button class="header__exit-button"><i class="fa-solid fa-xmark fa-2xl"></i></button>
+        </div>
+        <div class="calendar-modal__body">
+          <div class="body__date-box"></div>
+          <div class="body__add-list"></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

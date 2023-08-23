@@ -1,0 +1,221 @@
+/* 구글 폰트 */
+@import url("https://fonts.googleapis.com/css2?family=Chela+One&family=Jua&family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Poppins:wght@300;400;500;600;700;800&display=swap");
+body{
+    font-family: 'Jua';    
+    box-sizing: border-box; 
+    padding: 5vh;   
+}
+
+#calendar-box{
+    width: 800px;
+    height: 800px;
+    /* background: #e7feff; */
+    margin: 0px auto ;
+}
+/*------------------------------------ 2xxx년xx월 박스------------ */
+#calendar-box .month-box{
+    display: flex;
+    flex-flow: row nowrap;
+    /* background: #e7feff; */
+    height: 10%;
+}
+
+/*------------------------------------ 년도 부분 박스 */
+#calendar-box .month-box .monthAndYear{
+    display: flex;
+    flex-flow: row nowrap;
+    flex: 8;
+    font-size: 24px;
+    align-items: center;
+    justify-content: center;
+}
+#calendar-box .month-box .prev-button{
+    flex: 1;
+    border: none;
+    outline: none;
+    background-color: inherit ;
+    cursor: pointer;
+}
+#calendar-box .month-box .next-button{
+    flex: 1;
+    border: none;
+    outline: none;
+    background-color: inherit ;
+    cursor: pointer;
+}
+
+
+/* ------------------------------------ 월화수목금토일 - 일주일 */
+#calendar-box .sevenweek{
+    display: flex;    
+    width: 100%;
+    height: 5%;        
+}
+
+#calendar-box .sevenweek .red{
+    color: #f00;
+}
+#calendar-box .sevenweek .blue{
+    color: #00f;
+}
+
+#calendar-box .sevenweek .sevenweek-day{
+    flex: 1;
+    /* width: 14%; */    
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;    
+}
+
+
+
+/*------------------------------------- 날짜 있는 부분 */
+#calendar-box .date-box{
+    width: 100%;
+    height: 85%;
+    display: flex;
+    flex-flow: row wrap;
+    
+    justify-content: space-around;
+}
+#calendar-box .date-box .date{
+    width: 14%;        
+    height: 16%;   
+    /* background: gold; */
+    text-align: center;
+    color: rgba(0, 0, 0, 1);
+}
+#calendar-box .date-box .date.prevMonth{
+    color: rgba(0, 0, 0, 0.4);
+}
+#calendar-box .date-box .date.nextMonth{
+    color: rgba(0, 0, 0, 0.4);
+}
+#calendar-box .date-box .date.prevMonth.red{
+    color: rgba(255, 0, 0, 0.4);
+}
+#calendar-box .date-box .date.nextMonth.blue{
+    color: rgba(0, 0, 255, 0.4);
+}
+#calendar-box .date-box .date.red{
+    color: #f00;
+}
+#calendar-box .date-box .date.blue{
+    color: #00f;
+}
+
+
+/* 선택된 날짜 */
+#calendar-box .date-box .date.selectdate{
+    box-sizing: border-box;
+    background: #e7feff;
+}
+
+/* -------------------- 모달 오버레이 -------------------- */
+.modal-overlay{
+    top: 0;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+
+    display: none;
+}
+
+
+/* -------------------- 모달 -------------------- */
+#calendar-modal{
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    position:absolute;
+    z-index: 100;
+    width: 1200px;
+    height: 800px;
+    
+
+    display: none;
+    flex-flow: column;
+    background: rgba(0, 255, 0, 0.5);    
+}
+
+/* -------------------- 모달 헤더 -------------------- */
+#calendar-modal .calendar-modal__header{
+    width: 100%;
+    height: 15%;
+    display: flex;
+    background: #e7feff;
+}
+
+#calendar-modal .calendar-modal__header .header__prev-button{
+    flex: 1;
+    border: none;
+    outline: none;
+    background-color: inherit ;
+    cursor: pointer;
+}
+
+#calendar-modal .calendar-modal__header .header__next-button{
+    flex: 1;
+    border: none;
+    outline: none;
+    background-color: inherit ;
+    cursor: pointer;
+}
+
+#calendar-modal .calendar-modal__header .header__year-and-month{
+    display: flex;
+    flex-flow: row nowrap;
+    flex: 6;
+    font-size: 24px;
+    align-items: center;
+    justify-content: center;
+}
+
+#calendar-modal .calendar-modal__header .header__exit-button{    
+    flex: 2;        
+    border: none;
+    outline: none;
+    background-color: inherit ;
+    cursor: pointer;    
+}
+
+/* -------------------- 모달 바디 -------------------- */
+#calendar-modal .calendar-modal__body{
+    background: #fff;
+    width: 100%;
+    height: 85%;
+    display: flex;
+}
+
+#calendar-modal .calendar-modal__body .body__date-box{
+    background: #fff;
+    flex: 7;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;    
+    text-align: center;
+}
+
+#calendar-modal .calendar-modal__body .body__date-box .date{
+    width: 14%;
+    height: 16%;
+    /* background: red; */
+}
+#calendar-modal .calendar-modal__body .body__date-box .date.selectdate{
+    background: greenyellow;
+}
+
+#calendar-modal .calendar-modal__body .body__date-box .date.red{
+    color: #f00;
+}
+
+#calendar-modal .calendar-modal__body .body__date-box .date.blue{
+    color: #00f;
+}
+#calendar-modal .calendar-modal__body .body__add-list{
+    background: rgba(0, 255, 0, 0.5);
+    flex: 3;
+}
