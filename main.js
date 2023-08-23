@@ -54,3 +54,24 @@ fetch('./MusicPlayer/index.html')
             document.head.appendChild(jsSrc);
         }
     });
+
+const centerContent = document.querySelector('.centerContent');
+
+fetch('./bumjun2/index.html')
+    .then(res => res.text())
+    .then(data => {
+        const bodyContent = data.match(/<body[^>]*>([\s\S]*)<\/body>/i);
+
+        if (bodyContent) {
+            centerContent.innerHTML = bodyContent[1];
+
+            const cssLink = document.createElement('link');
+            cssLink.rel = 'stylesheet';
+            cssLink.href = './bumjun2/css/index.css';
+            document.head.appendChild(cssLink);
+
+            const jsSrc = document.createElement('script');
+            jsSrc.src = './bumjun2/js/index.js';
+            document.head.appendChild(jsSrc);
+        }
+    });
