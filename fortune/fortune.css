@@ -170,4 +170,57 @@
 .section .lucky .Egg .breakEgg:hover{
   color: red;
 }
+.container1 .section .egg{
+  background-repeat: no-repeat;
+  text-align: center;
+  width: inherit;
+}
+.container1 .section .egg .eggScore .eggscore{
+  margin-bottom: 30px;
+}
+.container1 .section .egg .egg1{
+  height: 200px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: auto;
+  background-image: url(./image/Egg.png);
+  margin-bottom: 50px;
+}
+.container1 .section .egg .eggBtn .eggText{
+  margin-bottom: 20px;
+}
+.container1 .section .egg .eggBtn .eggclickBtn{
+  margin: 0 auto;
+  background-color: #fce205;
+  color: black;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  padding: 10px 20px;
+  border-radius: 15px;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+.container1 .section .egg .eggBtn .eggclickBtn:hover{
+  color: blue;
+}
+.container1 .section .egg .eggBtn .eggClickGoMain {
+  margin: 0 auto;
+  background-color: #fce205;
+  color: black;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  padding: 10px 20px;
+  border-radius: 15px;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+.container1 .section .egg .eggBtn .eggClickGoMain:hover{
+  color: red;
+}
+
+
+
+
 
