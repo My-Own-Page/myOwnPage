@@ -118,3 +118,25 @@ fetch('./fortune/fortune.html')
             document.head.appendChild($jsSrc);
         }
     });
+
+
+const $weather = document.querySelector('.any1');
+
+fetch('./Weather/index.html')
+    .then(res => res.text())
+    .then(data => {
+        const bodyContent = data.match(/<body[^>]*>([\s\S]*)<\/body>/i);
+        if (bodyContent) {
+            $weather.innerHTML = bodyContent[1];
+
+            const $cssLink = document.createElement('link');
+            $cssLink.rel = 'stylesheet';
+            $cssLink.href = './Weather/assets/styles/app.css';
+            document.head.appendChild($cssLink);
+
+            const jsSrc = document.createElement('script');
+            jsSrc.src = './Weather/assets/scripts/app.js';
+            jsSrc.type = 'module';
+            document.head.appendChild(jsSrc);
+        }
+    });
