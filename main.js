@@ -97,3 +97,24 @@ fetch('./Calendar/calendar.html')
 
         }
     });
+
+
+const $fortune = document.querySelector('.any2');
+
+fetch('./오늘의 운세/오늘의 운세.html')
+    .then(res => res.text())
+    .then(data => {
+        const bodyContent = data.match(/<body[^>]*>([\s\S]*)<\/body>/i);
+        if (bodyContent) {
+            $fortune.innerHTML = bodyContent[1];
+
+            const $cssLink = document.createElement('link');
+            $cssLink.rel = 'stylesheet';
+            $cssLink.href = './오늘의 운세/오늘의 운세.css';
+            document.head.appendChild($cssLink);
+
+            const $jsSrc = document.createElement('script');
+            $jsSrc.src = './오늘의 운세/오늘의 운세.js';
+            document.head.appendChild($jsSrc);
+        }
+    });
