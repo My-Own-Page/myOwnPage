@@ -272,15 +272,18 @@ const renderModal = ({ year, month, date, selectDateId }) => {
 
     const $exitButton = document.querySelector('.header__exit-button').
     addEventListener('click', e=>{
-      console.log(e);      
-      e.stopPropagation();
+      console.log(e);                 
       $modalOverlay.style.display = 'none';
       $calendarModal.style.display = 'none';         
+      e.preventDefault();
     });
     $modalOverlay.addEventListener('click', e=>{
+      console.log(`modal click: ${e.target.classList}`);
+      if(e.target. === 'modal-overlay'){
+        $modalOverlay.style.display = 'none';
+        $calendarModal.style.display = 'none';         
+      }
       e.stopPropagation();
-      $modalOverlay.style.display = 'none';
-      $calendarModal.style.display = 'none';         
     })
   };
 
