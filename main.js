@@ -101,7 +101,7 @@ fetch('./Calendar/calendar.html')
 
 const $fortune = document.querySelector('.any2');
 
-fetch('./오늘의 운세/오늘의 운세.html')
+fetch('./fortune/fortune.html')
     .then(res => res.text())
     .then(data => {
         const bodyContent = data.match(/<body[^>]*>([\s\S]*)<\/body>/i);
@@ -110,11 +110,11 @@ fetch('./오늘의 운세/오늘의 운세.html')
 
             const $cssLink = document.createElement('link');
             $cssLink.rel = 'stylesheet';
-            $cssLink.href = './오늘의 운세/오늘의 운세.css';
+            $cssLink.href = './fortune/fortune.css';
             document.head.appendChild($cssLink);
 
             const $jsSrc = document.createElement('script');
-            $jsSrc.src = './오늘의 운세/오늘의 운세.js';
+            $jsSrc.src = './fortune/fortune.js';
             document.head.appendChild($jsSrc);
         }
     });
