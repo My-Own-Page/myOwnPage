@@ -4,7 +4,7 @@ let month_ = today.getMonth() + 1;
 let date_ = today.getDate();
 let selectdateId = 1;
 // ---------------------------- Handler ----------------------------------
-const prevMonthHandler = (e) => {
+const prevMonthHandler = () => {
   if (month_ === 1) {
     year_ -= 1;
     month_ = 13;
@@ -206,7 +206,6 @@ const insertDate = ({ startDay, lastDay, monthDays, month, dateBoxName }) => {
     $dateBox.querySelector(`.date${i}`).textContent = `${lastDate}`;
     $dateBox.querySelector(`.date${i}`).classList.add('prevMonth');
     lastDate--;
-
   }
 
   //다음달 날짜 만들기
@@ -232,8 +231,6 @@ const renderCalendar = ({ startDay, lastDay, monthDays, month }) => {
 };
 
 const renderModal = ({ year, month, date, selectDateId }) => {
-
-
   const monthDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
   if (year % 400 === 0) {
     monthDays[1] = 29;
@@ -245,6 +242,21 @@ const renderModal = ({ year, month, date, selectDateId }) => {
 
   console.log(`${year}년${month}월${date}일 ${selectDateId}`);
 
+  // ------------------------- 모달 지난달 핸들러 ----------------------------
+  const prevModalMonthHandler = () => {
+    console.log(month);
+    if (month === 1) {
+      year -= 1;
+      month = 13;
+    }
+    renderModalDate();
+    renderModalYearAndMonth();
+    for (i = 1; i <= 42; i++) {
+      document.querySelector(`.date${i}`).classList.remove('selectdate');
+    }
+  };
+
+  // ------------------------- 모달 년월 값 넣기 ----------------------------
   const renderModalYearAndMonth = () => {
     const $modalYearTitle = document.querySelector(
       '.header__year-and-month .header__year'
@@ -256,37 +268,35 @@ const renderModal = ({ year, month, date, selectDateId }) => {
     $modalMonthTitle.textContent = `${month}월`;
   };
 
+  // ------------------------- 모달 날짜 입력 ----------------------------
   const renderModalDate = () => {
     insertDate({
       startDay: selectDateId - date + 1,
       lastDay: monthDays[month - 1],
       monthDays: monthDays,
       month,
-      dateBoxName: '.body__date-box'
+      dateBoxName: '.body__date-box',
     });
   };
-
+  // ------------------------- 모달 탈출 함수 ----------------------------
   const exitModal = () => {
     const $modalOverlay = document.querySelector('.modal-overlay');
     const $calendarModal = document.getElementById('calendar-modal');
 
-    const $exitButton = document.querySelector('.header__exit-button').
-      addEventListener('click', e => {
-        console.log(e);
+    const $exitButton = document
+      .querySelector('.header__exit-button')
+      .addEventListener('click', (e) => {
         $modalOverlay.style.display = 'none';
         $calendarModal.style.display = 'none';
         e.preventDefault();
       });
-    $modalOverlay.addEventListener('click', e => {
-      console.log(`modal click: ${e.target.classList}`);
-      // if(e.target. === 'modal-overlay'){
-      //   $modalOverlay.style.display = 'none';
-      //   $calendarModal.style.display = 'none';         
-      // }
-      e.stopPropagation();
-    });
   };
 
+  // ------------------------- 모달 지난달 다음달 함수 ----------------------------
+
+  const $modalPrevButton = document.querySelector('.header__prev-button');
+  $modalPrevButton.addEventListener('click', prevModalMonthHandler);
+  
   renderModalYearAndMonth();
   renderModalDate();
   exitModal();
