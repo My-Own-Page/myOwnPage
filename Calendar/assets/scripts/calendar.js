@@ -3,12 +3,20 @@ let year_ = today.getFullYear();
 let month_ = today.getMonth() + 1;
 let date_ = today.getDate();
 let selectdateId = 1;
+let choiceYear =0;
+let choiceMonth = 0;
+let choiceDate = 0;
 // ---------------------------- Handler ----------------------------------
-const prevMonthHandler = () => {
+const prevMonthHandler = (e) => {
   if (month_ === 1) {
     year_ -= 1;
     month_ = 13;
   }
+  // choiceSelectDate({
+  //   validYear : year_,
+  //   validMonth: month_,
+  //   validDate: e.target.closest('#calendar-box').querySelector('.date-box')
+  // });
   renderCalendar(
     calcDate({
       year: year_,
@@ -21,7 +29,7 @@ const prevMonthHandler = () => {
   }
 };
 
-const nextMonthHandler = (e) => {
+const nextMonthHandler = () => {
   if (month_ === 12) {
     year_ += 1;
     month_ = 0;
@@ -50,6 +58,7 @@ const clickDateHandler = (e) => {
   $calendarModalOverlay.style.display = 'flex';
   $calendarModal.style.display = 'flex';
 
+  
   renderModal({
     year: year_,
     month: month_,
@@ -59,6 +68,15 @@ const clickDateHandler = (e) => {
 };
 
 // ---------------------------------Function------------------------------- //
+// const choiceSelectDate = () =>{
+//   const $dateBox = document.querySelector('.date-box');  
+
+//   if( choiceYear ===  && choiceMonth === && choiceDate === ){
+
+//   }
+
+// }
+
 const calcDate = ({ year, month, date }) => {
   // 올해
   let calendarYear = year;
@@ -191,9 +209,6 @@ const insertDate = ({ startDay, lastDay, monthDays, month, dateBoxName }) => {
       $dateBox.querySelector(`.date${i}`).classList.remove('prevMonth');
       $dateBox.querySelector(`.date${i}`).classList.remove('nextMonth');
 
-      if (i - startDay + 1 === date_) {
-        $dateBox.querySelector(`.date${i}`).classList.add('selectdate');
-      }
       startDate++;
     }
   }
@@ -231,6 +246,9 @@ const renderCalendar = ({ startDay, lastDay, monthDays, month }) => {
 };
 
 const renderModal = ({ year, month, date, selectDateId }) => {
+  modalYear = year;
+  modalMonth = month;
+  let monthFirstDate = new Date(modalYear, modalMonth-1, 1).getDay() +1;
   const monthDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
   if (year % 400 === 0) {
     monthDays[1] = 29;
@@ -240,15 +258,31 @@ const renderModal = ({ year, month, date, selectDateId }) => {
     monthDays[1] = 29;
   }
 
-  console.log(`${year}년${month}월${date}일 ${selectDateId}`);
+  // console.log(`${year}년${month}월${date}일 ${selectDateId}`); 확인용
 
   // ------------------------- 모달 지난달 핸들러 ----------------------------
-  const prevModalMonthHandler = () => {
-    console.log(month);
-    if (month === 1) {
-      year -= 1;
-      month = 13;
+  const prevModalMonthHandler = () => {        
+    if (modalMonth === 1) {
+      modalYear -= 1;
+      modalMonth = 13;
     }
+    --modalMonth;    
+    monthFirstDate = new Date(modalYear, modalMonth-1, 1).getDay() +1;
+    renderModalDate();
+    renderModalYearAndMonth();
+    for (i = 1; i <= 42; i++) {
+      document.querySelector(`.date${i}`).classList.remove('selectdate');
+    }
+  };
+
+  // ------------------------- 모달 다음달 핸들러 ----------------------------
+  const nextModalMonthHandler = () => {        
+    if (modalMonth === 12) {
+      modalYear += 1;
+      modalMonth = 0;
+    }
+    modalMonth ++;
+    monthFirstDate = new Date(modalYear, modalMonth-1, 1).getDay() +1;
     renderModalDate();
     renderModalYearAndMonth();
     for (i = 1; i <= 42; i++) {
@@ -264,17 +298,17 @@ const renderModal = ({ year, month, date, selectDateId }) => {
     const $modalMonthTitle = document.querySelector(
       '.header__year-and-month .header__month'
     );
-    $modalYearTitle.textContent = `${year}년`;
-    $modalMonthTitle.textContent = `${month}월`;
+    $modalYearTitle.textContent = `${modalYear}년`;
+    $modalMonthTitle.textContent = `${modalMonth}월`;
   };
 
   // ------------------------- 모달 날짜 입력 ----------------------------
   const renderModalDate = () => {
     insertDate({
-      startDay: selectDateId - date + 1,
-      lastDay: monthDays[month - 1],
+      startDay: monthFirstDate,
+      lastDay: monthDays[modalMonth - 1],
       monthDays: monthDays,
-      month,
+      month: modalMonth,
       dateBoxName: '.body__date-box',
     });
   };
@@ -292,11 +326,13 @@ const renderModal = ({ year, month, date, selectDateId }) => {
       });
   };
 
-  // ------------------------- 모달 지난달 다음달 함수 ----------------------------
+
+
 
   const $modalPrevButton = document.querySelector('.header__prev-button');
   $modalPrevButton.addEventListener('click', prevModalMonthHandler);
-  
+  const $modalNextButton = document.querySelector('.header__next-button');
+  $modalNextButton.addEventListener('click', nextModalMonthHandler);
   renderModalYearAndMonth();
   renderModalDate();
   exitModal();

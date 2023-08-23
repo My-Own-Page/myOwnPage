@@ -252,7 +252,63 @@ body {
 #calendar-modal .calendar-modal__body .body__date-box .date.blue {  
   color: #00f;
 }
+
+
+/* -------------------- 모달 바디 우측 리스트 -------------------- */
 #calendar-modal .calendar-modal__body .body__add-list {
   background: rgba(0, 255, 0, 0.5);
   flex: 3;
+  display: flex;
+  flex-flow: column;
+}
+
+#calendar-modal .calendar-modal__body .body__add-list .item-box{
+  display: flex;
+  flex: 9;
+}
+
+#calendar-modal .calendar-modal__body .body__add-list .item-box .item{
+  display: flex;
+  width: 90%;
+  height: 15%;
+  margin: 0px auto;
+  border: 1px solid #000;
+  border-radius: 20px;
+}
+
+#calendar-modal .calendar-modal__body .body__add-list .item-box .item .item-text{
+  display: flex;
+  flex-flow: column;
+  flex: 8;
+  /* background: #fff; */
+  height: 100%;
+  justify-content: space-between;    
+  border-radius: 20px;
+}
+#calendar-modal .calendar-modal__body .body__add-list .item-box .item .item-time{
+  /* background: orange;   */
+  text-align: right;
+  flex: 2;    
+  border-radius: 20px;
+}
+#calendar-modal .calendar-modal__body .body__add-list .item-box .item .item-context{
+  background: orangered;
+  flex: 8;
+  font-size: 32px;
+  text-align: center;  
+  border-radius: 20px;
+  
+}
+
+#calendar-modal .calendar-modal__body .body__add-list .item-box .item .item-edit{
+  flex: 1;
+  outline: 0;
+  border: 0px solid #000;
+  background: inherit;
+}
+#calendar-modal .calendar-modal__body .body__add-list .item-box .item .item-delete{
+  flex: 1;
+  outline: 0;
+  border: 0px solid #000;
+  background: inherit;
 }
