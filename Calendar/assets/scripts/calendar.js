@@ -115,14 +115,14 @@ const makeDate = () => {
   for (let i = 1; i <= 42; i++) {
     const $emptyDate = document.createElement('div');
     if (i === 1 || i === 8 || i === 15 || i === 22 || i === 29 || i === 36) {
-      $emptyDate.classList.add('red');      
+      $emptyDate.classList.add('red');
     }
     if (i === 7 || i === 14 || i === 21 || i === 28 || i === 35 || i === 42) {
       $emptyDate.classList.add('blue');
     }
     $emptyDate.classList.add('date');
     $emptyDate.classList.add(`date${i}`);
-    $emptyDate.textContent ='날짜';
+    $emptyDate.textContent = '날짜';
     $emptyDate.dataset.id = i;
     // $emptyDate.addEventListener('click', clickDateHandler);
     $dateBox2.appendChild($emptyDate);
@@ -185,16 +185,16 @@ const insertDate = ({ startDay, lastDay, monthDays, month, dateBoxName }) => {
 
   for (let i = startDay; i <= lastDay + startDay - 1; i++) {
     const $dateElement = $dateBox.querySelector(`.date${i}`);
-    if($dateElement){
-    $dateElement.textContent = `${startDate}`;  
-    $dateBox.querySelector(`.date${i}`).textContent = `${startDate}`;
-    $dateBox.querySelector(`.date${i}`).classList.remove('prevMonth');
-    $dateBox.querySelector(`.date${i}`).classList.remove('nextMonth');
-    
-    if (i - startDay + 1 === date_) {
-      $dateBox.querySelector(`.date${i}`).classList.add('selectdate');
-    }
-    startDate++;
+    if ($dateElement) {
+      $dateElement.textContent = `${startDate}`;
+      $dateBox.querySelector(`.date${i}`).textContent = `${startDate}`;
+      $dateBox.querySelector(`.date${i}`).classList.remove('prevMonth');
+      $dateBox.querySelector(`.date${i}`).classList.remove('nextMonth');
+
+      if (i - startDay + 1 === date_) {
+        $dateBox.querySelector(`.date${i}`).classList.add('selectdate');
+      }
+      startDate++;
     }
   }
   //지난달 날짜 만들기
@@ -202,11 +202,11 @@ const insertDate = ({ startDay, lastDay, monthDays, month, dateBoxName }) => {
     month = 13;
   }
   let lastDate = monthDays[month - 2];
-  for (let i = startDay - 1; i > 0; i--) {    
+  for (let i = startDay - 1; i > 0; i--) {
     $dateBox.querySelector(`.date${i}`).textContent = `${lastDate}`;
     $dateBox.querySelector(`.date${i}`).classList.add('prevMonth');
     lastDate--;
-  
+
   }
 
   //다음달 날짜 만들기
@@ -232,7 +232,7 @@ const renderCalendar = ({ startDay, lastDay, monthDays, month }) => {
 };
 
 const renderModal = ({ year, month, date, selectDateId }) => {
-  
+
 
   const monthDays = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
   if (year % 400 === 0) {
@@ -261,30 +261,30 @@ const renderModal = ({ year, month, date, selectDateId }) => {
       startDay: selectDateId - date + 1,
       lastDay: monthDays[month - 1],
       monthDays: monthDays,
-      month,      
+      month,
       dateBoxName: '.body__date-box'
     });
   };
 
-  const exitModal = () =>{
+  const exitModal = () => {
     const $modalOverlay = document.querySelector('.modal-overlay');
     const $calendarModal = document.getElementById('calendar-modal');
 
     const $exitButton = document.querySelector('.header__exit-button').
-    addEventListener('click', e=>{
-      console.log(e);                 
-      $modalOverlay.style.display = 'none';
-      $calendarModal.style.display = 'none';         
-      e.preventDefault();
-    });
-    $modalOverlay.addEventListener('click', e=>{
-      console.log(`modal click: ${e.target.classList}`);
-      if(e.target. === 'modal-overlay'){
+      addEventListener('click', e => {
+        console.log(e);
         $modalOverlay.style.display = 'none';
-        $calendarModal.style.display = 'none';         
-      }
+        $calendarModal.style.display = 'none';
+        e.preventDefault();
+      });
+    $modalOverlay.addEventListener('click', e => {
+      console.log(`modal click: ${e.target.classList}`);
+      // if(e.target. === 'modal-overlay'){
+      //   $modalOverlay.style.display = 'none';
+      //   $calendarModal.style.display = 'none';         
+      // }
       e.stopPropagation();
-    })
+    });
   };
 
   renderModalYearAndMonth();

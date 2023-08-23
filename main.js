@@ -75,3 +75,25 @@ fetch('./bumjun2/index.html')
             document.head.appendChild(jsSrc);
         }
     });
+
+const $calendar = document.querySelector('.calendar');
+
+fetch('./Calendar/calendar.html')
+    .then(res => res.text())
+    .then(data => {
+        const bodyContent = data.match(/<body[^>]*>([\s\S]*)<\/body>/i);
+        if (bodyContent) {
+            $calendar.innerHTML = bodyContent[1];
+
+            // Load the associated CSS separately
+            const $cssLink = document.createElement('link');
+            $cssLink.rel = 'stylesheet';
+            $cssLink.href = './Calendar/assets/css/calendar.css'; // Adjust the path based on your project structure
+            document.head.appendChild($cssLink);
+
+            const $jsSrc = document.createElement('script');
+            $jsSrc.src = './Calendar/assets/scripts/calendar.js';
+            document.head.appendChild($jsSrc);
+
+        }
+    });
