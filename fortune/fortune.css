@@ -174,17 +174,50 @@
 .container1 .section .egg{
   background-repeat: no-repeat;
   text-align: center;
-  width: inherit;
+  background-position: center center;
+  padding-right: 50px;
 }
 .container1 .section .egg .eggScore .eggscore{
   margin-bottom: 30px;
 }
 .container1 .section .egg .egg1{
+  background-position: center;
+}
+.container1 .section .egg .egg1 .eggimage{
+  width: 200px;
   height: 200px;
   background-position: center;
   background-repeat: no-repeat;
-  background-size: auto;
+  background-size: contain;
   background-image: url(./image/Egg.png);
+  margin-bottom: 50px;
+  
+}
+.container1 .section .egg .egg1 .eggimage{
+  width: 200px;
+  height: 200px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-image: url(./image/Egg.png);
+  margin-bottom: 50px;
+}
+.container1 .section .egg .egg1 .eggimage1{
+  width: 200px;
+  height: 200px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-image: url(./image/Eggbreak.png);
+  margin-bottom: 50px;
+}
+.container1 .section .egg .egg1 .eggimage2{
+  width: 200px;
+  height: 200px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-image: url(./image/AllEggbreak.png);
   margin-bottom: 50px;
 }
 .container1 .section .egg .eggBtn .eggText{
@@ -220,7 +253,15 @@
 .container1 .section .egg .eggBtn .eggClickGoMain:hover{
   color: red;
 }
+@keyframes shake {
+  from { transform: translateX(-5em); }
+  to { transform: translateX(5em); }
+}
 
+.shaking {
+  animation: shake 0.1s infinite alternate;
+
+  }
 
 
 
