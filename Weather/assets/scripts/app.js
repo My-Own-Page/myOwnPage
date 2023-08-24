@@ -57,7 +57,7 @@ function saveCoords(coordsObj) {
 function getWeatherIconAndText(weatherMain) {
   const iconMappings = {
     Rain: { border: 'fa-solid', icon: 'fa-cloud-rain', text: '비' },
-    Clouds: { border: 'fa-solid', icon: 'fa-cloud', text: '구름' },
+    Clouds: { border: 'fa-solid', icon: 'fa-cloud', text: '흐림' },
     Drizzle: { border: 'fa-light', icon: 'fa-cloud-rain', text: '이슬비' },
     Thunderstorm: { border: 'fa-light', icon: 'fa-cloud-bolt', text: '뇌우' },
     Snow: { border: 'fa-light', icon: 'fa-snowflake', text: '눈' },
@@ -83,7 +83,7 @@ function getWeather(lat, lon) {
 
       const $icoLi = document.createElement('ii');
       const $textLi = document.createElement('li');
-      const $tempLi = document.createElement('li');
+      const $humWindLi = document.createElement('li');
       if (json.weather && json.weather[0] && json.weather[0].main) {
         const weatherMain = json.weather[0].main;
         console.log('Weather Main:', weatherMain);
@@ -98,19 +98,43 @@ function getWeather(lat, lon) {
           $weatherIco.classList.add(icon);
           $icoLi.appendChild($weatherIco);
 
-          // const $weatherText = document.createElement('p');
           $textLi.textContent = text;
           $textLi.classList.add('weather-text');
-          // $textLi.appendChild($weatherText);
         }
       }
       const temp = json.main.temp.toFixed(1) + '°C';
       console.log(temp);
-      $tempLi.append(temp);
-      $tempLi.classList.add('temp-text');
+      $icoLi.append(temp);
+      $icoLi.classList.add('weather-ico-temp');
 
-      $weatherUl.append($icoLi, $textLi, $tempLi);
+      const hum = json.main.humidity + '%';
+
+      const $humText = document.createElement('span');
+      $humText.textContent = '습도';
+      $humText.classList.add('gray-text');
+
+      $humWindLi.appendChild($humText);
+      $humWindLi.append(hum);
+      $humWindLi.classList.add('hum-text');
+
+
+
+      if (json.wind && json.wind.deg) {
+        const $windText = document.createElement('span');
+        const windDirection = getWindDirection(json.wind.deg) + '풍 ';
+        $windText.textContent = windDirection;
+        $windText.classList.add('gray-text');
+        if (json.wind && json.wind.speed) {
+          const windDirectionSpeed = json.wind.speed + 'm/s';
+          console.log(windDirectionSpeed);
+          $humWindLi.append($windText, windDirectionSpeed);
+        }
+
+      }
+      $weatherUl.append($icoLi, $textLi, $humWindLi);
     });
+
+
 }
 
 // Google Maps API 요청을 별도로 만들어 사용
@@ -128,7 +152,7 @@ function getGoogleMapsData(lat, lon) {
             const $cityName = document.createElement('li');
             $cityName.textContent = component.long_name + '의 날씨';
             $cityName.classList.add('city');
-            $weatherUl.appendChild($cityName);
+            $weatherUl.insertBefore($cityName, $weatherUl.firstChild);
           }
         }
       } else {
@@ -138,4 +162,25 @@ function getGoogleMapsData(lat, lon) {
     .catch((error) => {
       console.error("Error fetching Google Maps data:", error);
     });
+}
+
+
+function getWindDirection(degrees) {
+  if (degrees >= 337.5 || degrees < 22.5) {
+    return "북";
+  } else if (degrees >= 22.5 && degrees < 67.5) {
+    return "북동";
+  } else if (degrees >= 67.5 && degrees < 112.5) {
+    return "동";
+  } else if (degrees >= 112.5 && degrees < 157.5) {
+    return "남동";
+  } else if (degrees >= 157.5 && degrees < 202.5) {
+    return "남";
+  } else if (degrees >= 202.5 && degrees < 247.5) {
+    return "남서";
+  } else if (degrees >= 247.5 && degrees < 292.5) {
+    return "서";
+  } else if (degrees >= 292.5 && degrees < 337.5) {
+    return "북서";
+  }
 }
