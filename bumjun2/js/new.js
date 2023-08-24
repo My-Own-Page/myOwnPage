@@ -98,8 +98,6 @@ const randomBlock = () => {
   }
 };
 
-const randomBlockShap = () => {};
-
 const getBlockEndRow = (shape) => {
   const blockShape = blockShapes[shape];
   let endRow = 0;
@@ -111,6 +109,41 @@ const getBlockEndRow = (shape) => {
     }
   }
   return endRow;
+};
+
+const isCollision = (shape, newRow, newCol) => {
+  const blockShape = blockShapes[shape];
+  for (let r = 0; r < blockShape.length; r++) {
+    for (let c = 0; c < blockShape[r].length; c++) {
+      if (blockShape[r][c] === 1) {
+        const checkRow = newRow + r;
+        const checkCol = newCol + c;
+        if (
+          checkRow >= row ||
+          checkCol < 0 ||
+          checkCol >= col ||
+          $box.children[checkCol].children[checkRow].classList.contains(
+            'locked'
+          )
+        ) {
+          return true;
+        }
+      }
+    }
+  }
+  return false;
+};
+
+const lockBlock = (shape, newRow, newCol) => {
+  const blockShape = blockShapes[shape];
+  for (let r = 0; r < blockShape.length; r++) {
+    for (let c = 0; c < blockShape[r].length; c++) {
+      if (blockShape[r][c] === 1) {
+        const cell = $box.children[newCol + c].children[newRow + r];
+        cell.classList.add('locked', currentColor);
+      }
+    }
+  }
 };
 
 const makeBlock = () => {
@@ -128,12 +161,13 @@ const makeBlock = () => {
       currentShape = 'Square';
     }
     const endRow = getBlockEndRow(currentShape);
-    if (endRow < row - 1) {
+    if (endRow >= row - 1 || isCollision(currentShape, newRow + 1, newCol)) {
+      lockBlock(currentShape, newRow, newCol);
+      newRow = 0;
+    } else {
       newRow++;
       rowSize = newRow - 1;
       randomBlock();
-    } else {
-      newRow = 0;
     }
 
     // newRow++;
@@ -152,7 +186,7 @@ const startGame = () => {
 
   createBlock();
 
-  intervalId = setInterval(makeBlock, 50);
+  intervalId = setInterval(makeBlock, 300);
   document.addEventListener('keydown', handlerKeyDown);
 };
 
