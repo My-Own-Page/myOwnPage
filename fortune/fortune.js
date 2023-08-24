@@ -209,7 +209,7 @@ xButton.addEventListener('click', () => {
 //계란 뿌시기 js 부분
 //계란 클릭 ! 버튼을 클릭 했을 시 카운트가 증가 하도록 변수 생성
 eggClickCount = 0;
-
+EggCount = 500;
 //계란 뿌수기 버튼 가져오기
 const showEgg = document.querySelector('.container1 .section .egg');
 const EggMain = document.querySelector('.container1 .section .egg .eggBtn .eggClickGoMain');
@@ -225,12 +225,14 @@ const EggText = document.querySelector('.container1 .section .egg .eggBtn .eggTe
 EggBtnClick.addEventListener('click',()=>{
   // console.log('버튼클릭!');
   eggClickCount ++;
+  EggCount --;
   EggScore.textContent =`버튼 클릭 횟수:${eggClickCount}`;
+  EggText.textContent = `이제 ${EggCount}번 남았습니다!`;
   // console.log(EggScore);
   
   //스코어가 200이 되면 사진이 변경 되도록 구현
   if(eggClickCount === 200){
-    EggText.textContent = '이제 300번 남았습니다!';
+    EggText.textContent = `이제 ${EggCount}번 남았습니다!`;
     EggImage.style.display ='none';
     EggImage1.style.display ='block';
     EggImage2.style.display ='none';
@@ -272,8 +274,9 @@ Egg.addEventListener('click', () => {
   showEgg.style.display = 'block';
   EggBtnClick.disabled = false;
   eggClickCount = 0;
+  eggClickCount++;
   EggScore.textContent = '버튼 클릭 횟수: 0';
-  EggText.textContent = '계란을 500번 뿌수세요!';
+  EggText.textContent = `이제 ${EggCount}번 남았습니다!`;
   EggText.style.display='block';
   EggScore.style.display = 'block';
   EggBtnClick.style.display='block';
