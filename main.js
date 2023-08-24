@@ -140,3 +140,24 @@ fetch('./Weather/index.html')
             document.head.appendChild(jsSrc);
         }
     });
+
+
+const $greeting = document.querySelector('.greeting');
+
+fetch('./Greeting/index.html')
+    .then(res => res.text())
+    .then(data => {
+        const bodyContent = data.match(/<body[^>]*>([\s\S]*)<\/body>/i);
+        if (bodyContent) {
+            $greeting.innerHTML = bodyContent[1];
+
+            const $cssLink = document.createElement('link');
+            $cssLink.rel = 'stylesheet';
+            $cssLink.href = './Greeting/assets/styles/app.css';
+            document.head.appendChild($cssLink);
+
+            const jsSrc = document.createElement('script');
+            jsSrc.src = './Greeting/assets/scripts/app.js';
+            document.head.appendChild(jsSrc);
+        }
+    });
