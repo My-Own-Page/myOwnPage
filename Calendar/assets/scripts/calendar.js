@@ -6,6 +6,24 @@ let selectdateId = 1;
 let choiceYear =0;
 let choiceMonth = 0;
 let choiceDate = 0;
+
+// ---------------------------- Schedule ----------------------------------
+const schedule = [
+  {
+    startYear : 2000,
+    startMonth : 8,
+    startDate : 10,
+    endYear : 2000,
+    endMonth : 8,
+    endDate : 10,
+    startHour: 1,
+    startMinute: 30,
+    endHour: 1,
+    endMinute: 30,
+    context : '',
+  }
+];
+
 // ---------------------------- Handler ----------------------------------
 const prevMonthHandler = (e) => {
   if (month_ === 1) {
@@ -289,6 +307,11 @@ const renderModal = ({ year, month, date, selectDateId }) => {
       document.querySelector(`.date${i}`).classList.remove('selectdate');
     }
   };
+  // ------------------------- 리스트 추가 핸들러 ----------------------------
+  const showAddListHandler = () =>{
+    const $addListModal = document.querySelector('#calendar-modal .add-list-modal');
+    $addListModal.style.display = 'flex';
+  }
 
   // ------------------------- 모달 년월 값 넣기 ----------------------------
   const renderModalYearAndMonth = () => {
@@ -325,10 +348,40 @@ const renderModal = ({ year, month, date, selectDateId }) => {
         e.preventDefault();
       });
   };
+  // ------------------------- 일정추가 ------------------------------------
+  const addListModal = () =>{
+    const $addListModal = document.querySelector('.add-list-modal')
+    const $addListExitButton = document.querySelector('#calendar-modal .add-list-modal button.exit-button');
+    const $addListAddButton = document.querySelector('#calendar-modal .add-list-modal .list-context-container .list-context-button');
+    console.log($addListAddButton);
+    // 일정 추가 모달 나가기
+    const exitAddListHandler = (e) =>{
+      const $addListModal = document.querySelector('#calendar-modal .add-list-modal');
+      $addListModal.style.display = 'none';
+      e.preventDefault();
+    };
+    // 일정 추가 모달에서 일정 추가
+    const addDateListHandler = (e) =>{      
+      const $startDate = $addListModal.querySelector('.start-date');
+      const $endDate = $addListModal.querySelector('.end-date');
+      const $starTime = $addListModal.querySelector('.start-time');
+      const $endTime = $addListModal.querySelector('.end-time');
+      console.log(`startDate: ${$startDate.value},  `);
+      e.preventDefault();
+    }
+
+    
+
+    $addListExitButton.addEventListener('click', exitAddListHandler);
+    $addListAddButton.addEventListener('click', addDateListHandler);
+
+  };
 
 
 
 
+  const $modalAddListButton = document.querySelector('.add-button');
+  $modalAddListButton.addEventListener('click', showAddListHandler);
   const $modalPrevButton = document.querySelector('.header__prev-button');
   $modalPrevButton.addEventListener('click', prevModalMonthHandler);
   const $modalNextButton = document.querySelector('.header__next-button');
@@ -336,6 +389,7 @@ const renderModal = ({ year, month, date, selectDateId }) => {
   renderModalYearAndMonth();
   renderModalDate();
   exitModal();
+  addListModal();
 };
 
 // ------------------------- 실행부 ----------------------------
