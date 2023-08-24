@@ -6,10 +6,12 @@ let selectdateId = 1;
 let choiceYear =0;
 let choiceMonth = 0;
 let choiceDate = 0;
+let selecetDateFullId = '';
 
 // ---------------------------- Schedule ----------------------------------
 const schedule = [
   {
+    key: '2023-03-01',
     startYear : 2000,
     startMonth : 8,
     startDate : 10,
@@ -34,7 +36,7 @@ const prevMonthHandler = (e) => {
   //   validYear : year_,
   //   validMonth: month_,
   //   validDate: e.target.closest('#calendar-box').querySelector('.date-box')
-  // });
+  // });  
   renderCalendar(
     calcDate({
       year: year_,
@@ -83,6 +85,7 @@ const clickDateHandler = (e) => {
     date: Number(e.target.textContent),
     selectDateId: selectdateId,
   });
+  setSelecetDateFullId(year_, month_, e.target.textContent);
 };
 
 // ---------------------------------Function------------------------------- //
@@ -94,6 +97,10 @@ const clickDateHandler = (e) => {
 //   }
 
 // }
+
+const todayColor=() => {
+
+}
 
 const calcDate = ({ year, month, date }) => {
   // 올해
@@ -228,6 +235,7 @@ const insertDate = ({ startDay, lastDay, monthDays, month, dateBoxName }) => {
       $dateBox.querySelector(`.date${i}`).classList.remove('nextMonth');
 
       startDate++;
+      
     }
   }
   //지난달 날짜 만들기
@@ -352,8 +360,7 @@ const renderModal = ({ year, month, date, selectDateId }) => {
   const addListModal = () =>{
     const $addListModal = document.querySelector('.add-list-modal')
     const $addListExitButton = document.querySelector('#calendar-modal .add-list-modal button.exit-button');
-    const $addListAddButton = document.querySelector('#calendar-modal .add-list-modal .list-context-container .list-context-button');
-    console.log($addListAddButton);
+    const $addListAddButton = document.querySelector('#calendar-modal .add-list-modal .list-context-container .list-context-button');    
     // 일정 추가 모달 나가기
     const exitAddListHandler = (e) =>{
       const $addListModal = document.querySelector('#calendar-modal .add-list-modal');
@@ -362,12 +369,44 @@ const renderModal = ({ year, month, date, selectDateId }) => {
     };
     // 일정 추가 모달에서 일정 추가
     const addDateListHandler = (e) =>{      
+      e.preventDefault();
       const $startDate = $addListModal.querySelector('.start-date');
       const $endDate = $addListModal.querySelector('.end-date');
-      const $starTime = $addListModal.querySelector('.start-time');
+      const $startTime = $addListModal.querySelector('.start-time');
       const $endTime = $addListModal.querySelector('.end-time');
-      console.log(`startDate: ${$startDate.value},  `);
-      e.preventDefault();
+      const $listContext = $addListModal.querySelector('.list-context');
+      console.log(`startDate: ${$startDate.value}, endDate: ${$endDate.value}, startTime: ${$startTime.value}, endTime: ${$endTime.value}`);
+      const whatIsStartYearMonthDate = $startDate.value.split('-');      
+      const whatIsEndYearMonthDate = $endDate.value.split('-');
+      const whatIsStartTime = $startTime.value.split(':');
+      const whatIsEndTime = $endTime.value.split(':');
+      const startYear =  whatIsStartYearMonthDate[0];
+      const startMonth = whatIsStartYearMonthDate[1];
+      const startDate = whatIsStartYearMonthDate[2];
+      const endYear = whatIsEndYearMonthDate[0];
+      const endMonth = whatIsEndYearMonthDate[1];
+      const endDate = whatIsEndYearMonthDate[2];
+      const startHour = whatIsStartTime[0];
+      const startMinute = whatIsStartTime[1];
+      const endHour = whatIsEndTime[0];
+      const endMinute = whatIsEndTime[1];
+      const context = $listContext.value;
+      schedule.push({
+        key: $startDate.value,
+        startYear,
+        startMonth,
+        startDate,
+        endYear,
+        endMonth,
+        endDate,
+        startHour,
+        startMinute,
+        endHour,
+        endMinute,
+        context 
+      });
+      console.log(schedule);
+      $addListModal.style.display = 'none';
     }
 
     
@@ -392,8 +431,22 @@ const renderModal = ({ year, month, date, selectDateId }) => {
   addListModal();
 };
 
+const setSelecetDateFullId = (year, month, date) =>{
+  if(String(month).length===1 && String(date).length===1){
+    selecetDateFullId= `${year}-0${month}-0${date}`;  
+  }else if(String(month).length === 1 ){
+    selecetDateFullId= `${year}-0${month}-${date}`;  
+  }else if(String(date).length===1){
+    selecetDateFullId= `${year}-${month}-0${date}`;  
+  }else{
+    selecetDateFullId=`${year}-${month}-${date}`;  
+  }
+  console.log(selecetDateFullId);  
+};
 // ------------------------- 실행부 ----------------------------
 const start = () => {
+  setSelecetDateFullId(year_, month_, date_);
+  todayColor();
   makeDate();
   renderCalendar(
     calcDate({
