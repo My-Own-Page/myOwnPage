@@ -13,7 +13,7 @@ let newCol = 4;
 let speed = 500;
 
 let currentColor = '';
-const colors = ['blue', 'red', 'green', 'yellow', 'orange', 'purple'];
+const colors = ['blue', 'red', 'green', 'yellow', 'orange', 'purple', 'pink'];
 const blockShapes = {
   I: [
     [1, 1, 1, 1],
@@ -34,6 +34,16 @@ const blockShapes = {
   i: [
     [0, 0, 1],
     [1, 1, 1],
+    [0, 0, 0],
+  ],
+  Z: [
+    [1, 1, 0],
+    [0, 1, 1],
+    [0, 0, 0],
+  ],
+  V: [
+    [0, 1, 1],
+    [1, 1, 0],
     [0, 0, 0],
   ],
   Square: [
@@ -110,6 +120,12 @@ const randomBlock = () => {
   } else if (currentColor === 'orange') {
     removeCurrentColor('i');
     drawBlock('i');
+  } else if (currentColor === 'purple') {
+    removeCurrentColor('Z');
+    drawBlock('Z');
+  } else {
+    removeCurrentColor('V');
+    drawBlock('V');
   }
 };
 
@@ -173,7 +189,12 @@ const makeBlock = () => {
       currentShape = 'Square';
     } else if (currentColor === 'orange') {
       currentShape = 'i';
+    } else if (currentColor === 'purple') {
+      currentShape = 'Z';
+    } else {
+      currentShape = 'V';
     }
+
     const endRow = getBlockEndRow(currentShape);
     if (endRow >= row - 1 || isCollision(currentShape, newRow + 1, newCol)) {
       lockBlock(currentShape, newRow, newCol);
@@ -185,6 +206,7 @@ const makeBlock = () => {
     }
   } else {
     newRow = 0;
+    newCol = 4;
   }
 };
 
