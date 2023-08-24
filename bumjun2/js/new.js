@@ -31,6 +31,11 @@ const blockShapes = {
     [1, 1, 1],
     [0, 0, 0],
   ],
+  i: [
+    [0, 0, 1],
+    [1, 1, 1],
+    [0, 0, 0],
+  ],
   Square: [
     [1, 1],
     [1, 1],
@@ -77,9 +82,16 @@ const removeCurrentColor = (shape) => {
   }
 };
 
-const keyEventRemoveCurrentColor = (cols) => {
-  const cell = $box.children[cols].children[newRow];
-  cell.classList.remove(currentColor);
+const keyEventRemoveCurrentColor = (shape) => {
+  const blockShape = blockShapes[shape];
+  for (let r = 0; r < blockShape.length; r++) {
+    for (let c = 0; c < blockShape[r].length; c++) {
+      if (blockShape[r][c] === 1) {
+        const cell = $box.children[newCol + c].children[newRow + r];
+        cell.classList.remove(currentColor);
+      }
+    }
+  }
 };
 
 const randomBlock = () => {
@@ -95,6 +107,9 @@ const randomBlock = () => {
   } else if (currentColor === 'yellow') {
     removeCurrentColor('Square');
     drawBlock('Square');
+  } else if (currentColor === 'orange') {
+    removeCurrentColor('i');
+    drawBlock('i');
   }
 };
 
@@ -119,9 +134,6 @@ const isCollision = (shape, newRow, newCol) => {
         const checkRow = newRow + r;
         const checkCol = newCol + c;
         if (
-          checkRow >= row ||
-          checkCol < 0 ||
-          checkCol >= col ||
           $box.children[checkCol].children[checkRow].classList.contains(
             'locked'
           )
@@ -159,6 +171,8 @@ const makeBlock = () => {
       currentShape = 'L';
     } else if (currentColor === 'yellow') {
       currentShape = 'Square';
+    } else if (currentColor === 'orange') {
+      currentShape = 'i';
     }
     const endRow = getBlockEndRow(currentShape);
     if (endRow >= row - 1 || isCollision(currentShape, newRow + 1, newCol)) {
@@ -169,10 +183,6 @@ const makeBlock = () => {
       rowSize = newRow - 1;
       randomBlock();
     }
-
-    // newRow++;
-    // rowSize = newRow - 1;
-    // randomBlock();
   } else {
     newRow = 0;
   }
@@ -217,16 +227,16 @@ const handlerKeyDown = (e) => {
 };
 
 const leftMove = () => {
-  if (newCol > 0) {
-    keyEventRemoveCurrentColor(newCol);
+  if (!isCollision(currentShape, newRow, newCol - 1)) {
+    keyEventRemoveCurrentColor(currentShape);
     newCol--;
     makeBlock();
   }
 };
 
 const rightMove = () => {
-  if (newCol < col - 1) {
-    keyEventRemoveCurrentColor(newCol);
+  if (newCol < col - 1 && !isCollision(currentShape, newRow, newCol + 1)) {
+    keyEventRemoveCurrentColor(currentShape);
     newCol++;
     makeBlock();
   }
