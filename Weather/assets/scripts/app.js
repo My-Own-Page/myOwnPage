@@ -56,6 +56,7 @@ function saveCoords(coordsObj) {
 
 function getWeatherIconAndText(weatherMain) {
   const iconMappings = {
+    Clear: { border: 'fa-solid', icon: 'fa-sun', text: '맑음' },
     Rain: { border: 'fa-solid', icon: 'fa-cloud-rain', text: '비' },
     Clouds: { border: 'fa-solid', icon: 'fa-cloud', text: '흐림' },
     Drizzle: { border: 'fa-light', icon: 'fa-cloud-rain', text: '이슬비' },
@@ -83,10 +84,9 @@ function getWeather(lat, lon) {
 
       const $icoLi = document.createElement('ii');
       const $textLi = document.createElement('li');
-      const $humWindLi = document.createElement('li');
+      const $humWindSunsetLi = document.createElement('li');
       if (json.weather && json.weather[0] && json.weather[0].main) {
         const weatherMain = json.weather[0].main;
-        console.log('Weather Main:', weatherMain);
 
         const { border, icon, text } = getWeatherIconAndText(weatherMain);
 
@@ -113,9 +113,9 @@ function getWeather(lat, lon) {
       $humText.textContent = '습도';
       $humText.classList.add('gray-text');
 
-      $humWindLi.appendChild($humText);
-      $humWindLi.append(hum);
-      $humWindLi.classList.add('hum-text');
+      $humWindSunsetLi.appendChild($humText);
+      $humWindSunsetLi.append(hum);
+      $humWindSunsetLi.classList.add('hum-text');
 
 
 
@@ -127,11 +127,20 @@ function getWeather(lat, lon) {
         if (json.wind && json.wind.speed) {
           const windDirectionSpeed = json.wind.speed + 'm/s';
           console.log(windDirectionSpeed);
-          $humWindLi.append($windText, windDirectionSpeed);
+          $humWindSunsetLi.append($windText, windDirectionSpeed);
         }
 
       }
-      $weatherUl.append($icoLi, $textLi, $humWindLi);
+
+
+      const $sunsetText = document.createElement('span');
+      $sunsetText.textContent = '일몰';
+      $sunsetText.classList.add('gray-text');
+      const sunsetTimestemp = json.sys.sunset * 1000;
+      const sunsetDate = new Date(sunsetTimestemp);
+      const sunsetTime = sunsetDate.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false });
+      $humWindSunsetLi.append($sunsetText, sunsetTime);
+      $weatherUl.append($icoLi, $textLi, $humWindSunsetLi);
     });
 
 
