@@ -11,46 +11,126 @@ let newRow = 0;
 let rowSize = 0;
 let newCol = 4;
 let speed = 500;
+let rotationIndex = 0;
 
 let currentColor = '';
 const colors = ['blue', 'red', 'green', 'yellow', 'orange', 'purple', 'pink'];
+
 const blockShapes = {
   I: [
-    [1, 1, 1, 1],
-    [0, 0, 0, 0],
-    [0, 0, 0, 0],
-    [0, 0, 0, 0],
+    [
+      [1, 1, 1, 1],
+      [0, 0, 0, 0],
+      [0, 0, 0, 0],
+      [0, 0, 0, 0],
+    ],
+    [
+      [0, 0, 1, 0],
+      [0, 0, 1, 0],
+      [0, 0, 1, 0],
+      [0, 0, 1, 0],
+    ],
   ],
   T: [
-    [1, 1, 1],
-    [0, 1, 0],
-    [0, 0, 0],
+    [
+      [1, 1, 1],
+      [0, 1, 0],
+      [0, 0, 0],
+    ],
+    [
+      [0, 1, 0],
+      [0, 1, 1],
+      [0, 1, 0],
+    ],
+    [
+      [0, 1, 0],
+      [1, 1, 1],
+      [0, 0, 0],
+    ],
+    [
+      [0, 1, 0],
+      [1, 1, 0],
+      [0, 1, 0],
+    ],
   ],
   L: [
-    [1, 0, 0],
-    [1, 1, 1],
-    [0, 0, 0],
+    [
+      [
+        [1, 0, 0],
+        [1, 1, 1],
+        [0, 0, 0],
+      ],
+      [
+        [0, 1, 1],
+        [0, 1, 0],
+        [0, 1, 0],
+      ],
+      [
+        [1, 1, 1],
+        [0, 0, 1],
+        [0, 0, 0],
+      ],
+      [
+        [0, 0, 1],
+        [0, 0, 1],
+        [0, 1, 1],
+      ],
+    ],
   ],
   i: [
-    [0, 0, 1],
-    [1, 1, 1],
-    [0, 0, 0],
+    [
+      [0, 0, 1],
+      [1, 1, 1],
+      [0, 0, 0],
+    ],
+    [
+      [1, 1, 0],
+      [0, 1, 0],
+      [0, 1, 0],
+    ],
+    [
+      [1, 1, 1],
+      [1, 0, 0],
+      [0, 0, 0],
+    ],
+    [
+      [1, 0, 0],
+      [1, 0, 0],
+      [1, 1, 0],
+    ],
   ],
   Z: [
-    [1, 1, 0],
-    [0, 1, 1],
-    [0, 0, 0],
+    [
+      [1, 1, 0],
+      [0, 1, 1],
+      [0, 0, 0],
+    ],
+    [
+      [0, 1, 0],
+      [1, 1, 0],
+      [1, 0, 0],
+    ],
   ],
   V: [
-    [0, 1, 1],
-    [1, 1, 0],
-    [0, 0, 0],
+    [
+      [0, 1, 1],
+      [1, 1, 0],
+      [0, 0, 0],
+    ],
+    [
+      [1, 0, 0],
+      [1, 1, 0],
+      [0, 1, 0],
+    ],
   ],
   Square: [
-    [1, 1],
-    [1, 1],
+    [
+      [1, 1],
+      [1, 1],
+    ],
   ],
 };
+
 const createBlock = () => {
   for (let i = 0; i < col; i++) {
     const block = blockTemplate.content.cloneNode(true);
@@ -70,9 +150,10 @@ const randomBlockColor = () => {
 
 const drawBlock = (shape) => {
   const blockShape = blockShapes[shape];
-  for (let r = 0; r < blockShape.length; r++) {
-    for (let c = 0; c < blockShape[r].length; c++) {
-      if (blockShape[r][c] === 1) {
+  const currentRotation = blockShape[rotationIndex % blockShape.length];
+  for (let r = 0; r < currentRotation.length; r++) {
+    for (let c = 0; c < currentRotation[r].length; c++) {
+      if (currentRotation[r][c] === 1) {
         const cell = $box.children[newCol + c].children[newRow + r];
         cell.classList.add(currentColor);
       }
@@ -82,9 +163,10 @@ const drawBlock = (shape) => {
 
 const removeCurrentColor = (shape) => {
   const blockShape = blockShapes[shape];
-  for (let r = 0; r < blockShape.length; r++) {
-    for (let c = 0; c < blockShape[r].length; c++) {
-      if (blockShape[r][c] === 1) {
+  const currentRotation = blockShape[rotationIndex % blockShape.length];
+  for (let r = 0; r < currentRotation.length; r++) {
+    for (let c = 0; c < currentRotation[r].length; c++) {
+      if (currentRotation[r][c] === 1) {
         const cell = $box.children[newCol + c].children[rowSize + r];
         cell.classList.remove(currentColor);
       }
@@ -94,9 +176,10 @@ const removeCurrentColor = (shape) => {
 
 const keyEventRemoveCurrentColor = (shape) => {
   const blockShape = blockShapes[shape];
-  for (let r = 0; r < blockShape.length; r++) {
-    for (let c = 0; c < blockShape[r].length; c++) {
-      if (blockShape[r][c] === 1) {
+  const currentRotation = blockShape[rotationIndex % blockShape.length];
+  for (let r = 0; r < currentRotation.length; r++) {
+    for (let c = 0; c < currentRotation[r].length; c++) {
+      if (currentRotation[r][c] === 1) {
         const cell = $box.children[newCol + c].children[newRow + r];
         cell.classList.remove(currentColor);
       }
@@ -131,10 +214,11 @@ const randomBlock = () => {
 
 const getBlockEndRow = (shape) => {
   const blockShape = blockShapes[shape];
+  const currentRotation = blockShape[rotationIndex % blockShape.length];
   let endRow = 0;
-  for (let r = 0; r < blockShape.length; r++) {
-    for (let c = 0; c < blockShape[r].length; c++) {
-      if (blockShape[r][c] === 1) {
+  for (let r = 0; r < currentRotation.length; r++) {
+    for (let c = 0; c < currentRotation[r].length; c++) {
+      if (currentRotation[r][c] === 1) {
         endRow = Math.max(endRow, newRow + r);
       }
     }
@@ -144,9 +228,10 @@ const getBlockEndRow = (shape) => {
 
 const isCollision = (shape, newRow, newCol) => {
   const blockShape = blockShapes[shape];
-  for (let r = 0; r < blockShape.length; r++) {
-    for (let c = 0; c < blockShape[r].length; c++) {
-      if (blockShape[r][c] === 1) {
+  const currentRotation = blockShape[rotationIndex % blockShape.length];
+  for (let r = 0; r < currentRotation.length; r++) {
+    for (let c = 0; c < currentRotation[r].length; c++) {
+      if (currentRotation[r][c] === 1) {
         const checkRow = newRow + r;
         const checkCol = newCol + c;
         if (
@@ -159,14 +244,15 @@ const isCollision = (shape, newRow, newCol) => {
       }
     }
   }
-  return false;
+  // return false;
 };
 
 const lockBlock = (shape, newRow, newCol) => {
   const blockShape = blockShapes[shape];
-  for (let r = 0; r < blockShape.length; r++) {
-    for (let c = 0; c < blockShape[r].length; c++) {
-      if (blockShape[r][c] === 1) {
+  const currentRotation = blockShape[rotationIndex % blockShape.length];
+  for (let r = 0; r < currentRotation.length; r++) {
+    for (let c = 0; c < currentRotation[r].length; c++) {
+      if (currentRotation[r][c] === 1) {
         const cell = $box.children[newCol + c].children[newRow + r];
         cell.classList.add('locked', currentColor);
       }
@@ -194,6 +280,7 @@ const makeBlock = () => {
     } else {
       currentShape = 'V';
     }
+    // currentColor = 'red';
 
     const endRow = getBlockEndRow(currentShape);
     if (endRow >= row - 1 || isCollision(currentShape, newRow + 1, newCol)) {
@@ -207,6 +294,20 @@ const makeBlock = () => {
   } else {
     newRow = 0;
     newCol = 4;
+  }
+};
+
+const rotateBlock = (shape) => {
+  const rotations = blockShapes[shape];
+  const currentRotation = rotations[rotationIndex % rotations.length];
+
+  for (let r = 0; r < currentRotation.length; r++) {
+    for (let c = 0; c < currentRotation[r].length; c++) {
+      if (currentRotation[r][c] === 1) {
+        const cell = $box.children[newCol + c].children[newRow + r];
+        cell.classList.add(currentColor);
+      }
+    }
   }
 };
 
@@ -243,6 +344,8 @@ const handlerKeyDown = (e) => {
     leftMove();
   } else if (e.keyCode === 39) {
     rightMove();
+  } else if (e.keyCode === 38) {
+    rotateMove();
   } else if (e.keyCode === 40) {
     downMove();
   }
@@ -262,4 +365,12 @@ const rightMove = () => {
     newCol++;
     makeBlock();
   }
+};
+const rotateMove = () => {
+  keyEventRemoveCurrentColor(currentShape);
+  rotationIndex++;
+  if (rotationIndex > blockShapes[currentShape].length) {
+    rotationIndex = 0;
+  }
+  rotateBlock(currentShape);
 };
