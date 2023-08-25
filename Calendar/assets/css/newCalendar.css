@@ -281,6 +281,7 @@ body {
 
 #calendar-modal .calendar-modal__body .body__add-list .item-box{
   display: flex;
+  flex-direction: column;
   flex: 9;
 }
 #calendar-modal .calendar-modal__body .body__add-list .add-button{
@@ -293,12 +294,13 @@ body {
 }
 
 #calendar-modal .calendar-modal__body .body__add-list .item-box .item{
-  display: flex;
+  /* display: flex; */
   width: 90%;
   height: 15%;
   margin: 10px auto 0px;
   border: 1px solid #000;
   border-radius: 20px;
+  display: none;
   background: #fff;
 }
 

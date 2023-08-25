@@ -1,6 +1,6 @@
 const schedule = [
   {
-    key: '2023-03-01',
+    key: '2023-08-23',
     startYear : 2000,
     startMonth : 8,
     startDate : 10,
@@ -11,7 +11,21 @@ const schedule = [
     startMinute: 30,
     endHour: 1,
     endMinute: 30,
-    context : '',
+    context : '첫번째',
+  },
+  {
+    key: '2023-08-23',
+    startYear : 2000,
+    startMonth : 8,
+    startDate : 10,
+    endYear : 2000,
+    endMonth : 8,
+    endDate : 10,
+    startHour: 1,
+    startMinute: 30,
+    endHour: 1,
+    endMinute: 30,
+    context : '두번째',
   }
 ];
 
@@ -64,13 +78,61 @@ const calendarFunc = () => {
     }
   };
 
+  const drawDate = () =>{
+    const $sds = document.querySelector('.body__add-list .select-date-schedule');
+    $sds.textContent = `${presentDate}일 일정표`;
+  };
+  const drawPlan = () =>{
+    schedule.forEach(plan =>{                          
+        const $newPlan = document.createElement('li');
+        $newPlan.innerHTML = `        
+          <div class="item-text">      
+            <div class="item-time">${plan.startHour}:${plan.startMinute}~${plan.endHour}:${plan.endMinute}</div>
+            <div class="item-context">${plan.context}</div>
+          </div>
+          <button class="item-edit">
+            <i class="fa-solid fa-pen fa-2xl"></i>
+          </button>
+          <button class="item-delete">
+            <i class="fa-solid fa-trash fa-2xl"></i>
+          </button>
+        `;
+        $newPlan.dataset.id = plan.key;
+        $newPlan.classList.add('item');
+        // $newPlan.classList.add('item${}');
+        const $ul = document.querySelector('.item-box');
+        console.log($ul);
+        $ul.appendChild($newPlan);     
+    });        
+  }
+const showPlan =() =>{
+  const $ul = document.querySelector('.item-box'); 
+  const ul = [...$ul.children];
+  ul.forEach(item => {
+    if(item.dataset.id === selecetDateId){
+      item.style.display = 'flex';      
+    }else{
+      item.style.display = 'none';      
+    }
+  });
+  // ul.forEach(item => {
+  //   if(item.dataset.id !== selecetDateId){
+  //     item.style.display = 'none';
+  //     console.log('성공');
+  //   }
+  // });
+    
+}  
   const clickDateHandler = e =>{
     presentDate =e.target.textContent;
     const $calendarModal = document.getElementById('calendar-modal');
     selecetDateId=e.target.dataset.id;    
-    selectDateTint();
     $calendarModal.style.display = 'flex';    
     drawCalendarModal();
+    selectDateTint();
+    console.log(selecetDateId);    
+    drawDate();
+    showPlan();
     e.preventDefault();
   };
   const leapYear = year => {
@@ -212,6 +274,19 @@ const calendarFunc = () => {
     $firstChild.appendChild($todoList);
   };
   const init = () =>{
+    presentYear = todayYear;
+    presentMonth = todayMonth;
+    presentDate = todayDate;
+    
+    renderDates('#calendar-box .date-box');
+    setDateId(todayYear, todayMonth, todayDate);
+    leapYear(todayYear);
+    setStartDayAndEndDate(todayYear, todayMonth);
+    setTitleYear('.monthAndYear');
+    setTitleMonth('.monthAndYear');   
+    setDateCotents('#calendar-box .date-box');
+    drawPlan();
+
     const prevMonthHandler = () =>{
       if(presentMonth===0) {
         presentMonth=12;
@@ -222,7 +297,7 @@ const calendarFunc = () => {
       setStartDayAndEndDate(presentYear, presentMonth);
       drawCalendar();
       drawCalendarModal();
-      selectDateTint();
+      selectDateTint();      
     }
     const nextMonthHandler =() =>{
       if(presentMonth===11) {
@@ -234,19 +309,21 @@ const calendarFunc = () => {
       setStartDayAndEndDate(presentYear, presentMonth);
       drawCalendar();
       drawCalendarModal();
-      selectDateTint();
+      selectDateTint();      
     };
 
-
+    // selecetDateId = 
     const $prevButton = document.getElementById('calendar-box').querySelector('.prev-button');
     const $nextButton = document.getElementById('calendar-box').querySelector('.next-button');
     $nextButton.addEventListener('click', nextMonthHandler);
     $prevButton.addEventListener('click', prevMonthHandler);
   };  
   const calendarModalFunc =() =>{    
-    renderDates('#calendar-modal .calendar-modal__body .body__date-box');    
-    // drawCalendarModal();
+    renderDates('#calendar-modal .calendar-modal__body .body__date-box');        
 
+    const addList = () =>{
+
+    };
 
     const modalInit = () =>{            
       const $modalPrevButton = document.getElementById('calendar-modal').querySelector('.header__prev-button');
@@ -321,16 +398,16 @@ const calendarFunc = () => {
         const whatIsEndYearMonthDate = $endDate.value.split('-');
         const whatIsStartTime = $startTime.value.split(':');
         const whatIsEndTime = $endTime.value.split(':');
-        const startYear =  whatIsStartYearMonthDate[0];
-        const startMonth = whatIsStartYearMonthDate[1];
-        const startDate = whatIsStartYearMonthDate[2];
-        const endYear = whatIsEndYearMonthDate[0];
-        const endMonth = whatIsEndYearMonthDate[1];
-        const endDate = whatIsEndYearMonthDate[2];
-        const startHour = whatIsStartTime[0];
-        const startMinute = whatIsStartTime[1];
-        const endHour = whatIsEndTime[0];
-        const endMinute = whatIsEndTime[1];
+        const startYear =  +whatIsStartYearMonthDate[0];
+        const startMonth = +whatIsStartYearMonthDate[1];
+        const startDate = +whatIsStartYearMonthDate[2];
+        const endYear = +whatIsEndYearMonthDate[0];
+        const endMonth = +whatIsEndYearMonthDate[1];
+        const endDate = +whatIsEndYearMonthDate[2];
+        const startHour = +whatIsStartTime[0];
+        const startMinute = +whatIsStartTime[1];
+        const endHour = +whatIsEndTime[0];
+        const endMinute = +whatIsEndTime[1];
         const context = $listContext.value;
         schedule.push({
           key: $startDate.value,
@@ -359,20 +436,10 @@ const calendarFunc = () => {
     addListModalFunc();
   };
 
-  const start = () =>{
-    presentYear = todayYear;
-    presentMonth = todayMonth;
-    presentDate = todayDate;
-    calendarModalFunc();
-
-    setDateId();
-    renderDates('#calendar-box .date-box');
-    leapYear(todayYear);
-    setStartDayAndEndDate(todayYear, todayMonth);
-    setTitleYear('.monthAndYear');
-    setTitleMonth('.monthAndYear');   
-    setDateCotents('#calendar-box .date-box');
-    init();
+  const start = () =>{    
+    init();    
+    calendarModalFunc();    
+    
     
     // test();
   };
