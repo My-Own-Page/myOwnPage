@@ -31,7 +31,18 @@ const calendarFunc = () => {
   let monthStartDay = 0; // 달에 시작 시작요일
   let monthLastDate = 0; // 달에 마지막 날  
 
+  const drawCalendar = () =>{
+      setTitleYear('.monthAndYear');
+      setTitleMonth('.monthAndYear');
+      setDateCotents('#calendar-box .date-box');
+  };
    
+  const drawCalendarModal = () =>{
+    setDateCotents('#calendar-modal .calendar-modal__body .body__date-box');
+    setTitleYear('#calendar-modal .calendar-modal__header .header__year-and-month');
+    setTitleMonth('#calendar-modal .calendar-modal__header .header__year-and-month');
+  };
+
   const selectDateTint = () =>{    
     const $calendar = document.getElementById('calendar-box'); 
     const $calendarModal = document.getElementById('calendar-modal');            
@@ -43,21 +54,23 @@ const calendarFunc = () => {
         $calendar.querySelector(`.date${i}`).classList.remove('selected');
         $calendarModal.querySelector(`.date${i}`).classList.remove('selected');
       }
+      if($calendarModal.querySelector(`.date${i}`).dataset.id === selecetDateId){
+        $calendar.querySelector(`.date${i}`).classList.add('selected');
+        $calendarModal.querySelector(`.date${i}`).classList.add('selected');
+      }else{
+        $calendar.querySelector(`.date${i}`).classList.remove('selected');
+        $calendarModal.querySelector(`.date${i}`).classList.remove('selected');
+      }
     }
   };
-
 
   const clickDateHandler = e =>{
     presentDate =e.target.textContent;
     const $calendarModal = document.getElementById('calendar-modal');
-    selecetDateId=e.target.dataset.id;
-    console.log(selecetDateId);
+    selecetDateId=e.target.dataset.id;    
     selectDateTint();
-    $calendarModal.style.display = 'flex';
-    console.log(presentDate);
-    setDateCotents('#calendar-modal .calendar-modal__body .body__date-box');
-    setTitleYear('#calendar-modal .calendar-modal__header .header__year-and-month');
-    setTitleMonth('#calendar-modal .calendar-modal__header .header__year-and-month');    
+    $calendarModal.style.display = 'flex';    
+    drawCalendarModal();
     e.preventDefault();
   };
   const leapYear = year => {
@@ -207,9 +220,8 @@ const calendarFunc = () => {
       }
       presentMonth-=1;
       setStartDayAndEndDate(presentYear, presentMonth);
-      setTitleYear('.monthAndYear');
-      setTitleMonth('.monthAndYear');
-      setDateCotents('#calendar-box .date-box');
+      drawCalendar();
+      drawCalendarModal();
       selectDateTint();
     }
     const nextMonthHandler =() =>{
@@ -220,9 +232,8 @@ const calendarFunc = () => {
       }
       presentMonth+=1;
       setStartDayAndEndDate(presentYear, presentMonth);
-      setTitleYear('.monthAndYear');
-      setTitleMonth('.monthAndYear');
-      setDateCotents('#calendar-box .date-box');
+      drawCalendar();
+      drawCalendarModal();
       selectDateTint();
     };
 
@@ -233,10 +244,8 @@ const calendarFunc = () => {
     $prevButton.addEventListener('click', prevMonthHandler);
   };  
   const calendarModalFunc =() =>{    
-    renderDates('#calendar-modal .calendar-modal__body .body__date-box');
-    setDateCotents('#calendar-modal .calendar-modal__body .body__date-box');
-    setTitleYear('#calendar-modal .calendar-modal__header .header__year-and-month');
-    setTitleMonth('#calendar-modal .calendar-modal__header .header__year-and-month');
+    renderDates('#calendar-modal .calendar-modal__body .body__date-box');    
+    // drawCalendarModal();
 
 
     const modalInit = () =>{            
@@ -252,9 +261,10 @@ const calendarFunc = () => {
         }
         presentMonth-=1;
         setStartDayAndEndDate(presentYear, presentMonth);
-        setTitleYear('#calendar-modal .calendar-modal__header .header__year-and-month');
-        setTitleMonth('#calendar-modal .calendar-modal__header .header__year-and-month');
-        setDateCotents('#calendar-modal .calendar-modal__body .body__date-box');        
+        // setTitleYear('.monthAndYear');
+        // setTitleMonth('.monthAndYear');
+        // setDateCotents('#calendar-box .date-box');
+        drawCalendarModal();      
         selectDateTint();          
       };
       const modalNextMonthHandler = () =>{
@@ -265,9 +275,7 @@ const calendarFunc = () => {
         }
         presentMonth+=1;
         setStartDayAndEndDate(presentYear, presentMonth);
-        setTitleYear('#calendar-modal .calendar-modal__header .header__year-and-month');
-        setTitleMonth('#calendar-modal .calendar-modal__header .header__year-and-month');
-        setDateCotents('#calendar-modal .calendar-modal__body .body__date-box');
+        drawCalendarModal();
         selectDateTint();
       };
       const modalExitHandler = e => {
