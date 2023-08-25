@@ -121,7 +121,7 @@ body {
 }
 
 /* 선택된 날짜 */
-#calendar-box .date-box .date.selectdate {
+#calendar-box .date-box .date.selected {
   box-sizing: border-box;
   background: yellowgreen;
 }
@@ -253,6 +253,10 @@ body {
 }
 #calendar-modal .calendar-modal__body .body__date-box .date.blue {  
   color: #00f;
+}
+#calendar-modal .calendar-modal__body .body__date-box .date.selected{
+    background: yellowgreen;
+
 }
 
 
