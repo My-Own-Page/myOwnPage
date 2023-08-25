@@ -71,7 +71,7 @@ fetch('./bumjun2/index.html')
             document.head.appendChild(cssLink);
 
             const jsSrc = document.createElement('script');
-            jsSrc.src = './bumjun2/js/index.js';
+            jsSrc.src = './bumjun2/js/new.js';
             document.head.appendChild(jsSrc);
         }
     });
