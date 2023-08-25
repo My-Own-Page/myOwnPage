@@ -53,12 +53,12 @@ body {
   background: #e7feff;
 }
 
-#calendar-box .sevenweek .red {  
+#calendar-box .sevenweek .sunday {  
   height: 100%;
   background: #e7feff;
   color: #f00;
 }
-#calendar-box .sevenweek .blue {
+#calendar-box .sevenweek .saturday {
   height: 100%;
   background: #e7feff;
   color: #00f;  
@@ -95,27 +95,27 @@ body {
 #calendar-box .date-box .date.nextMonth {
   color: rgba(0, 0, 0, 0.4);
 }
-#calendar-box .date-box .date.prevMonth.sunday {
+#calendar-box .date-box .date.prevMonth.red {
   background: #e7feff;
   color: rgba(255, 0, 0, 0.4);
 }
-#calendar-box .date-box .date.prevMonth.saturday {
+#calendar-box .date-box .date.prevMonth.blue {
   background: #e7feff;
   color: rgba(0, 0, 255, 0.4);
 }
-#calendar-box .date-box .date.nextMonth.sunday {
+#calendar-box .date-box .date.nextMonth.red {
   background: #e7feff;
   color: rgba(255, 0, 0, 0.4);
 }
-#calendar-box .date-box .date.nextMonth.saturday {
+#calendar-box .date-box .date.nextMonth.blue {
   color: rgba(0, 0, 255, 0.4);
   background: #e7feff;
 }
-#calendar-box .date-box .date.sunday {
+#calendar-box .date-box .date.red {
   background: #e7feff;
   color: #f00;
 }
-#calendar-box .date-box .date.saturday {
+#calendar-box .date-box .date.blue {
   background: #e7feff;
   color: #00f;
 }
