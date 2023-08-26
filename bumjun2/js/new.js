@@ -14,7 +14,7 @@ let speed = 500;
 let rotationIndex = 0;
 
 let currentColor = '';
-const colors = ['blue', 'red', 'green', 'yellow', 'orange', 'purple', 'pink'];
+const colors = ['blue', 'red', 'yellow', 'orange', 'purple', 'pink', 'green'];
 
 const blockShapes = {
   I: [
@@ -53,28 +53,26 @@ const blockShapes = {
       [0, 1, 0],
     ],
   ],
-  L: [
+  W: [
     [
-      [
-        [1, 0, 0],
-        [1, 1, 1],
-        [0, 0, 0],
-      ],
-      [
-        [0, 1, 1],
-        [0, 1, 0],
-        [0, 1, 0],
-      ],
-      [
-        [1, 1, 1],
-        [0, 0, 1],
-        [0, 0, 0],
-      ],
-      [
-        [0, 0, 1],
-        [0, 0, 1],
-        [0, 1, 1],
-      ],
+      [1, 0, 0],
+      [1, 1, 1],
+      [0, 0, 0],
+    ],
+    [
+      [0, 1, 1],
+      [0, 1, 0],
+      [0, 1, 0],
+    ],
+    [
+      [1, 1, 1],
+      [0, 0, 1],
+      [0, 0, 0],
+    ],
+    [
+      [0, 0, 1],
+      [0, 0, 1],
+      [0, 1, 1],
     ],
   ],
   i: [
@@ -195,8 +193,8 @@ const randomBlock = () => {
     removeCurrentColor('T');
     drawBlock('T');
   } else if (currentColor === 'green') {
-    removeCurrentColor('L');
-    drawBlock('L');
+    removeCurrentColor('W');
+    drawBlock('W');
   } else if (currentColor === 'yellow') {
     removeCurrentColor('Square');
     drawBlock('Square');
@@ -222,7 +220,6 @@ const getBlockEndRow = (shape) => {
         const checkRow = newRow + r;
         const checkCol = newCol + c;
 
-        // 게임 보드 바깥으로 나가는 경우, 해당 블록이 바닥에 도달한 것으로 간주
         if (checkRow >= row) {
           return row - 1;
         }
@@ -282,7 +279,6 @@ const lockBlock = (shape, newRow, newCol) => {
   }
 };
 
-// 해당 줄이 꽉 찼는지 확인하는 함수
 const isLineFull = (rowIndex) => {
   for (let c = 0; c < col; c++) {
     if (!$box.children[c].children[rowIndex].classList.contains('locked')) {
@@ -292,7 +288,6 @@ const isLineFull = (rowIndex) => {
   return true;
 };
 
-// 해당 줄을 삭제하고 상위 줄들을 한 칸씩 아래로 내리는 함수
 const clearLineAndMoveDown = (rowIndex) => {
   for (let c = 0; c < col; c++) {
     $box.children[c].children[rowIndex].classList.remove('locked', ...colors);
@@ -321,7 +316,7 @@ const makeBlock = () => {
     } else if (currentColor === 'red') {
       currentShape = 'T';
     } else if (currentColor === 'green') {
-      currentShape = 'L';
+      currentShape = 'W';
     } else if (currentColor === 'yellow') {
       currentShape = 'Square';
     } else if (currentColor === 'orange') {
@@ -331,7 +326,6 @@ const makeBlock = () => {
     } else {
       currentShape = 'V';
     }
-    // currentColor = 'blue';
 
     const endRow = getBlockEndRow(currentShape);
     if (endRow >= row - 1 || isCollision(currentShape, newRow + 1, newCol)) {
@@ -342,6 +336,7 @@ const makeBlock = () => {
           clearLineAndMoveDown(r);
         }
       }
+      newCol = 4;
       newRow = 0;
     } else {
       newRow++;
@@ -350,7 +345,6 @@ const makeBlock = () => {
     }
   } else {
     newRow = 0;
-    newCol = 4;
   }
 };
 
@@ -412,7 +406,7 @@ const leftMove = () => {
   if (!isCollision(currentShape, newRow, newCol - 1)) {
     keyEventRemoveCurrentColor(currentShape);
     newCol--;
-    makeBlock();
+    randomBlock();
   }
 };
 
@@ -420,7 +414,7 @@ const rightMove = () => {
   if (newCol < col - 1 && !isCollision(currentShape, newRow, newCol + 1)) {
     keyEventRemoveCurrentColor(currentShape);
     newCol++;
-    makeBlock();
+    randomBlock();
   }
 };
 const rotateMove = () => {
