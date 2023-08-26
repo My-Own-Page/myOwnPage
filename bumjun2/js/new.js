@@ -219,7 +219,22 @@ const getBlockEndRow = (shape) => {
   for (let r = 0; r < currentRotation.length; r++) {
     for (let c = 0; c < currentRotation[r].length; c++) {
       if (currentRotation[r][c] === 1) {
-        endRow = Math.max(endRow, newRow + r);
+        const checkRow = newRow + r;
+        const checkCol = newCol + c;
+
+        // 게임 보드 바깥으로 나가는 경우, 해당 블록이 바닥에 도달한 것으로 간주
+        if (checkRow >= row) {
+          return row - 1;
+        }
+
+        if (
+          $box.children[checkCol].children[checkRow].classList.contains(
+            'locked'
+          )
+        ) {
+          return endRow;
+        }
+        endRow = Math.max(endRow, checkRow);
       }
     }
   }
@@ -234,7 +249,14 @@ const isCollision = (shape, newRow, newCol) => {
       if (currentRotation[r][c] === 1) {
         const checkRow = newRow + r;
         const checkCol = newCol + c;
+
+        // 게임 보드 바깥으로 나가는 경우, 충돌로 처리
+        if (checkRow >= row || checkCol < 0 || checkCol >= col) {
+          return true;
+        }
+
         if (
+          checkRow >= 0 &&
           $box.children[checkCol].children[checkRow].classList.contains(
             'locked'
           )
@@ -244,7 +266,7 @@ const isCollision = (shape, newRow, newCol) => {
       }
     }
   }
-  // return false;
+  return false;
 };
 
 const lockBlock = (shape, newRow, newCol) => {
@@ -255,6 +277,35 @@ const lockBlock = (shape, newRow, newCol) => {
       if (currentRotation[r][c] === 1) {
         const cell = $box.children[newCol + c].children[newRow + r];
         cell.classList.add('locked', currentColor);
+      }
+    }
+  }
+};
+
+// 해당 줄이 꽉 찼는지 확인하는 함수
+const isLineFull = (rowIndex) => {
+  for (let c = 0; c < col; c++) {
+    if (!$box.children[c].children[rowIndex].classList.contains('locked')) {
+      return false;
+    }
+  }
+  return true;
+};
+
+// 해당 줄을 삭제하고 상위 줄들을 한 칸씩 아래로 내리는 함수
+const clearLineAndMoveDown = (rowIndex) => {
+  for (let c = 0; c < col; c++) {
+    $box.children[c].children[rowIndex].classList.remove('locked', ...colors);
+  }
+
+  for (let r = rowIndex; r > 0; r--) {
+    for (let c = 0; c < col; c++) {
+      const cell = $box.children[c].children[r];
+      const upperCell = $box.children[c].children[r - 1];
+      if (upperCell.classList.contains('locked')) {
+        cell.className = upperCell.className;
+      } else {
+        cell.classList.remove('locked', ...colors);
       }
     }
   }
@@ -280,11 +331,17 @@ const makeBlock = () => {
     } else {
       currentShape = 'V';
     }
-    // currentColor = 'red';
+    // currentColor = 'blue';
 
     const endRow = getBlockEndRow(currentShape);
     if (endRow >= row - 1 || isCollision(currentShape, newRow + 1, newCol)) {
       lockBlock(currentShape, newRow, newCol);
+
+      for (let r = 0; r < row; r++) {
+        if (isLineFull(r)) {
+          clearLineAndMoveDown(r);
+        }
+      }
       newRow = 0;
     } else {
       newRow++;
