@@ -312,6 +312,7 @@ const makeBlock = () => {
     if (newRow === 0) {
       currentColor = randomBlockColor();
       speed = 300;
+      console.log(speed);
       clearInterval(intervalId);
       intervalId = setInterval(makeBlock, speed);
     }
@@ -352,16 +353,27 @@ const makeBlock = () => {
       rowSize = newRow - 1;
       randomBlock();
     }
+  } else {
+    newRow = 0;
+    newCol = 4;
   }
 };
 
+createBlock();
+$box.children[3].children[7].textContent = '테';
+$box.children[4].children[7].textContent = '트';
+$box.children[5].children[7].textContent = '리';
+$box.children[6].children[7].textContent = '스';
+
+$box.children[3].children[7].classList.add('textblue');
+$box.children[4].children[7].classList.add('textgreen');
+$box.children[5].children[7].classList.add('textyellow');
+$box.children[6].children[7].classList.add('textred');
 const startGame = () => {
   if (isPlaying) return;
   isPlaying = true;
 
   $startButton.textContent = 'Stop';
-
-  createBlock();
 
   intervalId = setInterval(makeBlock, speed);
   document.addEventListener('keydown', handlerKeyDown);
@@ -392,6 +404,7 @@ const handlerKeyDown = (e) => {
     rotateMove();
   } else if (e.keyCode === 40) {
     downMove();
+  } else if (e.keyCode === 32) {
   }
 };
 
