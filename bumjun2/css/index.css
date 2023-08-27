@@ -17,52 +17,65 @@ body {
   display: grid;
   grid-template-columns: repeat(10, 30px);
   grid-template-rows: repeat(20, 30px);
-  border: 1px solid #000;
+  border: 1px solid #fff;
 }
 
 .block {
   /* display: flex; */
   width: 30px;
   height: 30px;
-  /* background-color: #007bff; */
 }
 .blue {
   width: 30px;
   height: 30px;
   background: #007bff;
+
+  box-shadow: 0 0 10px;
 }
 .red {
   width: 30px;
   height: 30px;
   background: red;
+
+  box-shadow: 0 0 10px;
 }
 
 .green {
   width: 30px;
   height: 30px;
   background: green;
+
+  box-shadow: 0 0 10px;
 }
 
 .yellow {
   width: 30px;
   height: 30px;
   background: yellow;
+
+  box-shadow: 0 0 10px;
 }
 
 .orange {
   width: 30px;
   height: 30px;
   background: orange;
+
+  box-shadow: 0 0 10px;
 }
 
 .purple {
   width: 30px;
   height: 30px;
   background: purple;
+
+  box-shadow: 0 0 10px;
 }
 
 .pink {
   width: 30px;
   height: 30px;
   background: pink;
+
+  box-shadow: 0 0 10px;
 }

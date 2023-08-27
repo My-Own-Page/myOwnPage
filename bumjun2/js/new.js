@@ -10,7 +10,7 @@ let col = 10;
 let newRow = 0;
 let rowSize = 0;
 let newCol = 4;
-let speed = 500;
+let speed = 300;
 let rotationIndex = 0;
 
 let currentColor = '';
@@ -250,6 +250,7 @@ const isCollision = (shape, newRow, newCol) => {
         // 게임 보드 바깥으로 나가는 경우, 충돌로 처리
         if (checkRow >= row || checkCol < 0 || checkCol >= col) {
           return true;
+        } else {
         }
 
         if (
@@ -310,6 +311,9 @@ const makeBlock = () => {
   if (newRow < row) {
     if (newRow === 0) {
       currentColor = randomBlockColor();
+      speed = 300;
+      clearInterval(intervalId);
+      intervalId = setInterval(makeBlock, speed);
     }
     if (currentColor === 'blue') {
       currentShape = 'I';
@@ -326,6 +330,7 @@ const makeBlock = () => {
     } else {
       currentShape = 'V';
     }
+    // currentColor = 'blue';
 
     const endRow = getBlockEndRow(currentShape);
     if (endRow >= row - 1 || isCollision(currentShape, newRow + 1, newCol)) {
@@ -336,28 +341,16 @@ const makeBlock = () => {
           clearLineAndMoveDown(r);
         }
       }
+      if (newRow === 0) {
+        stopGame();
+        return;
+      }
       newCol = 4;
       newRow = 0;
     } else {
       newRow++;
       rowSize = newRow - 1;
       randomBlock();
-    }
-  } else {
-    newRow = 0;
-  }
-};
-
-const rotateBlock = (shape) => {
-  const rotations = blockShapes[shape];
-  const currentRotation = rotations[rotationIndex % rotations.length];
-
-  for (let r = 0; r < currentRotation.length; r++) {
-    for (let c = 0; c < currentRotation[r].length; c++) {
-      if (currentRotation[r][c] === 1) {
-        const cell = $box.children[newCol + c].children[newRow + r];
-        cell.classList.add(currentColor);
-      }
     }
   }
 };
@@ -370,7 +363,7 @@ const startGame = () => {
 
   createBlock();
 
-  intervalId = setInterval(makeBlock, 300);
+  intervalId = setInterval(makeBlock, speed);
   document.addEventListener('keydown', handlerKeyDown);
 };
 
@@ -417,11 +410,18 @@ const rightMove = () => {
     randomBlock();
   }
 };
+
+const downMove = () => {
+  speed -= 5;
+  clearInterval(intervalId);
+  intervalId = setInterval(makeBlock, speed);
+};
+
 const rotateMove = () => {
   keyEventRemoveCurrentColor(currentShape);
   rotationIndex++;
   if (rotationIndex > blockShapes[currentShape].length) {
     rotationIndex = 0;
   }
-  rotateBlock(currentShape);
+  drawBlock(currentShape);
 };
