@@ -1,37 +1,37 @@
 const schedule = [
-  {
-    key: '2023-08-23',
-    startYear : 2000,
-    startMonth : 8,
-    startDate : 10,
-    endYear : 2000,
-    endMonth : 8,
-    endDate : 10,
-    startHour: 1,
-    startMinute: 30,
-    endHour: 1,
-    endMinute: 30,
-    context : '첫번째',
-  },
-  {
-    key: '2023-08-23',
-    startYear : 2000,
-    startMonth : 8,
-    startDate : 10,
-    endYear : 2000,
-    endMonth : 8,
-    endDate : 10,
-    startHour: 1,
-    startMinute: 30,
-    endHour: 1,
-    endMinute: 30,
-    context : '두번째',
-  }
+  // {
+  //   key: '2023-08-23',
+  //   startYear : 2023,
+  //   startMonth : 8,
+  //   startDate : 10,
+  //   endYear : 2000,
+  //   endMonth : 8,
+  //   endDate : 10,
+  //   startHour: 1,
+  //   startMinute: 30,
+  //   endHour: 1,
+  //   endMinute: 30,
+  //   context : '첫번째',
+  // },
+  // {
+  //   key: '2023-08-23',
+  //   startYear : 2023,
+  //   startMonth : 8,
+  //   startDate : 10,
+  //   endYear : 2000,
+  //   endMonth : 8,
+  //   endDate : 10,
+  //   startHour: 1,
+  //   startMinute: 30,
+  //   endHour: 1,
+  //   endMinute: 30,
+  //   context : '두번째',
+  // }
 ];
 
 
 const calendarFunc = () => {
-  const newDate = new Date();
+  const newDate = new Date();   
   const todayYear = newDate.getFullYear();
   const todayMonth = newDate.getMonth();
   const todayDate = newDate.getDate();
@@ -49,8 +49,7 @@ const calendarFunc = () => {
       setTitleYear('.monthAndYear');
       setTitleMonth('.monthAndYear');
       setDateCotents('#calendar-box .date-box');
-  };
-   
+  };   
   const drawCalendarModal = () =>{
     setDateCotents('#calendar-modal .calendar-modal__body .body__date-box');
     setTitleYear('#calendar-modal .calendar-modal__header .header__year-and-month');
@@ -98,31 +97,74 @@ const calendarFunc = () => {
           </button>
         `;
         $newPlan.dataset.id = plan.key;
-        $newPlan.classList.add('item');
-        // $newPlan.classList.add('item${}');
-        const $ul = document.querySelector('.item-box');
-        console.log($ul);
+        $newPlan.classList.add('item');                
+        const $ul = document.querySelector('.item-box');                
         $ul.appendChild($newPlan);     
     });        
   }
-const showPlan =() =>{
-  const $ul = document.querySelector('.item-box'); 
-  const ul = [...$ul.children];
-  ul.forEach(item => {
-    if(item.dataset.id === selecetDateId){
-      item.style.display = 'flex';      
-    }else{
-      item.style.display = 'none';      
-    }
-  });
-  // ul.forEach(item => {
-  //   if(item.dataset.id !== selecetDateId){
-  //     item.style.display = 'none';
-  //     console.log('성공');
-  //   }
-  // });
-    
-}  
+  const addPlan = (plan) =>{
+        const $newPlan = document.createElement('li');
+        $newPlan.innerHTML = `        
+          <div class="item-text">      
+            <div class="item-time">${plan.startHour}:${plan.startMinute}~${plan.endHour}:${plan.endMinute}</div>
+            <div class="item-context">${plan.context}</div>
+          </div>
+          <button class="item-edit">
+            <i class="fa-solid fa-pen fa-2xl"></i>
+          </button>
+          <button class="item-delete">
+            <i class="fa-solid fa-trash fa-2xl"></i>
+          </button>
+        `;
+        $newPlan.dataset.id = plan.key;
+        $newPlan.classList.add('item');    
+        $newPlan.querySelector('.item-edit').addEventListener('click', ()=>{
+          const $addListModal = document.querySelector('#calendar-modal .add-list-modal');
+          const $addListModalStartDate = document.querySelector('.add-list-modal .start-date');
+          const $addListModalEndDate = document.querySelector('.add-list-modal .end-date');
+          const $addListModalStartTime = document.querySelector('.add-list-modal .start-time');
+          const $addListModalEndTime = document.querySelector('.add-list-modal .end-time');
+          // console.log($addListModalStartDate);
+          // console.log($addListModalEndDate);
+          $addListModalStartDate.value = selecetDateId;
+          $addListModalEndDate.value = selecetDateId;
+          $addListModalStartTime.value = "09:00";
+          $addListModalEndTime.value = "18:00";
+          $addListModal.style.display = 'flex';
+          $ul.removeChild($newPlan);
+          schedule.forEach((item, index) =>{
+            if(item.key === plan.key){
+              schedule.splice(index, 1);
+              console.log(schedule);
+            }
+          });
+          showPlan();          
+        });
+        $newPlan.querySelector('.item-delete').addEventListener('click', ()=>{          
+          $ul.removeChild($newPlan);
+          schedule.forEach((item, index) =>{
+            if(item.key === plan.key){
+              schedule.splice(index, 1);
+              console.log(schedule);
+            }
+          });
+          showPlan();
+        });
+        const $ul = document.querySelector('.item-box');        
+        $ul.appendChild($newPlan);  
+  };
+
+  const showPlan =() =>{
+    const $ul = document.querySelector('.item-box'); 
+    const ul = [...$ul.children];
+    ul.forEach(item => {
+      if(item.dataset.id === selecetDateId){
+        item.style.display = 'flex';      
+      }else{
+        item.style.display = 'none';      
+      }
+    });      
+  };  
   const clickDateHandler = e =>{
     presentDate =e.target.textContent;
     const $calendarModal = document.getElementById('calendar-modal');
@@ -133,6 +175,7 @@ const showPlan =() =>{
     console.log(selecetDateId);    
     drawDate();
     showPlan();
+    console.log(schedule);
     e.preventDefault();
   };
   const leapYear = year => {
@@ -319,11 +362,7 @@ const showPlan =() =>{
     $prevButton.addEventListener('click', prevMonthHandler);
   };  
   const calendarModalFunc =() =>{    
-    renderDates('#calendar-modal .calendar-modal__body .body__date-box');        
-
-    const addList = () =>{
-
-    };
+    renderDates('#calendar-modal .calendar-modal__body .body__date-box');           
 
     const modalInit = () =>{            
       const $modalPrevButton = document.getElementById('calendar-modal').querySelector('.header__prev-button');
@@ -365,6 +404,16 @@ const showPlan =() =>{
       };
       const showAddListHandler = () =>{
         const $addListModal = document.querySelector('#calendar-modal .add-list-modal');
+        const $addListModalStartDate = document.querySelector('.add-list-modal .start-date');
+        const $addListModalEndDate = document.querySelector('.add-list-modal .end-date');
+        const $addListModalStartTime = document.querySelector('.add-list-modal .start-time');
+        const $addListModalEndTime = document.querySelector('.add-list-modal .end-time');
+        // console.log($addListModalStartDate);
+        // console.log($addListModalEndDate);
+        $addListModalStartDate.value = selecetDateId;
+        $addListModalEndDate.value = selecetDateId;
+        $addListModalStartTime.value = "09:00";
+        $addListModalEndTime.value = "18:00";
         $addListModal.style.display = 'flex';
       }
       
@@ -379,6 +428,7 @@ const showPlan =() =>{
       const $addListModal = document.querySelector('.add-list-modal')
       const $addListExitButton = document.querySelector('#calendar-modal .add-list-modal button.exit-button');
       const $addListAddButton = document.querySelector('#calendar-modal .add-list-modal .list-context-container .list-context-button');    
+      
       // 일정 추가 모달 나가기
       const exitAddListHandler = (e) =>{
         const $addListModal = document.querySelector('#calendar-modal .add-list-modal');
@@ -404,10 +454,10 @@ const showPlan =() =>{
         const endYear = +whatIsEndYearMonthDate[0];
         const endMonth = +whatIsEndYearMonthDate[1];
         const endDate = +whatIsEndYearMonthDate[2];
-        const startHour = +whatIsStartTime[0];
-        const startMinute = +whatIsStartTime[1];
-        const endHour = +whatIsEndTime[0];
-        const endMinute = +whatIsEndTime[1];
+        const startHour = whatIsStartTime[0];
+        const startMinute = whatIsStartTime[1];
+        const endHour = whatIsEndTime[0];
+        const endMinute = whatIsEndTime[1];
         const context = $listContext.value;
         schedule.push({
           key: $startDate.value,
@@ -425,10 +475,11 @@ const showPlan =() =>{
         });
         console.log(schedule);
         $addListModal.style.display = 'none';
+        addPlan({startHour, startMinute, endHour, endMinute, context, key: $startDate.value});
+        showPlan();
       }  
       $addListExitButton.addEventListener('click', exitAddListHandler);
-      $addListAddButton.addEventListener('click', addDateListHandler);
-  
+      $addListAddButton.addEventListener('click', addDateListHandler);      
     };
 
 

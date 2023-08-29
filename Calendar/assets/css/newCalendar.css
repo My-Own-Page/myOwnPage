@@ -95,28 +95,28 @@ body {
 #calendar-box .date-box .date.nextMonth {
   color: rgba(0, 0, 0, 0.4);
 }
-#calendar-box .date-box .date.prevMonth.red {
-  background: #e7feff;
+#calendar-box .date-box .date.prevMonth.sunday {
+  background: inherit;
   color: rgba(255, 0, 0, 0.4);
 }
-#calendar-box .date-box .date.prevMonth.blue {
-  background: #e7feff;
+#calendar-box .date-box .date.prevMonth.saturday{
+  background: inherit;
   color: rgba(0, 0, 255, 0.4);
 }
-#calendar-box .date-box .date.nextMonth.red {
-  background: #e7feff;
+#calendar-box .date-box .date.nextMonth.sunday {
+  background: inherit;
   color: rgba(255, 0, 0, 0.4);
 }
-#calendar-box .date-box .date.nextMonth.blue {
+#calendar-box .date-box .date.nextMonth.saturday {
   color: rgba(0, 0, 255, 0.4);
-  background: #e7feff;
+  background: inherit;
 }
-#calendar-box .date-box .date.red {
-  background: #e7feff;
+#calendar-box .date-box .date.sunday {
+  background: inherit;
   color: #f00;
 }
-#calendar-box .date-box .date.blue {
-  background: #e7feff;
+#calendar-box .date-box .date.saturday {
+  background: inherit;
   color: #00f;
 }
 
