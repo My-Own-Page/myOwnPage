@@ -120,23 +120,16 @@ body {
   color: #00f;
 }
 
+#calendar-box .date-box .date .context{
+  background: #fff;
+}
+
 /* 선택된 날짜 */
 #calendar-box .date-box .date.selected {
   box-sizing: border-box;
   background: yellowgreen;
 }
 
-/* -------------------- 모달 오버레이 -------------------- */
-.modal-overlay {
-  top: 0;
-  left: 0;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.8);
-  z-index: 10;
-  display: none;
-}
 
 /* -------------------- 모달 -------------------- */
 #calendar-modal {
@@ -147,7 +140,6 @@ body {
   z-index: 100;
   width: 1200px;
   height: 800px;
-
   display: none;
   flex-flow: column;
   background: rgba(0, 255, 0, 0.5);

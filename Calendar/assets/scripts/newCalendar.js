@@ -45,6 +45,21 @@ const calendarFunc = () => {
   let monthStartDay = 0; // 달에 시작 시작요일
   let monthLastDate = 0; // 달에 마지막 날  
 
+  const drawPlanInCalendar = () => {
+    const $calendar = document.getElementById('calendar-box').querySelector('.date-box');
+    calendarArray = [...$calendar.children];
+    calendarArray.forEach(date => {
+      schedule.forEach(schedule => {
+        if(schedule.key === date.dataset.id){
+          const $todoList = document.createElement('div');
+          $todoList.classList.add('context');
+          $todoList.textContent = schedule.context;
+          date.appendChild($todoList);          
+        }
+      });
+    })
+
+  };
   const drawCalendar = () =>{
       setTitleYear('.monthAndYear');
       setTitleMonth('.monthAndYear');
@@ -165,8 +180,8 @@ const calendarFunc = () => {
       }
     });      
   };  
-  const clickDateHandler = e =>{
-    presentDate =e.target.textContent;
+  const clickDateHandler = e =>{    
+    presentDate = e.target.dataset.number;
     const $calendarModal = document.getElementById('calendar-modal');
     selecetDateId=e.target.dataset.id;    
     $calendarModal.style.display = 'flex';    
@@ -176,7 +191,7 @@ const calendarFunc = () => {
     drawDate();
     showPlan();
     console.log(schedule);
-    e.preventDefault();
+    e.preventDefault();    
   };
   const leapYear = year => {
     if (year % 400 === 0) {
@@ -207,13 +222,13 @@ const calendarFunc = () => {
     const $monthBox = document.querySelector(monthBoxSelector);        
     for(let i=0;i<42;i++){
       const $emptyDate = document.createElement('div');
+      $emptyDate.classList.add('date');
+      $emptyDate.classList.add(`date${i}`);
       if (i === 0 || i%7 ===0) {
         $emptyDate.classList.add('sunday');
       }else if ((i+1) % 7 === 0) {
         $emptyDate.classList.add('saturday');
       }
-      $emptyDate.classList.add('date');
-      $emptyDate.classList.add(`date${i}`);
       $emptyDate.textContent=`${i}번째 인덱스`;
       $emptyDate.dataset.id = 0;
       $emptyDate.addEventListener('click', clickDateHandler);
@@ -275,23 +290,27 @@ const calendarFunc = () => {
     for(let i=monthStartDay; i<monthStartDay+monthLastDate;i++){
       num++;
       const $date =$monthBox.querySelector(`.date${i}`); 
-      $date.textContent = num;
+      $date.textContent = num;      
       $date.classList.remove('prevMonthDate');
       $date.classList.remove('nextMonthDate');
       setDateId(presentYear, presentMonth, num);
+
       $date.dataset.id = dateId;
+      $date.dataset.number = num;
     }
     // 지난달 날짜 만들기
     let prevMonthLastDate = monthLastDates[presentMonth] - monthStartDay;
     for(let i=0;i<monthStartDay;i++){
       $monthBox.querySelector(`.date${i}`).textContent = `${prevMonthLastDate}`;
       $monthBox.querySelector(`.date${i}`).classList.add('prevMonthDate');
+      
       if(presentMonth===0){
         setDateId(presentYear-1, 11, prevMonthLastDate);      
       }else{
         setDateId(presentYear, presentMonth-1, prevMonthLastDate);      
       }      
       $monthBox.querySelector(`.date${i}`).dataset.id = dateId;
+      $monthBox.querySelector(`.date${i}`).dataset.number = prevMonthLastDate;
       prevMonthLastDate++;
     }
     // 다음달 날짜 만들기
@@ -299,14 +318,15 @@ const calendarFunc = () => {
     for(let i=monthLastDate+monthStartDay; i<42; i++){
       num++;
       $monthBox.querySelector(`.date${i}`).textContent = num;
-      $monthBox.querySelector(`.date${i}`).classList.add('nextMonthDate');
+      $monthBox.querySelector(`.date${i}`).classList.add('nextMonthDate');      
       if(presentMonth===11){
         setDateId(presentYear+1, 0, num);      
       }else{
         setDateId(presentYear, presentMonth+1, num);      
       }      
+      
       $monthBox.querySelector(`.date${i}`).dataset.id = dateId;
-
+      $monthBox.querySelector(`.date${i}`).dataset.number = num;
     }
   };
   const test = () =>{
@@ -329,18 +349,20 @@ const calendarFunc = () => {
     setTitleMonth('.monthAndYear');   
     setDateCotents('#calendar-box .date-box');
     drawPlan();
+    drawPlanInCalendar();
 
     const prevMonthHandler = () =>{
       if(presentMonth===0) {
         presentMonth=12;
         presentYear-=1;
-        leapYear(presentYear);
+        leapYear(presentYear);        
       }
       presentMonth-=1;
       setStartDayAndEndDate(presentYear, presentMonth);
       drawCalendar();
       drawCalendarModal();
       selectDateTint();      
+      drawPlanInCalendar();
     }
     const nextMonthHandler =() =>{
       if(presentMonth===11) {
@@ -352,7 +374,8 @@ const calendarFunc = () => {
       setStartDayAndEndDate(presentYear, presentMonth);
       drawCalendar();
       drawCalendarModal();
-      selectDateTint();      
+      selectDateTint();  
+      drawPlanInCalendar();    
     };
 
     // selecetDateId = 
@@ -400,6 +423,7 @@ const calendarFunc = () => {
         setTitleYear('.monthAndYear');
         setTitleMonth('.monthAndYear');   
         setDateCotents('#calendar-box .date-box');
+        drawPlanInCalendar();
         e.preventDefault();
       };
       const showAddListHandler = () =>{
@@ -433,6 +457,7 @@ const calendarFunc = () => {
       const exitAddListHandler = (e) =>{
         const $addListModal = document.querySelector('#calendar-modal .add-list-modal');
         $addListModal.style.display = 'none';
+        drawPlanInCalendar();
         e.preventDefault();
       };
       // 일정 추가 모달에서 일정 넘기기
@@ -477,6 +502,7 @@ const calendarFunc = () => {
         $addListModal.style.display = 'none';
         addPlan({startHour, startMinute, endHour, endMinute, context, key: $startDate.value});
         showPlan();
+        drawPlanInCalendar();
       }  
       $addListExitButton.addEventListener('click', exitAddListHandler);
       $addListAddButton.addEventListener('click', addDateListHandler);      
