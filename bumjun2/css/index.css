@@ -2,55 +2,73 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
   margin: 0;
-  background-color: #f0f0f0;
-  font-family: Arial, sans-serif;
-}
-
-.button-box {
-  text-align: center;
-  margin-bottom: 20px;
 }
 
 .box {
   display: grid;
   grid-template-columns: repeat(10, 30px);
   grid-template-rows: repeat(20, 30px);
-  /* border: 3px solid aqua; */
-  background: red;
+  border: 5px solid aqua;
+  /* background: red; */
+}
+.box .start {
+  background: aqua;
+  width: 300px;
+  height: 600px;
 }
 
-.textblue {
+.box .start .text {
   text-align: center;
-  font-size: 1.5em;
-  color: aqua;
-  text-shadow: 0 0 10px #000;
+  margin-top: 100px;
+  padding-top: 10px;
+  font-size: 3em;
+  font-weight: 700;
+
+  box-shadow: 0 0 10px;
 }
-.textgreen {
-  text-align: center;
-  font-size: 1.5em;
-  color: green;
-  text-shadow: 0 0 10px #000;
-}
-.textyellow {
-  text-align: center;
-  font-size: 1.5em;
-  color: yellow;
-  text-shadow: 0 0 10px #000;
-}
-.textred {
-  text-align: center;
-  font-size: 1.5em;
+
+.box .start .text .red-text {
   color: red;
-  text-shadow: 0 0 10px #000;
 }
 
+.box .start .text .orang-text {
+  color: orange;
+}
+
+.box .start .text .yellow-text {
+  color: yellow;
+}
+
+.box .start .text .green-text {
+  color: green;
+}
+
+.box .start .text .blue-text {
+  color: blue;
+}
+
+.box .start .text .purple-text {
+  color: purple;
+}
+
+.box .start .start-text {
+  margin-top: 300px;
+  margin-left: 100px;
+  background-color: aqua;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 30px;
+}
+.start-text:hover {
+  color: #000;
+}
 .block {
   /* display: flex; */
   width: 30px;
   height: 30px;
-  /* border-radius: 10px; */
 }
 
 .blue {
@@ -108,16 +126,28 @@ body {
   box-shadow: 0 0 10px;
 }
 
-.start-button {
-  margin-top: 20px;
-  padding: 10px 20px;
-  background-color: #f44336;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+.locked {
+  width: 30px;
+  height: 30px;
+  background: gray;
 }
 
-.start-button:hover {
-  background-color: #d32f2f;
+#stop {
+  display: block;
+  height: 600px;
+  border: 5px solid aqua;
+}
+
+.stop {
+  display: none;
+  height: 600px;
+  border: 5px solid aqua;
+}
+
+.stop .next-block {
+  height: 100px;
+}
+
+.stop .oh-stop {
+  margin-top: 450px;
 }

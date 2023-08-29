@@ -1,6 +1,9 @@
 const $box = document.querySelector('.box');
-const $startButton = document.querySelector('.start-button');
+const $startButton = document.querySelector('.start-text');
+const $stop = document.querySelector('.stop');
 const blockTemplate = document.getElementById('blockTemplate');
+const $ohStop = document.querySelector('.oh-stop');
+const $nextBlock = document.querySelector('.next-block');
 
 let isPlaying = false;
 let intervalId = null;
@@ -12,6 +15,8 @@ let rowSize = 0;
 let newCol = 4;
 let speed = 300;
 let rotationIndex = 0;
+
+let c = 0;
 
 let currentColor = '';
 const colors = ['blue', 'red', 'yellow', 'orange', 'purple', 'pink', 'green'];
@@ -143,6 +148,7 @@ const createBlock = () => {
 
 const randomBlockColor = () => {
   const randomIndex = Math.floor(Math.random() * colors.length);
+  c = randomIndex;
   return colors[randomIndex];
 };
 
@@ -331,7 +337,6 @@ const makeBlock = () => {
     } else {
       currentShape = 'V';
     }
-    // currentColor = 'blue';
 
     const endRow = getBlockEndRow(currentShape);
     if (endRow >= row - 1 || isCollision(currentShape, newRow + 1, newCol)) {
@@ -359,40 +364,19 @@ const makeBlock = () => {
   }
 };
 
-createBlock();
-$box.children[3].children[7].textContent = '테';
-$box.children[4].children[7].textContent = '트';
-$box.children[5].children[7].textContent = '리';
-$box.children[6].children[7].textContent = '스';
-
-$box.children[3].children[7].classList.add('textblue');
-$box.children[4].children[7].classList.add('textgreen');
-$box.children[5].children[7].classList.add('textyellow');
-$box.children[6].children[7].classList.add('textred');
-const startGame = () => {
-  if (isPlaying) return;
-  isPlaying = true;
-
-  $startButton.textContent = 'Stop';
+$startButton.addEventListener('click', () => {
+  $box.firstElementChild.remove();
+  createBlock();
 
   intervalId = setInterval(makeBlock, speed);
+
+  $stop.setAttribute('id', 'stop');
+
   document.addEventListener('keydown', handlerKeyDown);
-};
+});
 
-const stopGame = () => {
-  if (!isPlaying) return;
-  isPlaying = false;
-  $startButton.textContent = 'Start';
-
+$ohStop.addEventListener('click', () => {
   clearInterval(intervalId);
-};
-
-$startButton.addEventListener('click', () => {
-  if (isPlaying) {
-    stopGame();
-  } else {
-    startGame();
-  }
 });
 
 const handlerKeyDown = (e) => {
