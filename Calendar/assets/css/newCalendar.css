@@ -18,7 +18,7 @@ body {
   display: flex;
   flex-flow: row nowrap;
   background: #e7feff;
-  height: 10%;
+  height: 10%;  
 }
 
 /*------------------------------------ 년도 부분 박스 */
@@ -133,9 +133,10 @@ body {
 
 /* -------------------- 모달 -------------------- */
 #calendar-modal {
-  top: 0;
+  top: 50px;
   left: 50%;
   transform: translateX(-50%);
+  
   position: absolute;
   z-index: 100;
   width: 1200px;
