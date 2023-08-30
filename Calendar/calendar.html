@@ -44,7 +44,50 @@
         </div>
         <div class="calendar-modal__body">
           <div class="body__date-box"></div>
-          <div class="body__add-list"></div>
+          <div class="body__add-list">
+            <p class="select-date-schedule">00일 일정표</p>
+            <ul class="item-box">
+              <li class="item">
+                <div class="item-text">
+                  <!-- <div class="item-date">2023.08.26~2023.08.26</div> -->
+                  <div class="item-time">14:00~16:00</div>
+                  <div class="item-context">밥 먹기 카페</div>
+                </div>
+                <button class="item-edit"><i class="fa-solid fa-pen fa-2xl"></i></button>
+                <button class="item-delete"><i class="fa-solid fa-trash fa-2xl"></i></button>
+              </li>
+            </ul>
+            <button class="add-button">일정추가</button>
+          </div>
+        </div>
+        <div class="add-list-modal">
+          <form action="">
+            <button class="exit-button"><i class="fa-solid fa-xmark fa-2xl"></i></button>
+            <div class="add-list-modal__box">              
+              <div class="date-container">
+                <p>시작날:&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                <input type="date" class="start-date">
+              </div>
+              <div class="date-container">
+                <p>종료날:&nbsp;&nbsp;&nbsp; </p>
+                <input type="date" class="end-date">
+              </div>
+            </div>            
+            <div class="add-list-modal__box">
+              <div class="date-container">
+                <p>시작 시각:&nbsp; </p>
+                <input type="time" class="start-time">
+              </div>
+              <div class="date-container">
+                <p>종료 시각: </p>
+                <input type="time" class="end-time">
+              </div>
+            </div>
+            <div class="list-context-container">
+              <input type="text" class="list-context">
+              <button class="list-context-button"><i class="fa-solid fa-square-check fa-2xl"></i></button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
