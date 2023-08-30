@@ -3,7 +3,12 @@ const $startButton = document.querySelector('.start-text');
 const $stop = document.querySelector('.stop');
 const blockTemplate = document.getElementById('blockTemplate');
 const $ohStop = document.querySelector('.oh-stop');
-const $nextBlock = document.querySelector('.next-block');
+const $score = document.querySelector('.score');
+const $Level = document.querySelector('.Level');
+const $nextBlockBox = document.querySelector('.next-block');
+const $finalScore = document.getElementById('finalScore');
+const $restartButton = document.getElementById('restartButton');
+const $gameOverModal = document.getElementById('gameOverModal');
 
 let isPlaying = false;
 let intervalId = null;
@@ -15,10 +20,12 @@ let rowSize = 0;
 let newCol = 4;
 let speed = 300;
 let rotationIndex = 0;
-
-let c = 0;
+let score = 0;
+let level = 1;
 
 let currentColor = '';
+
+const speedLevels = [300, 250, 200, 150];
 const colors = ['blue', 'red', 'yellow', 'orange', 'purple', 'pink', 'green'];
 
 const blockShapes = {
@@ -253,7 +260,6 @@ const isCollision = (shape, newRow, newCol) => {
         const checkRow = newRow + r;
         const checkCol = newCol + c;
 
-        // 게임 보드 바깥으로 나가는 경우, 충돌로 처리
         if (checkRow >= row || checkCol < 0 || checkCol >= col) {
           return true;
         } else {
@@ -295,6 +301,25 @@ const isLineFull = (rowIndex) => {
   return true;
 };
 
+const increaseScore = () => {
+  score += 100;
+  $score.textContent = score;
+
+  if (score >= 200 && level < speedLevels.length) {
+    levelUp();
+  }
+};
+
+const levelUp = () => {
+  level++;
+  $Level.textContent = level;
+
+  if (level <= speedLevels.length) {
+    clearInterval(intervalId);
+    intervalId = setInterval(makeBlock, speed);
+  }
+};
+
 const clearLineAndMoveDown = (rowIndex) => {
   for (let c = 0; c < col; c++) {
     $box.children[c].children[rowIndex].classList.remove('locked', ...colors);
@@ -311,6 +336,24 @@ const clearLineAndMoveDown = (rowIndex) => {
       }
     }
   }
+  increaseScore();
+};
+
+const showNextBlock = (nextShape) => {
+  $nextBlockBox.innerHTML = '';
+
+  const nextBlockShape = blockShapes[nextShape];
+  const nextRotation = nextBlockShape[0];
+
+  for (let r = 0; r < nextRotation.length; r++) {
+    for (let c = 0; c < nextRotation[r].length; c++) {
+      if (nextRotation[r][c] === 1) {
+        const cell = document.createElement('div');
+        cell.classList.add('next-block-cell', nextShape);
+        $nextBlockBox.appendChild(cell);
+      }
+    }
+  }
 };
 
 const makeBlock = () => {
@@ -318,7 +361,6 @@ const makeBlock = () => {
     if (newRow === 0) {
       currentColor = randomBlockColor();
       speed = 300;
-      console.log(speed);
       clearInterval(intervalId);
       intervalId = setInterval(makeBlock, speed);
     }
@@ -349,11 +391,11 @@ const makeBlock = () => {
       }
       if (newRow === 0) {
         stopGame();
-        return;
       }
       newCol = 4;
       newRow = 0;
     } else {
+      removeCurrentColor(currentShape);
       newRow++;
       rowSize = newRow - 1;
       randomBlock();
@@ -368,27 +410,84 @@ $startButton.addEventListener('click', () => {
   $box.firstElementChild.remove();
   createBlock();
 
-  intervalId = setInterval(makeBlock, speed);
-
-  $stop.setAttribute('id', 'stop');
-
   document.addEventListener('keydown', handlerKeyDown);
+
+  intervalId = setInterval(makeBlock, speed);
+  $stop.setAttribute('id', 'stop');
+});
+
+const pauseGame = () => {
+  clearInterval(intervalId);
+  $ohStop.textContent = '재시작';
+  isPlaying = true;
+};
+
+const resumeGame = () => {
+  intervalId = setInterval(makeBlock, speed);
+  $ohStop.textContent = '멈춰';
+  isPlaying = false;
+};
+
+const endGame = () => {
+  clearInterval(intervalId);
+  isGamePaused = false;
+
+  $finalScore.textContent = score;
+  $gameOverModal.style.display = 'block';
+};
+
+const stopGame = () => {
+  endGame();
+};
+
+const restartGame = () => {
+  score = 0;
+  level = 1;
+  speed = speedLevels[0];
+  rotationIndex = 0;
+  newRow = 0;
+  newCol = 4;
+  makeBlock();
+  currentColor = randomBlockColor();
+
+  $box.innerHTML = '';
+  createBlock();
+  $score.textContent = score;
+  $Level.textContent = level;
+
+  intervalId = setInterval(makeBlock, speed);
+};
+
+$restartButton.addEventListener('click', () => {
+  $gameOverModal.style.display = 'none';
+  restartGame();
+});
+
+$restartButton.addEventListener('click', () => {
+  $gameOverModal.style.display = 'none';
 });
 
 $ohStop.addEventListener('click', () => {
-  clearInterval(intervalId);
+  if (isPlaying) {
+    resumeGame();
+  } else {
+    pauseGame();
+  }
 });
 
 const handlerKeyDown = (e) => {
-  if (e.keyCode === 37) {
-    leftMove();
-  } else if (e.keyCode === 39) {
-    rightMove();
-  } else if (e.keyCode === 38) {
-    rotateMove();
-  } else if (e.keyCode === 40) {
-    downMove();
-  } else if (e.keyCode === 32) {
+  if (newRow >= 1) {
+    if (e.keyCode === 37) {
+      leftMove();
+    } else if (e.keyCode === 39) {
+      rightMove();
+    } else if (e.keyCode === 38) {
+      rotateMove();
+    } else if (e.keyCode === 40) {
+      downMove();
+    } else if (e.keyCode === 32) {
+      spaceMove();
+    }
   }
 };
 
@@ -409,9 +508,17 @@ const rightMove = () => {
 };
 
 const downMove = () => {
-  speed -= 5;
+  speed -= 50;
   clearInterval(intervalId);
   intervalId = setInterval(makeBlock, speed);
+};
+
+const spaceMove = () => {
+  keyEventRemoveCurrentColor(currentShape);
+  while (!isCollision(currentShape, newRow + 1, newCol)) {
+    newRow++;
+  }
+  makeBlock();
 };
 
 const rotateMove = () => {
