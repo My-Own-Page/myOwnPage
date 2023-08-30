@@ -33,11 +33,13 @@ section .youtubeUrl input:focus {
 section .playlist {
   background-color: #fff;
   width: 100%;
-  height: 27vh;
+  height: 24vh;
 }
+
 .playlist {
   overflow-y: scroll;
 }
+
 li {
   display: flex;
   justify-content: space-between;
@@ -45,6 +47,7 @@ li {
   font-size: 15px;
   padding: 0 10px 0 0;
 }
+
 img {
   width: 20%;
 }

@@ -78,7 +78,7 @@ fetch('./bumjun2/index.html')
 
 const $calendar = document.querySelector('.calendar');
 
-fetch('./Calendar/calendar.html')
+fetch('./Calendar/newCalendar.html')
     .then(res => res.text())
     .then(data => {
         const bodyContent = data.match(/<body[^>]*>([\s\S]*)<\/body>/i);
@@ -88,11 +88,11 @@ fetch('./Calendar/calendar.html')
             // Load the associated CSS separately
             const $cssLink = document.createElement('link');
             $cssLink.rel = 'stylesheet';
-            $cssLink.href = './Calendar/assets/css/calendar.css'; // Adjust the path based on your project structure
+            $cssLink.href = './Calendar/assets/css/newCalendar.css'; // Adjust the path based on your project structure
             document.head.appendChild($cssLink);
 
             const $jsSrc = document.createElement('script');
-            $jsSrc.src = './Calendar/assets/scripts/calendar.js';
+            $jsSrc.src = './Calendar/assets/scripts/newCalendar.js';
             document.head.appendChild($jsSrc);
 
         }
