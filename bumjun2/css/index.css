@@ -1,67 +1,153 @@
 body {
-  margin: 0;
-  padding: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  background-color: #f0f0f0;
-}
-
-.button-box {
-  text-align: center;
-  margin-bottom: 20px;
+  margin: 0;
 }
 
 .box {
   display: grid;
   grid-template-columns: repeat(10, 30px);
   grid-template-rows: repeat(20, 30px);
-  border: 1px solid #000;
+  border: 5px solid aqua;
+  /* background: red; */
+}
+.box .start {
+  background: aqua;
+  width: 300px;
+  height: 600px;
 }
 
+.box .start .text {
+  text-align: center;
+  margin-top: 100px;
+  padding-top: 10px;
+  font-size: 3em;
+  font-weight: 700;
+
+  box-shadow: 0 0 10px;
+}
+
+.box .start .text .red-text {
+  color: red;
+}
+
+.box .start .text .orang-text {
+  color: orange;
+}
+
+.box .start .text .yellow-text {
+  color: yellow;
+}
+
+.box .start .text .green-text {
+  color: green;
+}
+
+.box .start .text .blue-text {
+  color: blue;
+}
+
+.box .start .text .purple-text {
+  color: purple;
+}
+
+.box .start .start-text {
+  margin-top: 300px;
+  margin-left: 100px;
+  background-color: aqua;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 30px;
+}
+.start-text:hover {
+  color: #000;
+}
 .block {
   /* display: flex; */
   width: 30px;
   height: 30px;
-  /* background-color: #007bff; */
 }
+
 .blue {
   width: 30px;
   height: 30px;
   background: #007bff;
+
+  box-shadow: 0 0 10px;
 }
 .red {
   width: 30px;
   height: 30px;
   background: red;
+
+  box-shadow: 0 0 10px;
 }
+
 .green {
   width: 30px;
   height: 30px;
   background: green;
+
+  box-shadow: 0 0 10px;
 }
 
 .yellow {
   width: 30px;
   height: 30px;
   background: yellow;
+
+  box-shadow: 0 0 10px;
 }
 
 .orange {
   width: 30px;
   height: 30px;
   background: orange;
+
+  box-shadow: 0 0 10px;
 }
 
 .purple {
   width: 30px;
   height: 30px;
   background: purple;
+
+  box-shadow: 0 0 10px;
 }
 
 .pink {
   width: 30px;
   height: 30px;
   background: pink;
+
+  box-shadow: 0 0 10px;
+}
+
+.locked {
+  width: 30px;
+  height: 30px;
+  background: gray;
+}
+
+#stop {
+  display: block;
+  height: 600px;
+  border: 5px solid aqua;
+}
+
+.stop {
+  display: none;
+  height: 600px;
+  border: 5px solid aqua;
+}
+
+.stop .next-block {
+  height: 100px;
+}
+
+.stop .oh-stop {
+  margin-top: 450px;
 }

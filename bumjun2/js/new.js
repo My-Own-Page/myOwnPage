@@ -1,6 +1,9 @@
 const $box = document.querySelector('.box');
-const $startButton = document.querySelector('.start-button');
+const $startButton = document.querySelector('.start-text');
+const $stop = document.querySelector('.stop');
 const blockTemplate = document.getElementById('blockTemplate');
+const $ohStop = document.querySelector('.oh-stop');
+const $nextBlock = document.querySelector('.next-block');
 
 let isPlaying = false;
 let intervalId = null;
@@ -10,11 +13,13 @@ let col = 10;
 let newRow = 0;
 let rowSize = 0;
 let newCol = 4;
-let speed = 500;
+let speed = 300;
 let rotationIndex = 0;
 
+let c = 0;
+
 let currentColor = '';
-const colors = ['blue', 'red', 'green', 'yellow', 'orange', 'purple', 'pink'];
+const colors = ['blue', 'red', 'yellow', 'orange', 'purple', 'pink', 'green'];
 
 const blockShapes = {
   I: [
@@ -53,28 +58,26 @@ const blockShapes = {
       [0, 1, 0],
     ],
   ],
-  L: [
+  W: [
     [
-      [
-        [1, 0, 0],
-        [1, 1, 1],
-        [0, 0, 0],
-      ],
-      [
-        [0, 1, 1],
-        [0, 1, 0],
-        [0, 1, 0],
-      ],
-      [
-        [1, 1, 1],
-        [0, 0, 1],
-        [0, 0, 0],
-      ],
-      [
-        [0, 0, 1],
-        [0, 0, 1],
-        [0, 1, 1],
-      ],
+      [1, 0, 0],
+      [1, 1, 1],
+      [0, 0, 0],
+    ],
+    [
+      [0, 1, 1],
+      [0, 1, 0],
+      [0, 1, 0],
+    ],
+    [
+      [1, 1, 1],
+      [0, 0, 1],
+      [0, 0, 0],
+    ],
+    [
+      [0, 0, 1],
+      [0, 0, 1],
+      [0, 1, 1],
     ],
   ],
   i: [
@@ -145,6 +148,7 @@ const createBlock = () => {
 
 const randomBlockColor = () => {
   const randomIndex = Math.floor(Math.random() * colors.length);
+  c = randomIndex;
   return colors[randomIndex];
 };
 
@@ -195,8 +199,8 @@ const randomBlock = () => {
     removeCurrentColor('T');
     drawBlock('T');
   } else if (currentColor === 'green') {
-    removeCurrentColor('L');
-    drawBlock('L');
+    removeCurrentColor('W');
+    drawBlock('W');
   } else if (currentColor === 'yellow') {
     removeCurrentColor('Square');
     drawBlock('Square');
@@ -219,7 +223,21 @@ const getBlockEndRow = (shape) => {
   for (let r = 0; r < currentRotation.length; r++) {
     for (let c = 0; c < currentRotation[r].length; c++) {
       if (currentRotation[r][c] === 1) {
-        endRow = Math.max(endRow, newRow + r);
+        const checkRow = newRow + r;
+        const checkCol = newCol + c;
+
+        if (checkRow >= row) {
+          return row - 1;
+        }
+
+        if (
+          $box.children[checkCol].children[checkRow].classList.contains(
+            'locked'
+          )
+        ) {
+          return endRow;
+        }
+        endRow = Math.max(endRow, checkRow);
       }
     }
   }
@@ -234,7 +252,15 @@ const isCollision = (shape, newRow, newCol) => {
       if (currentRotation[r][c] === 1) {
         const checkRow = newRow + r;
         const checkCol = newCol + c;
+
+        // 게임 보드 바깥으로 나가는 경우, 충돌로 처리
+        if (checkRow >= row || checkCol < 0 || checkCol >= col) {
+          return true;
+        } else {
+        }
+
         if (
+          checkRow >= 0 &&
           $box.children[checkCol].children[checkRow].classList.contains(
             'locked'
           )
@@ -244,7 +270,7 @@ const isCollision = (shape, newRow, newCol) => {
       }
     }
   }
-  // return false;
+  return false;
 };
 
 const lockBlock = (shape, newRow, newCol) => {
@@ -260,17 +286,48 @@ const lockBlock = (shape, newRow, newCol) => {
   }
 };
 
+const isLineFull = (rowIndex) => {
+  for (let c = 0; c < col; c++) {
+    if (!$box.children[c].children[rowIndex].classList.contains('locked')) {
+      return false;
+    }
+  }
+  return true;
+};
+
+const clearLineAndMoveDown = (rowIndex) => {
+  for (let c = 0; c < col; c++) {
+    $box.children[c].children[rowIndex].classList.remove('locked', ...colors);
+  }
+
+  for (let r = rowIndex; r > 0; r--) {
+    for (let c = 0; c < col; c++) {
+      const cell = $box.children[c].children[r];
+      const upperCell = $box.children[c].children[r - 1];
+      if (upperCell.classList.contains('locked')) {
+        cell.className = upperCell.className;
+      } else {
+        cell.classList.remove('locked', ...colors);
+      }
+    }
+  }
+};
+
 const makeBlock = () => {
   if (newRow < row) {
     if (newRow === 0) {
       currentColor = randomBlockColor();
+      speed = 300;
+      console.log(speed);
+      clearInterval(intervalId);
+      intervalId = setInterval(makeBlock, speed);
     }
     if (currentColor === 'blue') {
       currentShape = 'I';
     } else if (currentColor === 'red') {
       currentShape = 'T';
     } else if (currentColor === 'green') {
-      currentShape = 'L';
+      currentShape = 'W';
     } else if (currentColor === 'yellow') {
       currentShape = 'Square';
     } else if (currentColor === 'orange') {
@@ -280,11 +337,21 @@ const makeBlock = () => {
     } else {
       currentShape = 'V';
     }
-    // currentColor = 'red';
 
     const endRow = getBlockEndRow(currentShape);
     if (endRow >= row - 1 || isCollision(currentShape, newRow + 1, newCol)) {
       lockBlock(currentShape, newRow, newCol);
+
+      for (let r = 0; r < row; r++) {
+        if (isLineFull(r)) {
+          clearLineAndMoveDown(r);
+        }
+      }
+      if (newRow === 0) {
+        stopGame();
+        return;
+      }
+      newCol = 4;
       newRow = 0;
     } else {
       newRow++;
@@ -297,46 +364,19 @@ const makeBlock = () => {
   }
 };
 
-const rotateBlock = (shape) => {
-  const rotations = blockShapes[shape];
-  const currentRotation = rotations[rotationIndex % rotations.length];
-
-  for (let r = 0; r < currentRotation.length; r++) {
-    for (let c = 0; c < currentRotation[r].length; c++) {
-      if (currentRotation[r][c] === 1) {
-        const cell = $box.children[newCol + c].children[newRow + r];
-        cell.classList.add(currentColor);
-      }
-    }
-  }
-};
-
-const startGame = () => {
-  if (isPlaying) return;
-  isPlaying = true;
-
-  $startButton.textContent = 'Stop';
-
+$startButton.addEventListener('click', () => {
+  $box.firstElementChild.remove();
   createBlock();
 
-  intervalId = setInterval(makeBlock, 300);
+  intervalId = setInterval(makeBlock, speed);
+
+  $stop.setAttribute('id', 'stop');
+
   document.addEventListener('keydown', handlerKeyDown);
-};
+});
 
-const stopGame = () => {
-  if (!isPlaying) return;
-  isPlaying = false;
-  $startButton.textContent = 'Start';
-
+$ohStop.addEventListener('click', () => {
   clearInterval(intervalId);
-};
-
-$startButton.addEventListener('click', () => {
-  if (isPlaying) {
-    stopGame();
-  } else {
-    startGame();
-  }
 });
 
 const handlerKeyDown = (e) => {
@@ -348,6 +388,7 @@ const handlerKeyDown = (e) => {
     rotateMove();
   } else if (e.keyCode === 40) {
     downMove();
+  } else if (e.keyCode === 32) {
   }
 };
 
@@ -355,7 +396,7 @@ const leftMove = () => {
   if (!isCollision(currentShape, newRow, newCol - 1)) {
     keyEventRemoveCurrentColor(currentShape);
     newCol--;
-    makeBlock();
+    randomBlock();
   }
 };
 
@@ -363,14 +404,21 @@ const rightMove = () => {
   if (newCol < col - 1 && !isCollision(currentShape, newRow, newCol + 1)) {
     keyEventRemoveCurrentColor(currentShape);
     newCol++;
-    makeBlock();
+    randomBlock();
   }
 };
+
+const downMove = () => {
+  speed -= 5;
+  clearInterval(intervalId);
+  intervalId = setInterval(makeBlock, speed);
+};
+
 const rotateMove = () => {
   keyEventRemoveCurrentColor(currentShape);
   rotationIndex++;
   if (rotationIndex > blockShapes[currentShape].length) {
     rotationIndex = 0;
   }
-  rotateBlock(currentShape);
+  drawBlock(currentShape);
 };
