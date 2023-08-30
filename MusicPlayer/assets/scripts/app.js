@@ -123,37 +123,6 @@ const playMusicItem = (e) => {
 const $pauseButton = document.querySelector('.fa-circle-pause');
 $pauseButton.addEventListener('click', pauseMusicItem);
 
-const $playButton = document.querySelector('.fa-circle-play');
-$playButton.addEventListener('click', playMusicItem);
-
-const $forwardButton = document.querySelector('.fa-forward');
-$forwardButton.addEventListener('click', () => {
-  if (selectedLi) {
-    const selectedLiIndex = Array.from(playlistContainer.children).indexOf(selectedLi);
-    console.log("Selected Li Index:", selectedLiIndex);
-    console.log(selectedLiIndex);
-    if (selectedLiIndex > 0) {
-      const previousLi = playlistContainer.children[selectedLiIndex - 1];
-      console.log("Previous Li:", previousLi);
-      selectLi(previousLi);
-    }
-  }
-});
-
-const $backwardButton = document.querySelector('.fa-backward');
-$backwardButton.addEventListener('click', (youtubeId) => {
-  if (selectedLi) {
-    const selectedLiIndex = Array.from(playlistContainer.children).indexOf(selectedLi);
-    console.log("Selected Li Index:", selectedLiIndex);
-    console.log(selectedLiIndex);
-    if (selectedLiIndex > 0) {
-      const previousLi = playlistContainer.children[selectedLiIndex - 1];
-      console.log("Previous Li:", previousLi);
-      selectLi(previousLi, youtubeId);
-    }
-  }
-});
-
 function selectLi(li, youtubeId) {
   if (selectedLi) {
     selectedLi.style.backgroundColor = '';
