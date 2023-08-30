@@ -5,6 +5,7 @@
   width: inherit;
   height: inherit;
   border-radius: 20px;
+
 }
 .section {
   /* width: 100%; */
@@ -45,8 +46,8 @@
 }
 
 .section .lucky .text {
-  margin-top: 20px;
-  font-size: 150%;
+  margin-bottom: 15px;
+  font-size: 100%;
 }
 .section .lucky .result .btn2 {
   background-color: #fce205;
@@ -59,7 +60,7 @@
   cursor: pointer;
   transition: color 0.3s;
   /* margin: 0 auto; */
-  /* margin-top: 140px; */
+  margin-top: 100px;
 }
 .section .quiz {
   height: 100;
@@ -167,6 +168,101 @@
   transition: color 0.3s;
   /* margin: 0 auto; */
 }
-/* 끝말잇기 CSS */
-.section .quiz .WordRelay .relay {
+.section .lucky .Egg .breakEgg:hover{
+  color: red;
 }
+.container1 .section .egg{
+  background-repeat: no-repeat;
+  text-align: center;
+  background-position: center center;
+  padding-right: 50px;
+}
+.container1 .section .egg .eggScore .eggscore{
+  margin-bottom: 30px;
+}
+.container1 .section .egg .egg1{
+  background-position: center;
+}
+.container1 .section .egg .egg1 .eggimage{
+  width: 200px;
+  height: 200px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-image: url(./image/Egg.png);
+  margin-bottom: 50px;
+  
+}
+.container1 .section .egg .egg1 .eggimage{
+  width: 200px;
+  height: 200px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-image: url(./image/Egg.png);
+  margin-bottom: 50px;
+}
+.container1 .section .egg .egg1 .eggimage1{
+  width: 200px;
+  height: 200px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-image: url(./image/Eggbreak.png);
+  margin-bottom: 50px;
+}
+.container1 .section .egg .egg1 .eggimage2{
+  width: 200px;
+  height: 200px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-image: url(./image/AllEggbreak.png);
+  margin-bottom: 50px;
+}
+.container1 .section .egg .eggBtn .eggText{
+  margin-bottom: 20px;
+}
+.container1 .section .egg .eggBtn .eggclickBtn{
+  margin: 0 auto;
+  background-color: #fce205;
+  color: black;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  padding: 10px 20px;
+  border-radius: 15px;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+.container1 .section .egg .eggBtn .eggclickBtn:hover{
+  color: blue;
+}
+.container1 .section .egg .eggBtn .eggClickGoMain {
+  margin: 0 auto;
+  background-color: #fce205;
+  color: black;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  padding: 10px 20px;
+  border-radius: 15px;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+.container1 .section .egg .eggBtn .eggClickGoMain:hover{
+  color: red;
+}
+@keyframes shake {
+  from { transform: translateX(-5em); }
+  to { transform: translateX(5em); }
+}
+
+.shaking {
+  animation: shake 0.1s infinite alternate;
+
+  }
+
+
+
+
