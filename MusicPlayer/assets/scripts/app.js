@@ -14,12 +14,10 @@ linkInput.addEventListener("keydown", async (e) => {
   if (!e.isComposing && e.key === 'Enter') {
     const linkValue = linkInput.value;
     const youtubeId = extractYouTubeId(linkValue);
-    console.log(youtubeId);
 
     if (youtubeId) {
       try {
         const videoData = await fetchVideoData(youtubeId);
-        console.log(videoData);
         const musicObj = {
           title: truncateTitle(videoData.snippet.title, 30),
           thumb: videoData.snippet.thumbnails.default.url,
@@ -27,7 +25,6 @@ linkInput.addEventListener("keydown", async (e) => {
           youtube_id: youtubeId,
         };
         playlists.push(musicObj);
-        savePlaylist();
         linkInput.value = '';
 
         const li = document.createElement('li');
@@ -123,32 +120,8 @@ const playMusicItem = (e) => {
 const $pauseButton = document.querySelector('.fa-circle-pause');
 $pauseButton.addEventListener('click', pauseMusicItem);
 
-function selectLi(li, youtubeId) {
-  if (selectedLi) {
-    selectedLi.style.backgroundColor = '';
-  }
-
-  selectedLi = li;
-  selectedLi.style.backgroundColor = '#FFFFCC';
-
-  // const youtubeId = extractYouTubeId(selectedLi.querySelector('h3').textContent);
-  if (currentIframe) {
-    $musicPlayer.removeChild(currentIframe);
-  }
-
-  const newIframe = document.createElement('iframe');
-  newIframe.setAttribute('src', `https://www.youtube.com/embed/${youtubeId}?autoplay=1&rel=0&enablejsapi=1`);
-  newIframe.setAttribute('width', '0');
-  newIframe.setAttribute('height', '0');
-  newIframe.setAttribute('frameborder', '0');
-  newIframe.setAttribute('allow', 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture');
-  newIframe.allowFullscreen = true;
-
-  $musicPlayer.appendChild(newIframe);
-  currentIframe = newIframe;
-}
-
-
+const $playButton = document.querySelector('.fa-circle-play');
+$playButton.addEventListener('click', playMusicItem);
 
 function truncateTitle(title, maxLength) {
   if (title.length > maxLength) {
@@ -168,8 +141,4 @@ async function fetchVideoData(youtubeId) {
   const response = await fetch(apiUrl);
   const data = await response.json();
   return data.items[0];
-}
-
-function savePlaylist() {
-  // Implement your playlist saving logic here
 }

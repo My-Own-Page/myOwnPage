@@ -53,7 +53,8 @@ const calendarFunc = () => {
         if(schedule.key === date.dataset.id){
           const $todoList = document.createElement('div');
           $todoList.classList.add('context');
-          $todoList.textContent = schedule.context;
+          // $todoList.textContent = schedule.context;
+          $todoList.textContent = '*';
           date.appendChild($todoList);          
         }
       });

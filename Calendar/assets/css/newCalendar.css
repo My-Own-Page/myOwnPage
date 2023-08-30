@@ -17,7 +17,6 @@ body {
 #calendar-box .month-box {
   display: flex;
   flex-flow: row nowrap;
-  background: #e7feff;
   height: 10%;  
 }
 

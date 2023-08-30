@@ -80,8 +80,6 @@ function getWeather(lat, lon) {
       return response.json();
     })
     .then((json) => {
-      console.log(json);
-
       const $icoLi = document.createElement('ii');
       const $textLi = document.createElement('li');
       const $humWindSunsetLi = document.createElement('li');
@@ -103,7 +101,6 @@ function getWeather(lat, lon) {
         }
       }
       const temp = json.main.temp.toFixed(1) + '°C';
-      console.log(temp);
       $icoLi.append(temp);
       $icoLi.classList.add('weather-ico-temp');
 
@@ -126,7 +123,6 @@ function getWeather(lat, lon) {
         $windText.classList.add('gray-text');
         if (json.wind && json.wind.speed) {
           const windDirectionSpeed = json.wind.speed + 'm/s';
-          console.log(windDirectionSpeed);
           $humWindSunsetLi.append($windText, windDirectionSpeed);
         }
 
@@ -157,7 +153,6 @@ function getGoogleMapsData(lat, lon) {
         const addressComponents = data.results[0].address_components;
         for (const component of addressComponents) {
           if (component.types.includes('locality')) {
-            console.log('도시:', component.long_name);
             const $cityName = document.createElement('li');
             $cityName.textContent = component.long_name + '의 날씨';
             $cityName.classList.add('city');
