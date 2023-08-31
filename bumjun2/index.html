@@ -35,11 +35,20 @@
       </div>
     </div>
     <div class="stop">
-      <div class="next-block">다음 블록</div>
-      <div class="time">시간</div>
+      <div class="next-block"></div>
       <div class="score">점수</div>
-
+      <div class="Level">Level1</div>
       <div class="oh-stop">멈춰</div>
+    </div>
+    <div
+      class="modal"
+      id="gameOverModal"
+    >
+      <div class="modal-content">
+        <h2>Game Over</h2>
+        <p>Score: <span id="finalScore">0</span></p>
+        <button id="restartButton">Restart</button>
+      </div>
     </div>
     <template id="blockTemplate">
       <div class="blocks"></div>
