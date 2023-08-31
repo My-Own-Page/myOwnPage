@@ -14,7 +14,6 @@ linkInput.addEventListener("keydown", async (e) => {
   if (!e.isComposing && e.key === 'Enter') {
     const linkValue = linkInput.value;
     const youtubeId = extractYouTubeId(linkValue);
-    console.log(apiKey);
 
     if (youtubeId) {
       try {
