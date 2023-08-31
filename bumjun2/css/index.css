@@ -12,6 +12,7 @@ body {
   border: 5px solid aqua;
   /* background: red; */
 }
+
 .box .start {
   background: aqua;
   width: 300px;
@@ -22,7 +23,7 @@ body {
   text-align: center;
   margin-top: 100px;
   padding-top: 10px;
-  font-size: 3em;
+  font-size: 2.5em;
   font-weight: 700;
 
   box-shadow: 0 0 10px;
@@ -62,9 +63,11 @@ body {
   cursor: pointer;
   font-size: 30px;
 }
+
 .start-text:hover {
   color: #000;
 }
+
 .block {
   /* display: flex; */
   width: 30px;
@@ -78,6 +81,7 @@ body {
 
   box-shadow: 0 0 10px;
 }
+
 .red {
   width: 30px;
   height: 30px;
@@ -198,6 +202,7 @@ body {
   text-align: center;
 }
 
+
 .modal h2 {
   margin-top: 0;
   color: red;
@@ -211,4 +216,8 @@ body {
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
+}
+
+.stop .oh-stop {
+  margin-top: 450px;
 }

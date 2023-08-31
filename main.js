@@ -46,5 +46,97 @@ fetch('./MusicPlayer/index.html')
             cssLink.rel = 'stylesheet';
             cssLink.href = './MusicPlayer/assets/styles/app.css'; // Adjust the path based on your project structure
             document.head.appendChild(cssLink);
+
+            // Load the associated script separately
+            const jsSrc = document.createElement('script');
+            jsSrc.src = './MusicPlayer/assets/scripts/app.js';
+            jsSrc.type = 'module';
+            document.head.appendChild(jsSrc);
+        }
+    });
+
+const centerContent = document.querySelector('.centerContent');
+
+fetch('./bumjun2/index.html')
+    .then(res => res.text())
+    .then(data => {
+        const bodyContent = data.match(/<body[^>]*>([\s\S]*)<\/body>/i);
+
+        if (bodyContent) {
+            centerContent.innerHTML = bodyContent[1];
+
+            const cssLink = document.createElement('link');
+            cssLink.rel = 'stylesheet';
+            cssLink.href = './bumjun2/css/index.css';
+            document.head.appendChild(cssLink);
+
+            const jsSrc = document.createElement('script');
+            jsSrc.src = './bumjun2/js/new.js';
+            document.head.appendChild(jsSrc);
+        }
+    });
+
+const $calendar = document.querySelector('.calendar');
+
+fetch('./Calendar/newCalendar.html')
+    .then(res => res.text())
+    .then(data => {
+        const bodyContent = data.match(/<body[^>]*>([\s\S]*)<\/body>/i);
+        if (bodyContent) {
+            $calendar.innerHTML = bodyContent[1];
+
+            // Load the associated CSS separately
+            const $cssLink = document.createElement('link');
+            $cssLink.rel = 'stylesheet';
+            $cssLink.href = './Calendar/assets/css/newCalendar.css'; // Adjust the path based on your project structure
+            document.head.appendChild($cssLink);
+
+            const $jsSrc = document.createElement('script');
+            $jsSrc.src = './Calendar/assets/scripts/newCalendar.js';
+            document.head.appendChild($jsSrc);
+
+        }
+    });
+
+
+const $fortune = document.querySelector('.any2');
+
+fetch('./fortune/fortune.html')
+    .then(res => res.text())
+    .then(data => {
+        const bodyContent = data.match(/<body[^>]*>([\s\S]*)<\/body>/i);
+        if (bodyContent) {
+            $fortune.innerHTML = bodyContent[1];
+
+            const $cssLink = document.createElement('link');
+            $cssLink.rel = 'stylesheet';
+            $cssLink.href = './fortune/fortune.css';
+            document.head.appendChild($cssLink);
+
+            const $jsSrc = document.createElement('script');
+            $jsSrc.src = './fortune/fortune.js';
+            document.head.appendChild($jsSrc);
+        }
+    });
+
+
+const $weather = document.querySelector('.any1');
+
+fetch('./Weather/index.html')
+    .then(res => res.text())
+    .then(data => {
+        const bodyContent = data.match(/<body[^>]*>([\s\S]*)<\/body>/i);
+        if (bodyContent) {
+            $weather.innerHTML = bodyContent[1];
+
+            const $cssLink = document.createElement('link');
+            $cssLink.rel = 'stylesheet';
+            $cssLink.href = './Weather/assets/styles/app.css';
+            document.head.appendChild($cssLink);
+
+            const jsSrc = document.createElement('script');
+            jsSrc.src = './Weather/assets/scripts/app.js';
+            jsSrc.type = 'module';
+            document.head.appendChild(jsSrc);
         }
     });

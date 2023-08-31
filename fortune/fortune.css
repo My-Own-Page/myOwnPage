@@ -1,0 +1,268 @@
+/* CSS 파일 */
+.container1 {
+  background-image: url(./image/taroMain.jpg);
+  background-size: contain;
+  width: inherit;
+  height: inherit;
+  border-radius: 20px;
+
+}
+.section {
+  /* width: 100%; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* height: inherit; */
+  overflow: hidden;
+  flex-wrap: wrap;
+  align-content: stretch;
+}
+.section .lucky {
+  text-align: center;
+  height: inherit;
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  gap: 30px;
+}
+.section .lucky .btn1 {
+  background-color: #fce205;
+  color: black;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  padding: 10px 20px;
+  border-radius: 15px;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.section .lucky .btn1:hover {
+  color: red;
+}
+
+.section .lucky .text {
+  margin-bottom: 15px;
+  font-size: 100%;
+}
+.section .lucky .result .btn2 {
+  background-color: #fce205;
+  color: black;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  padding: 15px 30px;
+  border-radius: 15px;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  transition: color 0.3s;
+  /* margin: 0 auto; */
+  margin-top: 100px;
+}
+.section .quiz {
+  height: 100;
+}
+.section .quiz .quiz1 {
+  background-color: #fce205;
+  color: black;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  padding: 10px 20px;
+  border-radius: 15px;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+.section .quiz .quiz1:hover {
+  color: red;
+}
+/*퀴즈 부분 css */
+.section .choosequiz {
+  text-align: center;
+  width: inherit;
+  height: 35vh;
+  margin-top: 50px;
+}
+.section .choosequiz .score .yourScore {
+  font-size: 20px;
+  margin-bottom: 10em;
+}
+.section .choosequiz .showQuesion .question {
+  font-size: 20px;
+  margin-bottom: 30px;
+}
+.section .choosequiz .answer {
+  margin-bottom: 70px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+.section .choosequiz .answer .o {
+  background-color: #fce205;
+  color: black;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  padding: 15px 30px;
+  border-radius: 15px;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  transition: color 0.3s;
+  margin-right: 30px;
+}
+.section .choosequiz .answer .o:hover {
+  color: red;
+}
+.section .choosequiz .answer .x {
+  background-color: #fce205;
+  color: black;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  padding: 15px 30px;
+  border-radius: 15px;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+.section .choosequiz .answer .x:hover {
+  color: red;
+}
+.section .choosequiz .retrybutton {
+  background-color: #fce205;
+  color: black;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  padding: 15px 30px;
+  border-radius: 15px;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  transition: color 0.3s;
+  margin-right: 30px;
+}
+.section .choosequiz .retrybutton:hover {
+  background-color: #fce205;
+  color: black;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  padding: 15px 30px;
+  border-radius: 15px;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  transition: color 0.3s;
+  margin-bottom: 100px;
+  color: red;
+}
+
+/* 계란뿌수기 css */
+.section .lucky .Egg .breakEgg {
+  background-color: #fce205;
+  color: black;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  padding: 10px 20px;
+  border-radius: 15px;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  transition: color 0.3s;
+  /* margin: 0 auto; */
+}
+.section .lucky .Egg .breakEgg:hover{
+  color: red;
+}
+.container1 .section .egg{
+  background-repeat: no-repeat;
+  text-align: center;
+  background-position: center center;
+  margin-right: 30px;
+}
+.container1 .section .egg .eggScore .eggscore{
+  margin-bottom: 30px;
+}
+.container1 .section .egg .egg1{
+  background-position: center;
+}
+.container1 .section .egg .egg1 .eggimage{
+  width: 200px;
+  height: 200px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-image: url(./image/Egg.png);
+  margin-bottom: 50px;
+  
+}
+.container1 .section .egg .egg1 .eggimage{
+  width: 200px;
+  height: 200px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-image: url(./image/Egg.png);
+  margin-bottom: 50px;
+}
+.container1 .section .egg .egg1 .eggimage1{
+  width: 200px;
+  height: 200px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-image: url(./image/Eggbreak.png);
+  margin-bottom: 50px;
+}
+.container1 .section .egg .egg1 .eggimage2{
+  width: 200px;
+  height: 200px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-image: url(./image/AllEggbreak.png);
+  margin-bottom: 50px;
+}
+.container1 .section .egg .eggBtn .eggText{
+  margin-bottom: 20px;
+}
+.container1 .section .egg .eggBtn .eggclickBtn{
+  margin: 0 auto;
+  background-color: #fce205;
+  color: black;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  padding: 10px 20px;
+  border-radius: 15px;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+.container1 .section .egg .eggBtn .eggclickBtn:hover{
+  color: blue;
+}
+.container1 .section .egg .eggBtn .eggClickGoMain {
+  margin: 0 auto;
+  background-color: #fce205;
+  color: black;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  padding: 10px 20px;
+  border-radius: 15px;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+.container1 .section .egg .eggBtn .eggClickGoMain:hover{
+  color: red;
+}
+@keyframes shake {
+  from { transform: translateX(-5em); }
+  to { transform: translateX(5em); }
+}
+
+.shaking {
+  animation: shake 0.1s infinite alternate;
+
+  }
+
+
+
+

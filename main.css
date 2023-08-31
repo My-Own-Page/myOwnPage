@@ -1,7 +1,23 @@
 @import url("https://fonts.googleapis.com/css2?family=Chela+One&family=Jua&family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Poppins:wght@300;400;500;600;700;800&display=swap");
 
 body {
+  background: rgb(207, 207, 207);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
   background: #e7feff;
+  width: 1344px;
+  height: 846px;
+  max-width: 1344px;
+  max-height: 946px;
+  box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px,
+    rgba(17, 17, 26, 0.05) 0px 4px 12px, rgba(17, 17, 26, 0.05) 0px 8px 24px;
+  border-radius: 20px;
+  position: absolute;
+  top: 5%;
 }
 
 .header {
@@ -9,27 +25,39 @@ body {
   justify-content: center;
   align-items: center;
   padding: 30px 0;
+  gap: 10px;
 }
 
 .searchBox {
-  width: 35vw;
-  height: 5vh;
-  border: 1px solid gray;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-  border-radius: 30px;
+  /* width: 31vw;
+  height: 5vh; */
+  width: 520px;
+  height: 47px;
+  max-width: 520px;
+  max-height: 47px;
+  /* border: 1px solid gray; */
+  box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px,
+    rgba(17, 17, 26, 0.05) 0px 4px 12px, rgba(17, 17, 26, 0.05) 0px 8px 24px;
+  border-radius: 50px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 5px 30px;
+  margin-left: 50px;
 }
 
 .searchBox #search {
   font-family: "Jua", sans-serif;
   font-size: 20px;
   border: none;
-  width: 33vw;
-  height: 5vh;
+  /* width: 33vw;
+  height: 5vh; */
+  width: 491px;
+  height: 47px;
+  max-width: 491px;
+  max-height: 47px;
   background: #e7feff;
+  font-family: "Jua", sans-serif;
 }
 
 .searchBox #search:focus {
@@ -46,8 +74,9 @@ body {
   justify-content: center;
   align-items: center;
   gap: 30px;
-  font-family: "Jua", sans-serif;
+
   font-size: 20px;
+  font-family: "Jua", sans-serif;
 }
 
 .leftContent {
@@ -57,11 +86,16 @@ body {
 }
 
 .leftContent .calendar {
-  width: 25vw;
-  height: 40vh;
-  border: 1px solid gray;
-  border-radius: 30px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  /* width: 20vw;
+  height: 40vh; */
+  width: 336px;
+  height: 300px;
+  max-width: 336px;
+  max-height: 300px;
+  /* border: 1px solid gray; */
+  border-radius: 20px;
+  box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px,
+    rgba(17, 17, 26, 0.05) 0px 4px 12px, rgba(17, 17, 26, 0.05) 0px 8px 24px;
 
   display: flex;
   justify-content: center;
@@ -69,11 +103,16 @@ body {
 }
 
 .leftContent .musicPlayer {
-  width: 25vw;
-  height: 40vh;
-  border-radius: 30px;
-  border: 1px solid gray;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  /* width: 20vw;
+  height: 30vh; */
+  width: 336px;
+  height: 350px;
+  max-width: 336px;
+  max-height: 350px;
+  border-radius: 20px;
+  /* border: 1px solid gray; */
+  box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px,
+    rgba(17, 17, 26, 0.05) 0px 4px 12px, rgba(17, 17, 26, 0.05) 0px 8px 24px;
 
   display: flex;
   justify-content: center;
@@ -81,11 +120,16 @@ body {
 }
 
 .centerContent {
-  width: 38vw;
-  height: 84vh;
-  border-radius: 30px;
-  border: 1px solid gray;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  /* width: 38vw;
+  height: 73vh; */
+  width: 582px;
+  height: 686px;
+  max-width: 582px;
+  max-height: 686px;
+  border-radius: 20px;
+  /* border: 1px solid gray; */
+  box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px,
+    rgba(17, 17, 26, 0.05) 0px 4px 12px, rgba(17, 17, 26, 0.05) 0px 8px 24px;
 
   display: flex;
   justify-content: center;
@@ -99,11 +143,16 @@ body {
 }
 
 .rightContent .any1 {
-  width: 25vw;
-  height: 40vh;
-  border: 1px solid gray;
-  border-radius: 30px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  /* width: 17vw;
+  height: 25vh; */
+  width: 285px;
+  height: 235px;
+  max-width: 285px;
+  max-height: 235px;
+  /* border: 1px solid gray; */
+  border-radius: 20px;
+  box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px,
+    rgba(17, 17, 26, 0.05) 0px 4px 12px, rgba(17, 17, 26, 0.05) 0px 8px 24px;
 
   display: flex;
   justify-content: center;
@@ -111,11 +160,16 @@ body {
 }
 
 .rightContent .any2 {
-  width: 25vw;
-  height: 40vh;
-  border: 1px solid gray;
-  border-radius: 30px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  /* width: 17vw;
+  height: 45vh; */
+  width: 285px;
+  height: 423px;
+  max-width: 285px;
+  max-height: 423px;
+  /* border: 1px solid gray; */
+  border-radius: 20px;
+  box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px,
+    rgba(17, 17, 26, 0.05) 0px 4px 12px, rgba(17, 17, 26, 0.05) 0px 8px 24px;
 
   display: flex;
   justify-content: center;

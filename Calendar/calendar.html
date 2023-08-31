@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>나의 캘린더</title>
+    <script src="./assets/scripts/calendar.js" defer></script>
+    <link href="https://cdn.jsdelivr.net/npm/reset-css@5.0.2/reset.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/calendar.css" />
+    <script src="https://kit.fontawesome.com/13b874a53a.js" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <div id="calendar-box">
+      <div class="month-box">
+        <button class="prev-button"><i class="fa-solid fa-chevron-left fa-2xl"></i></button>
+        <div class="monthAndYear">
+          <h2>124</h2>
+          <h1>April</h1>
+        </div>        
+        <button class="next-button"><i class="fa-solid fa-chevron-right fa-2xl"></i></button>
+      </div>
+      <div class="sevenweek">
+        <div class="sevenweek-day red">일</div>
+        <div class="sevenweek-day">월</div>
+        <div class="sevenweek-day">화</div>
+        <div class="sevenweek-day">수</div>
+        <div class="sevenweek-day">목</div>
+        <div class="sevenweek-day">금</div>
+        <div class="sevenweek-day blue">토</div>
+      </div>
+      <div class="date-box"></div>
+    </div>
+
+    <div class="modal-overlay">
+      <div id="calendar-modal">
+        <div class="calendar-modal__header">
+          <button class="header__prev-button"><i class="fa-solid fa-chevron-left fa-2xl"></i></button>
+          <div class="header__year-and-month">
+            <p class="header__year">2000</p>
+            <p class="header__month">July</p>
+          </div>
+          <button class="header__next-button"><i class="fa-solid fa-chevron-right fa-2xl"></i></button>
+          <button class="header__exit-button"><i class="fa-solid fa-xmark fa-2xl"></i></button>
+        </div>
+        <div class="calendar-modal__body">
+          <div class="body__date-box"></div>
+          <div class="body__add-list">
+            <p class="select-date-schedule">00일 일정표</p>
+            <ul class="item-box">
+              <li class="item">
+                <div class="item-text">
+                  <!-- <div class="item-date">2023.08.26~2023.08.26</div> -->
+                  <div class="item-time">14:00~16:00</div>
+                  <div class="item-context">밥 먹기 카페</div>
+                </div>
+                <button class="item-edit"><i class="fa-solid fa-pen fa-2xl"></i></button>
+                <button class="item-delete"><i class="fa-solid fa-trash fa-2xl"></i></button>
+              </li>
+            </ul>
+            <button class="add-button">일정추가</button>
+          </div>
+        </div>
+        <div class="add-list-modal">
+          <form action="">
+            <button class="exit-button"><i class="fa-solid fa-xmark fa-2xl"></i></button>
+            <div class="add-list-modal__box">              
+              <div class="date-container">
+                <p>시작날:&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                <input type="date" class="start-date">
+              </div>
+              <div class="date-container">
+                <p>종료날:&nbsp;&nbsp;&nbsp; </p>
+                <input type="date" class="end-date">
+              </div>
+            </div>            
+            <div class="add-list-modal__box">
+              <div class="date-container">
+                <p>시작 시각:&nbsp; </p>
+                <input type="time" class="start-time">
+              </div>
+              <div class="date-container">
+                <p>종료 시각: </p>
+                <input type="time" class="end-time">
+              </div>
+            </div>
+            <div class="list-context-container">
+              <input type="text" class="list-context">
+              <button class="list-context-button"><i class="fa-solid fa-square-check fa-2xl"></i></button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

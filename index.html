@@ -6,6 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>나만의 페이지</title>
 
+  <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
+
   <!-- main css -->
   <link rel="stylesheet" href="./main.css">
 
@@ -15,28 +17,29 @@
   <!-- main javascript -->
   <script src="./main.js" defer></script>
 
+
   <!-- font awesome script -->
   <script src="https://kit.fontawesome.com/13b874a53a.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
-  <div class="header">
-    <div class="searchBox">
-      <input type="text" id="search" placeholder="검색어를 입력해주세요">
-      <i id="searchBtn" class="fa-solid fa-magnifying-glass fa-xl" style="color: #adadad;"></i>
+  <div class="container">
+    <div class="header">
+      <div class="searchBox">
+        <input type="text" id="search" placeholder="검색어를 입력해주세요">
+        <i id="searchBtn" class="fa-solid fa-magnifying-glass fa-xl" style="color: #adadad;"></i>
+      </div>
     </div>
-  </div>
-  <div class="content">
-    <div class="leftContent">
-      <div class="calendar">캘린더</div>
-      <div class="musicPlayer"></div>
-    </div>
-    <div class="centerContent">
-      <div class="headLine">가운데 아무거나</div>
-    </div>
-    <div class="rightContent">
-      <div class="any1">아무거나</div>
-      <div class="any2">아무거나</div>
+    <div class="content">
+      <div class="leftContent">
+        <div class="calendar"></div>
+        <div class="musicPlayer"></div>
+      </div>
+      <div class="centerContent"></div>
+      <div class="rightContent">
+        <div class="any1"></div>
+        <div class="any2"></div>
+      </div>
     </div>
   </div>
 </body>

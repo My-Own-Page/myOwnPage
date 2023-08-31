@@ -1,0 +1,405 @@
+/* 구글 폰트 */
+@import url("https://fonts.googleapis.com/css2?family=Chela+One&family=Jua&family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Poppins:wght@300;400;500;600;700;800&display=swap");
+
+@import url("https://cdn.jsdelivr.net/npm/reset-css@5.0.2/reset.min.css");
+body {
+  font-family: "Jua";
+  box-sizing: border-box;
+  padding: 5vh;
+}
+
+#calendar-box {
+  width: inherit;
+  height: inherit;  
+  margin: 0px auto;
+}
+/*------------------------------------ 2xxx년xx월 박스------------ */
+#calendar-box .month-box {
+  display: flex;
+  flex-flow: row nowrap;
+  background: #e7feff;
+  height: 10%;
+}
+
+/*------------------------------------ 년도 부분 박스 */
+#calendar-box .month-box .monthAndYear {
+  display: flex;
+  flex-flow: row nowrap;
+  flex: 8;
+  font-size: 24px;
+  align-items: center;
+  justify-content: center;
+}
+#calendar-box .month-box .prev-button {
+  flex: 1;
+  border: none;
+  outline: none;
+  background-color: inherit;
+  cursor: pointer;
+}
+#calendar-box .month-box .next-button {
+  flex: 1;
+  border: none;
+  outline: none;
+  background-color: inherit;
+  cursor: pointer;
+}
+
+/* ------------------------------------ 월화수목금토일 - 일주일 */
+#calendar-box .sevenweek {
+  display: flex;
+  width: 100%;
+  height: 5%;
+  background: #e7feff;
+}
+
+#calendar-box .sevenweek .red {  
+  height: 100%;
+  background: #e7feff;
+  color: #f00;
+}
+#calendar-box .sevenweek .blue {
+  height: 100%;
+  background: #e7feff;
+  color: #00f;  
+}
+
+#calendar-box .sevenweek .sevenweek-day {
+  flex: 1;
+  /* width: 14%; */
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+/*------------------------------------- 날짜 있는 부분 */
+#calendar-box .date-box {
+  width: 100%;
+  height: 85%;
+  display: flex;
+  flex-flow: row wrap;
+
+  justify-content: space-around;
+}
+#calendar-box .date-box .date {
+  width: 14%;
+  height: 16%;
+  /* background: gold; */
+  text-align: center;
+  color: rgba(0, 0, 0, 1);
+}
+#calendar-box .date-box .date.prevMonth {
+  color: rgba(0, 0, 0, 0.4);
+}
+#calendar-box .date-box .date.nextMonth {
+  color: rgba(0, 0, 0, 0.4);
+}
+#calendar-box .date-box .date.prevMonth.sunday {
+  background: #e7feff;
+  color: rgba(255, 0, 0, 0.4);
+}
+#calendar-box .date-box .date.prevMonth.saturday {
+  background: #e7feff;
+  color: rgba(0, 0, 255, 0.4);
+}
+#calendar-box .date-box .date.nextMonth.sunday {
+  background: #e7feff;
+  color: rgba(255, 0, 0, 0.4);
+}
+#calendar-box .date-box .date.nextMonth.saturday {
+  color: rgba(0, 0, 255, 0.4);
+  background: #e7feff;
+}
+#calendar-box .date-box .date.sunday {
+  background: #e7feff;
+  color: #f00;
+}
+#calendar-box .date-box .date.saturday {
+  background: #e7feff;
+  color: #00f;
+}
+
+/* 선택된 날짜 */
+#calendar-box .date-box .date.selectdate {
+  box-sizing: border-box;
+  background: yellowgreen;
+}
+
+/* -------------------- 모달 오버레이 -------------------- */
+.modal-overlay {
+  top: 0;
+  left: 0;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 10;
+  display: none;
+}
+
+/* -------------------- 모달 -------------------- */
+#calendar-modal {
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  position: absolute;
+  z-index: 100;
+  width: 1200px;
+  height: 800px;
+
+  display: none;
+  flex-flow: column;
+  background: rgba(0, 255, 0, 0.5);
+}
+
+/* -------------------- 모달 헤더 -------------------- */
+#calendar-modal .calendar-modal__header {
+  width: 100%;
+  height: 15%;
+  display: flex;
+  background: #e7feff;
+}
+
+#calendar-modal .calendar-modal__header .header__prev-button {
+  flex: 1;
+  border: none;
+  outline: none;
+  background-color: inherit;
+  cursor: pointer;
+}
+
+#calendar-modal .calendar-modal__header .header__next-button {
+  flex: 1;
+  border: none;
+  outline: none;
+  background-color: inherit;
+  cursor: pointer;
+}
+
+#calendar-modal .calendar-modal__header .header__year-and-month {
+  display: flex;
+  flex-flow: row nowrap;
+  flex: 7;
+  font-size: 24px;
+  align-items: center;
+  justify-content: center;
+}
+
+#calendar-modal .calendar-modal__header .header__exit-button {
+  flex: 1;
+  border: none;
+  outline: none;
+  background-color: inherit;
+  cursor: pointer;
+}
+
+/* -------------------- 모달 바디 -------------------- */
+#calendar-modal .calendar-modal__body {
+  background: #fff;
+  width: 100%;
+  height: 85%;
+  display: flex;
+}
+
+#calendar-modal .calendar-modal__body .body__date-box {
+  background: #fff;
+  flex: 7;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  text-align: center;
+}
+
+#calendar-modal .calendar-modal__body .body__date-box .date {
+  width: 14%;
+  height: 16%;
+  /* background: red; */
+}
+#calendar-modal .calendar-modal__body .body__date-box .date.selectdate {
+  background: greenyellow;
+}
+
+#calendar-modal .calendar-modal__body .body__date-box .date.red {
+  background: #fff;
+  color: #f00;
+}
+
+#calendar-modal .calendar-modal__body .body__date-box .date.blue {
+  background: #fff;
+  color: #00f;
+}
+
+#calendar-modal .calendar-modal__body .body__date-box .date.prevMonth {
+  color: rgba(0, 0, 0, 0.4);
+}
+#calendar-modal .calendar-modal__body .body__date-box .date.nextMonth {
+  color: rgba(0, 0, 0, 0.4);
+}
+#calendar-modal .calendar-modal__body .body__date-box .date.prevMonth.red {  
+  color: rgba(255, 0, 0, 0.4);
+}
+#calendar-modal .calendar-modal__body .body__date-box .date.prevMonth.blue {  
+  color: rgba(0, 0, 255, 0.4);
+}
+#calendar-modal .calendar-modal__body .body__date-box .date.nextMonth.red {  
+  color: rgba(255, 0, 0, 0.4);
+}
+#calendar-modal .calendar-modal__body .body__date-box .date.nextMonth.blue {
+  color: rgba(0, 0, 255, 0.4);  
+}
+#calendar-modal .calendar-modal__body .body__date-box .date.red {  
+  color: #f00;
+}
+#calendar-modal .calendar-modal__body .body__date-box .date.blue {  
+  color: #00f;
+}
+
+
+/* -------------------- 모달 바디 우측 리스트 -------------------- */
+#calendar-modal .calendar-modal__body .body__add-list {
+  background: rgba(0, 255, 0, 0.5);
+  flex: 3;
+  display: flex;
+  flex-flow: column;
+}
+#calendar-modal .calendar-modal__body .body__add-list .select-date-schedule{    
+  width: 100%;
+  height: 5%;  
+  border: 1px solid #000;  
+  background: rgba(95, 155, 122, 0.301);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  /* padding-top: 5px; */
+}
+
+#calendar-modal .calendar-modal__body .body__add-list .item-box{
+  display: flex;
+  flex: 9;
+}
+#calendar-modal .calendar-modal__body .body__add-list .add-button{
+  flex: 1;
+  background: #e7feff;
+  border: solid 1px #fff;
+  border-radius: 20px;
+  font-size: 1.5rem;
+  font-family: 'Jua';
+}
+
+#calendar-modal .calendar-modal__body .body__add-list .item-box .item{
+  display: flex;
+  width: 90%;
+  height: 15%;
+  margin: 10px auto 0px;
+  border: 1px solid #000;
+  border-radius: 20px;
+  background: #fff;
+}
+
+#calendar-modal .calendar-modal__body .body__add-list .item-box .item .item-text{
+  display: flex;
+  flex-flow: column;
+  flex: 8;
+  background: #fff;
+  height: 100%;  
+  border-radius: 20px;
+  justify-content: space-around;
+
+}
+#calendar-modal .calendar-modal__body .body__add-list .item-box .item .item-date{
+  margin-top: 5px;
+  text-align: center;  
+  flex: 2;    
+  border-radius: 20px;
+  align-items: center;
+}
+#calendar-modal .calendar-modal__body .body__add-list .item-box .item .item-time{
+  /* background: orange;*/
+  margin-top: 10px;
+  text-align: center;  
+  flex: 2;    
+  border-radius: 20px;
+  align-items: center;
+}
+#calendar-modal .calendar-modal__body .body__add-list .item-box .item .item-context{
+  /* padding-top: 20px; */
+  /* background: orangered; */
+  flex: 5;
+  font-size: 32px;
+  text-align: center;  
+  border-radius: 20px;  
+}
+
+#calendar-modal .calendar-modal__body .body__add-list .item-box .item .item-edit{
+  flex: 1;
+  outline: 0;
+  border: 0px solid #000;
+  background: inherit;
+}
+#calendar-modal .calendar-modal__body .body__add-list .item-box .item .item-delete{
+  flex: 1;
+  outline: 0;
+  border: 0px solid #000;
+  background: inherit;
+}
+
+/* -------------------- 더 하기 모달 -------------------- */
+#calendar-modal .add-list-modal{
+  top: 40%;  
+  left: 50%;
+  transform: translateX(-50%);
+  /* transform: translateY(-75%); */
+  position: absolute;
+  z-index: 200;
+  width: 800px;
+  height: 200px;
+
+  display: none;
+  flex-flow: column;
+  background: rgba(173, 75, 75, 0.8);
+}
+
+#calendar-modal .add-list-modal input{
+  font-family: 'Jua';
+  font-size: 0.9rem;
+}
+#calendar-modal .add-list-modal button.exit-button{
+  position: absolute;
+  right: 0;
+  top: 5px;
+  outline: 0;
+  border: 0px solid #000;  
+  background: inherit;
+}
+#calendar-modal .add-list-modal .add-list-modal__box{
+  width: 60%;
+  display: flex;
+  flex-flow: row;
+  justify-content: space-around;
+  margin: 10px auto 0;
+}
+#calendar-modal .add-list-modal .date-container{
+  display: flex;
+  flex-flow: row ;
+}
+
+
+#calendar-modal .add-list-modal .list-context-container{
+  width: 60%;
+  margin: 10px auto 0;
+  display: flex;
+  justify-content: space-around;  
+  
+}
+
+#calendar-modal .add-list-modal .list-context-container .list-context{
+  width: 400px;
+  height: 50px;
+
+}
+#calendar-modal .add-list-modal .list-context-container .list-context-button{
+  border: none;   
+  background: inherit;
+}
