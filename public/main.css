@@ -5,8 +5,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 1920px;
-  height: 1080px;
+  /* width: 1920px;
+  height: 1080px; */
 }
 
 .container {
