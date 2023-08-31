@@ -1,2 +1,4 @@
 MusicPlayer/assets/scripts/apikey.js
 Weather/assets/scripts/apikey.js
+.gitsecret/keys/random_seed
+!*.secret
